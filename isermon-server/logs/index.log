@@ -53,3 +53,110 @@
 {"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:37:17.390Z"}
 {"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: matthew 1:1, intro: good sermon, lang: Mandarin, url: http://hkmbc.org/hkmbc/dmdocuments/20171209WIC.mp3","timestamp":"2017-12-10T14:37:17.391Z"}
 {"level":"info","message":"index>> basename: 20171209WIC.mp3, newfilename: 1512916637391_20171209WIC.mp3","timestamp":"2017-12-10T14:37:17.391Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T12:50:21.487Z"}
+{"level":"info","message":"index>> GET /","timestamp":"2017-12-11T12:50:46.575Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:16:13.956Z"}
+{"level":"info","message":"index>> title: for a better tomorrow, spearker: chris, scripture: matthew 1:1, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171126WIC.pptx","timestamp":"2017-12-11T13:16:13.956Z"}
+{"level":"info","message":"index>> basename: 20171126WIC.pptx, newfilename: 1512998173971_20171126WIC.pptx","timestamp":"2017-12-11T13:16:13.971Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:16:47.780Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:16:58.630Z"}
+{"level":"info","message":"index>> title: for a better tomorrow, spearker: chris, scripture: matthew 1:1, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171126WIC.pptx","timestamp":"2017-12-11T13:16:58.634Z"}
+{"level":"info","message":"index>> basename: 20171126WIC.pptx, newfilename: 1512998218640_20171126WIC.pptx","timestamp":"2017-12-11T13:16:58.642Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:19:09.102Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:19:13.736Z"}
+{"level":"info","message":"title: for a better tomorrow","timestamp":"2017-12-11T13:19:13.736Z"}
+{"level":"info","message":"speaker: chris","timestamp":"2017-12-11T13:19:13.752Z"}
+{"level":"info","message":"scripture: matthew 1:1","timestamp":"2017-12-11T13:19:13.752Z"}
+{"level":"info","message":"intro: undefined","timestamp":"2017-12-11T13:19:13.752Z"}
+{"level":"info","message":"lang: undefined","timestamp":"2017-12-11T13:19:13.752Z"}
+{"level":"info","message":"url: http://hkmbc.org/hkmbc/dmdocuments/20171126WIC.pptx","timestamp":"2017-12-11T13:19:13.752Z"}
+{"level":"info","message":"basename: 20171126WIC.pptx","timestamp":"2017-12-11T13:19:13.767Z"}
+{"level":"info","message":"newfilename: 1512998353767_20171126WIC.pptx","timestamp":"2017-12-11T13:19:13.767Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:26:46.556Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:27:18.815Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:27:23.101Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:28:00.802Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:28:02.806Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:28:39.556Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:28:41.202Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T13:28:41.252Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:31:39.448Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:31:39.500Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:40:23.413Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:40:23.466Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:40:26.608Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:40:57.701Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:40:57.758Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:40:59.579Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:41:18.115Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:41:18.170Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:41:19.556Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:42:45.833Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:42:45.905Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:43:02.017Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:44:59.783Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:44:59.839Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:45:07.770Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:48:28.907Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:48:28.959Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:48:53.630Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:49:59.197Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:49:59.250Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:50:19.249Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:52:26.778Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:52:26.836Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:52:34.069Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T13:58:40.698Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T13:58:40.752Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T13:58:45.335Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:05:07.696Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:05:07.749Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:05:12.752Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:06:11.228Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:06:11.281Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:06:12.829Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:06:29.240Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:06:29.294Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:06:39.256Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:10:18.207Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:10:18.261Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:10:19.732Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:10:19.790Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:10:55.782Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:10:55.812Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:19:18.715Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:19:18.766Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:19:28.461Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:19:55.822Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:19:55.872Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:19:57.835Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:20:13.261Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:20:13.313Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:20:14.296Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:20:14.347Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:20:20.076Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:20:20.089Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:21:09.495Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:21:09.547Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:21:11.768Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:21:28.373Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:21:28.430Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:21:29.821Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:21:29.872Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:21:32.671Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:21:32.699Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-11T14:22:45.503Z"}
+{"level":"info","message":"index>> connected to mongodb server success","timestamp":"2017-12-11T14:22:45.559Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:22:47.540Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:22:47.590Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:22:59.750Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:22:59.789Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:23:01.351Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:23:01.368Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:24:11.721Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:24:11.751Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:26:32.098Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-11T14:26:54.432Z"}
+{"level":"info","message":"index>> POST /upload complete","timestamp":"2017-12-11T14:26:54.457Z"}
+{"level":"info","message":"index>> GET /sermons","timestamp":"2017-12-11T14:27:25.226Z"}
+{"level":"info","message":"index>> GET /sermons complete","timestamp":"2017-12-11T14:27:25.239Z"}

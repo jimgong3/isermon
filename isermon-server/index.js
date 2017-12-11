@@ -7,10 +7,15 @@ var logger = new (winston.Logger)({
     new (winston.transports.File)({ filename: './logs/index.log' })
   ]
 });
-var http = require('http');
-var fs = require('fs');
-var urltool = require('url');
-var path = require('path');
+var uploadUtil = require('./uploadUtil');
+var sermonsUtil = require('./sermonsUtil');
+
+var db;
+var mongoUtil = require('./mongoUtil');
+mongoUtil.connectToServer( function(err){
+	logger.info("index>> connected to mongodb server success")
+	db = mongoUtil.getDb();
+});
 
 app.use(pretty({ query: 'pretty' }));
 
@@ -30,25 +35,16 @@ app.get('/', function (req, res) {
 
 app.post('/upload', function (req, res) {
   logger.info("index>> POST /upload");
+  uploadUtil.upload(req, db, function(result) {
+    res.json(result);
+    logger.info("index>> POST /upload complete");
+  })
+})
 
-  var title = req.body.title;
-  var speaker = req.body.speaker;
-  var scripture = req.body.scripture;
-  var intro = req.body.intro;
-  var lang = req.body.lang;
-  var url = req.body.url;
-  logger.info("index>> title: " + title + ", spearker: " + speaker
-                        + ", scripture: " + scripture + ", intro: " + intro
-                        + ", lang: " + lang + ", url: " + url);
-
-  var basename = path.basename(urltool.parse(url).pathname);
-  var newfilename = Date.now() + "_" + basename;
-  logger.info("index>> basename: " + basename + ", newfilename: " + newfilename);
-
-  var file = fs.createWriteStream("upload/" + newfilename);
-  var request = http.get(url, function(response) {
-    response.pipe(file);
-  });
-  //...
-  res.json({"status": "upload complete"});
+app.get('/sermons', function (req, res) {
+  logger.info("index>> GET /sermons");
+  sermonsUtil.sermons(req, db, function(result) {
+    res.json(result);
+    logger.info("index>> GET /sermons complete");
+  })
 })
