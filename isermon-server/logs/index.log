@@ -1,0 +1,55 @@
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T13:55:54.924Z"}
+{"level":"info","message":"app>> get /","timestamp":"2017-12-10T13:56:05.406Z"}
+{"level":"info","message":"app>> get /","timestamp":"2017-12-10T13:56:10.680Z"}
+{"level":"info","message":"app>> get /","timestamp":"2017-12-10T13:56:15.461Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T13:57:52.181Z"}
+{"level":"info","message":"app>> get /","timestamp":"2017-12-10T13:57:55.643Z"}
+{"level":"info","message":"app>> get /","timestamp":"2017-12-10T13:58:27.847Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T13:58:31.269Z"}
+{"level":"info","message":"app>> GET /","timestamp":"2017-12-10T13:58:32.749Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:01:07.938Z"}
+{"level":"info","message":"index>> GET /","timestamp":"2017-12-10T14:01:10.712Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:07:57.097Z"}
+{"level":"info","message":"index>> GET /","timestamp":"2017-12-10T14:08:04.895Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:08:23.993Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:09:14.124Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:10:47.925Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:11:07.940Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:14:42.121Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:14:48.021Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: undefined","timestamp":"2017-12-10T14:14:48.022Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:16:01.674Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:16:04.455Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: undefined","timestamp":"2017-12-10T14:16:04.456Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:16:10.285Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: undefined","timestamp":"2017-12-10T14:16:10.285Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:19:52.595Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:21:32.270Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:21:32.272Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:23:10.245Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:23:13.338Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:23:13.339Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:29:03.879Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:29:08.850Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:29:08.852Z"}
+{"level":"info","message":"index>> parsed: [object Object], basename: 20171125SSC.pptx, newfilename: 151291614885520171125SSC.pptx","timestamp":"2017-12-10T14:29:08.858Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:30:49.938Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:31:00.096Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:31:00.098Z"}
+{"level":"info","message":"index>> parsed: [object Object], basename: 20171125SSC.pptx, newfilename: 1512916260100_20171125SSC.pptx","timestamp":"2017-12-10T14:31:00.101Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:33:30.908Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:33:30.908Z"}
+{"level":"info","message":"index>> parsed: [object Object], basename: 20171125SSC.pptx, newfilename: 1512916410908_20171125SSC.pptx","timestamp":"2017-12-10T14:33:30.909Z"}
+{"level":"info","message":"index>> server listening on port 4001","timestamp":"2017-12-10T14:33:39.353Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:33:41.524Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171125SSC.pptx","timestamp":"2017-12-10T14:33:41.525Z"}
+{"level":"info","message":"index>> basename: 20171125SSC.pptx, newfilename: 1512916421529_20171125SSC.pptx","timestamp":"2017-12-10T14:33:41.530Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:35:03.962Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: undefined, intro: undefined, lang: undefined, url: http://hkmbc.org/hkmbc/dmdocuments/20171209WIC.mp3","timestamp":"2017-12-10T14:35:03.963Z"}
+{"level":"info","message":"index>> basename: 20171209WIC.mp3, newfilename: 1512916503964_20171209WIC.mp3","timestamp":"2017-12-10T14:35:03.964Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:36:42.196Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: matthew 1:1, intro: good sermon, lang: Mandarin, url: http://hkmbc.org/hkmbc/dmdocuments/20171209WIC.mp3","timestamp":"2017-12-10T14:36:42.196Z"}
+{"level":"info","message":"index>> basename: 20171209WIC.mp3, newfilename: 1512916602196_20171209WIC.mp3","timestamp":"2017-12-10T14:36:42.197Z"}
+{"level":"info","message":"index>> POST /upload","timestamp":"2017-12-10T14:37:17.390Z"}
+{"level":"info","message":"index>> title: a better tomorrow, spearker: pastor Chris, scripture: matthew 1:1, intro: good sermon, lang: Mandarin, url: http://hkmbc.org/hkmbc/dmdocuments/20171209WIC.mp3","timestamp":"2017-12-10T14:37:17.391Z"}
+{"level":"info","message":"index>> basename: 20171209WIC.mp3, newfilename: 1512916637391_20171209WIC.mp3","timestamp":"2017-12-10T14:37:17.391Z"}
