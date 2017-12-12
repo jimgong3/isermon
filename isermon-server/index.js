@@ -23,6 +23,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+var hostHttp = "localhost";
+var portHttp = "8080";
+
 var port = 4001;
 app.listen(port, function () {
   logger.info("index>> server listening on port " + port);
@@ -35,7 +38,7 @@ app.get('/', function (req, res) {
 
 app.post('/upload', function (req, res) {
   logger.info("index>> POST /upload");
-  uploadUtil.upload(req, db, function(result) {
+  uploadUtil.upload(req, db, hostHttp, portHttp, function(result) {
     res.json(result);
     logger.info("index>> POST /upload complete");
   })

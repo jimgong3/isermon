@@ -6,6 +6,7 @@ var logger = new (winston.Logger)({
   ]
 });
 
+// find sermons from server
 exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
