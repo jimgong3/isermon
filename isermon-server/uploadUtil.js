@@ -18,6 +18,7 @@ var https = require('https');
 //	speaker
 //	scripture (optional)
 //	info (optional)
+//	description (optional)
 //	lang
 //	url
 // 	username
@@ -32,6 +33,8 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   logger.info("scripture: " + scripture);
   var info = req.body.info;
   logger.info("info: " + info);
+  var description = req.body.description;
+  logger.info("description: " + description);
   var lang = req.body.lang;
   logger.info("lang: " + lang);
   var url = req.body.url;
@@ -64,6 +67,7 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   sermonJson["speaker"] = speaker;
   sermonJson["scripture"] = scripture;
   sermonJson["info"] = info;
+  sermonJson["description"] = description;
   sermonJson["lang"] = lang;
   
   sermonJson["url"] = url;  
@@ -78,6 +82,8 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   datetime += 8 * 60 * 60 * 1000;
   var datetimehk = new Date(datetime);
   sermonJson["datetime"] = datetimehk;
+  var datehk = "" + datetimehk.getFullYear() + "-" + (datetimehk.getMonth()+1) + "-" + datetimehk.getDate();
+  sermonJson["date"] = datehk;
 
   var collection = db.collection("sermons");
   collection.insertOne(sermonJson, function(err, result) {
