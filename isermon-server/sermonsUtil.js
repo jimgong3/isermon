@@ -11,7 +11,11 @@ exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
   var collection = db.collection("sermons");
-  collection.find().toArray(function(err, result) {
+  
+  var order = {_id: -1};
+  logger.info("sermonssUtil>> order: " + JSON.stringify(order));
+
+  collection.find().sort(order).toArray(function(err, result) {
     logger.info("sermonsUtil>> # of sermons: " + result.length);
     callback(result);
   })
