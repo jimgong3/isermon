@@ -15,12 +15,12 @@ var https = require('https');
 // upload sermon to server
 // parameters:
 //	title
-//	speaker
+//	speaker (optional)
 //	scripture (optional)
 //	info (optional)
 //	description (optional)
-//	lang
-//	url
+//	lang (optional)
+//	url (optional)
 // 	username
 exports.upload = function(req, db, hostHttp, portHttp, callback) {
   logger.info("uploadUtil>> upload start...");
@@ -60,7 +60,7 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   } else {
 	 logger.error("uploadUtil>> invalid url");
 	 callback({"status": "upload failed, invalid url: " + url});
-  }  
+  }
 
   var sermonJson = {};
   sermonJson["title"] = title;
@@ -69,15 +69,15 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   sermonJson["info"] = info;
   sermonJson["description"] = description;
   sermonJson["lang"] = lang;
-  
-  sermonJson["url"] = url;  
+
+  sermonJson["url"] = url;
   sermonJson["filename"] = filename;
   var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
   logger.info("urlLocal: " + urlLocal);
   sermonJson["urlLocal"] = urlLocal;
 
   sermonJson["username"] = username;
-  
+
   var datetime = new Date().getTime();
   datetime += 8 * 60 * 60 * 1000;
   var datetimehk = new Date(datetime);
