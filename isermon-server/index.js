@@ -26,7 +26,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var hostHttp = "localhost";
+// var hostHttp = "localhost";
+var hostHttp = "52.221.212.21";
 var portHttp = "8080";
 
 var port = 4001;
@@ -57,33 +58,26 @@ app.get('/sermons', function (req, res) {
 
 app.get('/upload', function (req, res) {
   logger.info("index>> GET /upload");
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-  res.write('<input type="text" name="title" value="title"><br><br>');
-  res.write('<input type="text" name="description" value="write something about it..."><br><br>');
-  res.write('<input type="file" name="filetoupload"><br><br>');
-  res.write('<input type="submit">');
-  res.write('</form>');
-  return res.end();
+  uploadUtil.getUpload(req, res);
 })
 
 app.post('/fileupload', function (req, res) {
   logger.info("index>> POST /fileupload");
-  var form = new formidable.IncomingForm();
-  form.parse(req, function (err, fields, files) {
-	  var title = fields.title;
-	  logger.info("title: " + title);
-	  var description = fields.description;
-	  logger.info("description: " + description);
-      var oldpath = files.filetoupload.path;
-	  logger.info("oldpath: " + oldpath);
-      var newpath = 'upload/' + files.filetoupload.name;
-	  logger.info("newpath: " + newpath);
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
-	  });
-  });
+  uploadUtil.fileupload(req, res, db, hostHttp, portHttp);
+  // var form = new formidable.IncomingForm();
+  // form.parse(req, function (err, fields, files) {
+	//   var title = fields.title;
+	//   logger.info("title: " + title);
+	//   var description = fields.description;
+	//   logger.info("description: " + description);
+  //     var oldpath = files.filetoupload.path;
+	//   logger.info("oldpath: " + oldpath);
+  //     var newpath = 'upload/' + files.filetoupload.name;
+	//   logger.info("newpath: " + newpath);
+  //     fs.rename(oldpath, newpath, function (err) {
+  //       if (err) throw err;
+  //       res.write('File uploaded and moved!');
+  //       res.end();
+	//   });
+  // });
 })
-
