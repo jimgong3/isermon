@@ -100,7 +100,8 @@ exports.getUpload = function (req, res) {
   logger.info("uploadUtil>> getUpload start...");
 
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+  // res.writeHead(200, {'Content-Type': 'application/x-www-form-urlencoded'});
+  res.write('<form action="fileupload" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
 
   res.write('Sermon title and description: <br>');
   res.write('<input type="text" name="title" placeholder="Title"><br>');
