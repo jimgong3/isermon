@@ -14,6 +14,7 @@ var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
 
+// Obsolete
 // upload sermon to server
 // parameters:
 //	title
@@ -102,91 +103,123 @@ exports.getUpload = function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   // res.writeHead(200, {'Content-Type': 'application/x-www-form-urlencoded'});
   res.write('<form action="fileupload" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
+  res.write('Upload Sermon Recording<br><br>');
 
-  res.write('Sermon title and description: <br>');
-  res.write('<input type="text" name="title" placeholder="Title"><br>');
-  res.write('<input type="text" name="description" placeholder="Description"><br><br>');
+  res.write('Sermon title: <br>');
+  res.write('<input type="text" name="title" placeholder="Title" size=40><br><br>');
+
+  res.write('Sermon description: <br>');
+  // res.write('<input type="text" name="description" placeholder="Description" size=35><br><br>');
+  res.write('<textarea name="description2" placeholder="Description" cols=40 rows=5></textarea><br><br>');
 
   res.write('Choose local mp3 file: <br>');
-  res.write('<input type="file" name="filetoupload"><br>');
+  res.write('<input type="file" name="filetoupload" accept="audio/mp3"><br>');
   res.write('Or upload mp3 from Internet: <br>');
-  res.write('<input type="text" name="url" placeholder="URL"><br><br>');
+  res.write('<input type="text" name="url" placeholder="URL" size=40><br><br>');
 
   res.write('<input type="submit">');
   res.write('</form>');
   return res.end();
 }
 
-exports.fileupload = function(req, res, db, hostHttp, portHttp) {
+exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
   logger.info("uploadUtil>> fileupload start...");
+
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
 	  var title = fields.title;
 	  logger.info("title: " + title);
-
-	  var description = fields.description;
-	  logger.info("description: " + description);
+	  // var description = fields.description;
+	  // logger.info("description: " + description);
+    var description2 = fields.description2;
+	  logger.info("description2: " + description2);
 
     var url = fields.url;
+    var file = files.filetoupload;
     if (url != null && url != "") {
-      logger.info("upload from URL: " + url);
-      var basename = path.basename(urltool.parse(url).pathname);
-      logger.info("basename: " + basename);
-      var filename = Date.now() + "_" + basename;
-      logger.info("filename: " + filename);
-
-      var filepathLocal = "upload/" + filename;
-      var file = fs.createWriteStream(filepathLocal);
-      if (url.indexOf("http://") == 0) {
-        var request = http.get(url, function(response) {
-          response.pipe(file);
-          dbInsert(db, title, description, filepathLocal, hostHttp, portHttp);
-          res.write('File upload success!');
-          res.end();
-        });
-      } else if (url.indexOf("https://") == 0) {
-          var request = https.get(url, function(response) {
-            response.pipe(file);
-          });
-      } else {
-       logger.error("uploadUtil>> invalid url");
-       res.write({"status": "upload failed, invalid url: " + url});
-       res.end();
-      }
-    } else {
-        var oldpath = files.filetoupload.path;
-    	  logger.info("oldpath: " + oldpath);
-        var basename = files.filetoupload.name;
-        logger.info("basename: " + basename);
-        if (basename != null && basename != ""){
-          var filename = Date.now() + "_" + basename;
-          logger.info("filename: " + filename);
-          var filepathLocal = 'upload/' + filename;
-          logger.info("filepathLocal: " + filepathLocal);
-
-          fs.rename(oldpath, filepathLocal, function (err) {
-            if (err) throw err;
-            dbInsert(db, title, description, filepathLocal, hostHttp, portHttp);
-            res.write('File upload success!');
-            res.end();
-          });
+      uploadFromUrl(url, db, title, description2, hostHttp, portHttp, function(result){
+        logger.info("callback from uploadFromUrl, result: " + result);
+        if(result == "success") {
+          callback("Upload success.");
         } else {
-          res.write('Error: either choose a local file or input valid URL.');
-          res.end();
+          callback("Upload failure, invalid url: " + url);
         }
-      }
+      });
+    } else if (file.name != null && file.name != ""){
+        uploadFromLocal(file, db, title, description2, hostHttp, portHttp, function(result){
+          if(result == "success"){
+            callback("Upload success.");
+          } else {
+            callback("Upload failure, cannot read file: " + file.name);
+          }
+        });
+    } else {
+        callback("Upload failure: either choose a local file or input valid URL.");
+    }
   });
 }
 
-function dbInsert(db, title, description, filepathLocal, hostHttp, portHttp){
+function uploadFromUrl(url, db, title, description, hostHttp, portHttp, callback) {
+  logger.info("upload from URL: " + url);
+  var basename = path.basename(urltool.parse(url).pathname);
+  logger.info("basename: " + basename);
+  var filename = Date.now() + "_" + basename;
+  // logger.info("filename: " + filename);
+  var filepathLocal = "upload/" + filename;
+  logger.info("filepathLocal: " + filepathLocal);
+  var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
+  logger.info("urlLocal: " + urlLocal);
+
+  var file = fs.createWriteStream(filepathLocal);
+  if (url.indexOf("http://") == 0) {
+    var request = http.get(url, function(response) {
+      response.pipe(file);
+      // res.write('File upload success!');
+      // res.end();
+      dbInsert(db, title, description, urlLocal);
+      callback("success");
+    });
+  } else if (url.indexOf("https://") == 0) {
+      var request = https.get(url, function(response) {
+        response.pipe(file);
+        // res.write('File upload success!');
+        // res.end();
+        dbInsert(db, title, description, urlLocal);
+        callback("success");
+      });
+  } else {
+     logger.error("uploadUtil>> invalid url");
+     // res.write({"status": "upload failed, invalid url: " + url});
+     // res.end();
+     callback("failure");
+  }
+}
+
+function uploadFromLocal(file, db, title, description, hostHttp, portHttp, callback) {
+  var oldpath = file.path;
+  logger.info("upload from local, oldpath: " + oldpath);
+  var basename = file.name;
+  logger.info("basename: " + basename);
+  var filename = Date.now() + "_" + basename;
+  // logger.info("filename: " + filename);
+  var filepathLocal = 'upload/' + filename;
+  // logger.info("filepathLocal: " + filepathLocal);
+  var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
+  logger.info("urlLocal: " + urlLocal);
+
+  fs.rename(oldpath, filepathLocal, function (err) {
+    if (err) throw err;
+    dbInsert(db, title, description, urlLocal);
+    callback("success");
+  });
+}
+
+function dbInsert(db, title, description, urlLocal){
     logger.info("uploadUtil>> dbInsert start...");
 
     var sermonJson = {};
     sermonJson["title"] = title;
     sermonJson["description"] = description;
-
-    var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
-    logger.info("urlLocal: " + urlLocal);
     sermonJson["urlLocal"] = urlLocal;
 
     var datetime = new Date().getTime();
@@ -195,6 +228,8 @@ function dbInsert(db, title, description, filepathLocal, hostHttp, portHttp){
     sermonJson["datetime"] = datetimehk;
     var datehk = "" + datetimehk.getFullYear() + "-" + (datetimehk.getMonth()+1) + "-" + datetimehk.getDate();
     sermonJson["date"] = datehk;
+
+    sermonJson["username"] = "guest"; //temporary
 
     var collection = db.collection("sermons");
     collection.insertOne(sermonJson, function(err, result) {

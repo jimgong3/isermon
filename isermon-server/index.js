@@ -12,6 +12,7 @@ var fs = require('fs');
 
 var uploadUtil = require('./uploadUtil');
 var sermonsUtil = require('./sermonsUtil');
+var loginUtil = require('./loginUtil');
 
 var db;
 var mongoUtil = require('./mongoUtil');
@@ -40,6 +41,7 @@ app.get('/', function (req, res) {
   res.json({"name": "isermon", "vision": "connect people with sermons."});
 })
 
+//Obsolete, replaced by POST fileupload
 app.post('/upload', function (req, res) {
   logger.info("index>> POST /upload");
   uploadUtil.upload(req, db, hostHttp, portHttp, function(result) {
@@ -63,7 +65,10 @@ app.get('/upload', function (req, res) {
 
 app.post('/fileupload', function (req, res) {
   logger.info("index>> POST /fileupload");
-  uploadUtil.fileupload(req, res, db, hostHttp, portHttp);
+  uploadUtil.fileupload(req, res, db, hostHttp, portHttp, function(result){
+    res.write(result);
+    res.end();
+  });
   // var form = new formidable.IncomingForm();
   // form.parse(req, function (err, fields, files) {
 	//   var title = fields.title;
@@ -80,4 +85,46 @@ app.post('/fileupload', function (req, res) {
   //       res.end();
 	//   });
   // });
+})
+
+app.get('/register', function (req, res) {
+  logger.info("index>> GET /register");
+  loginUtil.getRegister(req, res);
+})
+
+app.post('/registerByForm', function(req, res){
+  logger.info("index>> POST /registerByForm");
+  loginUtil.registerByForm(req, db, function(result){
+    res.write(result);
+    res.end();
+  });
+})
+
+app.post('/registerByJson', function(req, res){
+  logger.info("index>> POST /registerByJson");
+  loginUtil.registerByJson(req, db, function(result){
+    res.write(result);
+    res.end();
+  });
+})
+
+app.get('/login', function (req, res) {
+  logger.info("index>> GET /login");
+  loginUtil.getLogin(req, res);
+})
+
+app.post('/loginByForm', function(req, res){
+  logger.info("index>> POST /loginByForm");
+  loginUtil.loginByForm(req, db, function(result){
+    res.write(result);
+    res.end();
+  });
+})
+
+app.post('/loginByJson', function(req, res){
+  logger.info("index>> POST /loginByJson");
+  loginUtil.loginByJson(req, db, function(result){
+    res.write(result);
+    res.end();
+  });
 })
