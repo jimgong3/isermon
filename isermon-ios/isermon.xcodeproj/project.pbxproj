@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		078D7F1277FFE787134B18C6 /* Pods_isermon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC049D4F1AC07953C660610C /* Pods_isermon.framework */; };
+		BA41CEE81FEC0A0400FAC81A /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */; };
+		BA41CEEA1FEC0A4200FAC81A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */; };
+		BA41CEEC1FEC0C2700FAC81A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */; };
 		BAB5084A1FE015DB009B7BCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB508491FE015DB009B7BCA /* AppDelegate.swift */; };
 		BAB5084C1FE015DB009B7BCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5084B1FE015DB009B7BCA /* ViewController.swift */; };
 		BAB5084F1FE015DB009B7BCA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB5084D1FE015DB009B7BCA /* Main.storyboard */; };
@@ -32,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		BAB508461FE015DB009B7BCA /* isermon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = isermon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB508491FE015DB009B7BCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BAB5084B1FE015DB009B7BCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +119,9 @@
 				BAB508551FE015DB009B7BCA /* Info.plist */,
 				BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */,
 				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
+				BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */,
+				BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */,
+				BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */,
 			);
 			path = isermon;
 			sourceTree = "<group>";
@@ -297,12 +306,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA41CEEA1FEC0A4200FAC81A /* LoginViewController.swift in Sources */,
+				BA41CEEC1FEC0C2700FAC81A /* RegisterViewController.swift in Sources */,
 				BAB5086A1FE0188B009B7BCA /* SermonTableViewCell.swift in Sources */,
 				BAB508701FE17BBE009B7BCA /* UploadViewController.swift in Sources */,
 				BAB5086C1FE01DA1009B7BCA /* SermonTableViewController.swift in Sources */,
 				BAB508721FE17F81009B7BCA /* iSermonConfig.swift in Sources */,
 				BAB5086E1FE01DBD009B7BCA /* Sermon.swift in Sources */,
 				BAB5084C1FE015DB009B7BCA /* ViewController.swift in Sources */,
+				BA41CEE81FEC0A0400FAC81A /* MyViewController.swift in Sources */,
 				BAB5084A1FE015DB009B7BCA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,7 +460,7 @@
 				DEVELOPMENT_TEAM = 745SMA85GR;
 				INFOPLIST_FILE = isermon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jimgong.isermon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -462,7 +474,7 @@
 				DEVELOPMENT_TEAM = 745SMA85GR;
 				INFOPLIST_FILE = isermon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jimgong.isermon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

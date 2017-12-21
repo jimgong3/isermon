@@ -12,3 +12,9 @@ import Foundation
 let SERVER_IP = "52.221.212.21"     //AWS
 let PORT = "4001"
 
+class Me {
+    static let sharedInstance = Me()
+    var username: String?
+    var email: String?
+}
+
