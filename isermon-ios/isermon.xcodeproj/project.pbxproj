@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		078D7F1277FFE787134B18C6 /* Pods_isermon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC049D4F1AC07953C660610C /* Pods_isermon.framework */; };
+		BAB5084A1FE015DB009B7BCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB508491FE015DB009B7BCA /* AppDelegate.swift */; };
+		BAB5084C1FE015DB009B7BCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5084B1FE015DB009B7BCA /* ViewController.swift */; };
+		BAB5084F1FE015DB009B7BCA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB5084D1FE015DB009B7BCA /* Main.storyboard */; };
+		BAB508511FE015DB009B7BCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAB508501FE015DB009B7BCA /* Assets.xcassets */; };
+		BAB508541FE015DB009B7BCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */; };
+		BAB5085F1FE015DC009B7BCA /* isermonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5085E1FE015DC009B7BCA /* isermonTests.swift */; };
+		BAB5086A1FE0188B009B7BCA /* SermonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */; };
+		BAB5086C1FE01DA1009B7BCA /* SermonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */; };
+		BAB5086E1FE01DBD009B7BCA /* Sermon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5086D1FE01DBD009B7BCA /* Sermon.swift */; };
+		BAB508701FE17BBE009B7BCA /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */; };
+		BAB508721FE17F81009B7BCA /* iSermonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB508711FE17F81009B7BCA /* iSermonConfig.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BAB5085B1FE015DC009B7BCA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAB5083E1FE015DB009B7BCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BAB508451FE015DB009B7BCA;
+			remoteInfo = isermon;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BAB508461FE015DB009B7BCA /* isermon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = isermon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAB508491FE015DB009B7BCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BAB5084B1FE015DB009B7BCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BAB5084E1FE015DB009B7BCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BAB508501FE015DB009B7BCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BAB508531FE015DB009B7BCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BAB508551FE015DB009B7BCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAB5085A1FE015DC009B7BCA /* isermonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = isermonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAB5085E1FE015DC009B7BCA /* isermonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isermonTests.swift; sourceTree = "<group>"; };
+		BAB508601FE015DC009B7BCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SermonTableViewCell.swift; sourceTree = "<group>"; };
+		BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SermonTableViewController.swift; sourceTree = "<group>"; };
+		BAB5086D1FE01DBD009B7BCA /* Sermon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sermon.swift; sourceTree = "<group>"; };
+		BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		BAB508711FE17F81009B7BCA /* iSermonConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iSermonConfig.swift; sourceTree = "<group>"; };
+		CC9D260239DF77FB99E63A06 /* Pods-isermon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isermon.release.xcconfig"; path = "Pods/Target Support Files/Pods-isermon/Pods-isermon.release.xcconfig"; sourceTree = "<group>"; };
+		DD6548D0E115DAE2D219C923 /* Pods-isermon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isermon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-isermon/Pods-isermon.debug.xcconfig"; sourceTree = "<group>"; };
+		EC049D4F1AC07953C660610C /* Pods_isermon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_isermon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BAB508431FE015DB009B7BCA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				078D7F1277FFE787134B18C6 /* Pods_isermon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAB508571FE015DC009B7BCA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4E6322FF302352DD02A9B484 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC049D4F1AC07953C660610C /* Pods_isermon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAB5083D1FE015DB009B7BCA = {
+			isa = PBXGroup;
+			children = (
+				BAB508481FE015DB009B7BCA /* isermon */,
+				BAB5085D1FE015DC009B7BCA /* isermonTests */,
+				BAB508471FE015DB009B7BCA /* Products */,
+				F0868AADFC62F467DFF5F381 /* Pods */,
+				4E6322FF302352DD02A9B484 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BAB508471FE015DB009B7BCA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BAB508461FE015DB009B7BCA /* isermon.app */,
+				BAB5085A1FE015DC009B7BCA /* isermonTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BAB508481FE015DB009B7BCA /* isermon */ = {
+			isa = PBXGroup;
+			children = (
+				BAB508491FE015DB009B7BCA /* AppDelegate.swift */,
+				BAB5084B1FE015DB009B7BCA /* ViewController.swift */,
+				BAB5084D1FE015DB009B7BCA /* Main.storyboard */,
+				BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */,
+				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
+				BAB5086D1FE01DBD009B7BCA /* Sermon.swift */,
+				BAB508501FE015DB009B7BCA /* Assets.xcassets */,
+				BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */,
+				BAB508551FE015DB009B7BCA /* Info.plist */,
+				BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */,
+				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
+			);
+			path = isermon;
+			sourceTree = "<group>";
+		};
+		BAB5085D1FE015DC009B7BCA /* isermonTests */ = {
+			isa = PBXGroup;
+			children = (
+				BAB5085E1FE015DC009B7BCA /* isermonTests.swift */,
+				BAB508601FE015DC009B7BCA /* Info.plist */,
+			);
+			path = isermonTests;
+			sourceTree = "<group>";
+		};
+		F0868AADFC62F467DFF5F381 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DD6548D0E115DAE2D219C923 /* Pods-isermon.debug.xcconfig */,
+				CC9D260239DF77FB99E63A06 /* Pods-isermon.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BAB508451FE015DB009B7BCA /* isermon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BAB508631FE015DC009B7BCA /* Build configuration list for PBXNativeTarget "isermon" */;
+			buildPhases = (
+				1DC334F8BA458949680D56ED /* [CP] Check Pods Manifest.lock */,
+				BAB508421FE015DB009B7BCA /* Sources */,
+				BAB508431FE015DB009B7BCA /* Frameworks */,
+				BAB508441FE015DB009B7BCA /* Resources */,
+				E63E573D6C74B104F83BDA19 /* [CP] Embed Pods Frameworks */,
+				A441B175FE58DF0F3E118804 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = isermon;
+			productName = isermon;
+			productReference = BAB508461FE015DB009B7BCA /* isermon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BAB508591FE015DC009B7BCA /* isermonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BAB508661FE015DC009B7BCA /* Build configuration list for PBXNativeTarget "isermonTests" */;
+			buildPhases = (
+				BAB508561FE015DC009B7BCA /* Sources */,
+				BAB508571FE015DC009B7BCA /* Frameworks */,
+				BAB508581FE015DC009B7BCA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BAB5085C1FE015DC009B7BCA /* PBXTargetDependency */,
+			);
+			name = isermonTests;
+			productName = isermonTests;
+			productReference = BAB5085A1FE015DC009B7BCA /* isermonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BAB5083E1FE015DB009B7BCA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = jimgong;
+				TargetAttributes = {
+					BAB508451FE015DB009B7BCA = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 745SMA85GR;
+						ProvisioningStyle = Automatic;
+					};
+					BAB508591FE015DC009B7BCA = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 745SMA85GR;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BAB508451FE015DB009B7BCA;
+					};
+				};
+			};
+			buildConfigurationList = BAB508411FE015DB009B7BCA /* Build configuration list for PBXProject "isermon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BAB5083D1FE015DB009B7BCA;
+			productRefGroup = BAB508471FE015DB009B7BCA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BAB508451FE015DB009B7BCA /* isermon */,
+				BAB508591FE015DC009B7BCA /* isermonTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BAB508441FE015DB009B7BCA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAB508541FE015DB009B7BCA /* LaunchScreen.storyboard in Resources */,
+				BAB508511FE015DB009B7BCA /* Assets.xcassets in Resources */,
+				BAB5084F1FE015DB009B7BCA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAB508581FE015DC009B7BCA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1DC334F8BA458949680D56ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-isermon-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A441B175FE58DF0F3E118804 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-isermon/Pods-isermon-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E63E573D6C74B104F83BDA19 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-isermon/Pods-isermon-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-isermon/Pods-isermon-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BAB508421FE015DB009B7BCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAB5086A1FE0188B009B7BCA /* SermonTableViewCell.swift in Sources */,
+				BAB508701FE17BBE009B7BCA /* UploadViewController.swift in Sources */,
+				BAB5086C1FE01DA1009B7BCA /* SermonTableViewController.swift in Sources */,
+				BAB508721FE17F81009B7BCA /* iSermonConfig.swift in Sources */,
+				BAB5086E1FE01DBD009B7BCA /* Sermon.swift in Sources */,
+				BAB5084C1FE015DB009B7BCA /* ViewController.swift in Sources */,
+				BAB5084A1FE015DB009B7BCA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAB508561FE015DC009B7BCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAB5085F1FE015DC009B7BCA /* isermonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BAB5085C1FE015DC009B7BCA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BAB508451FE015DB009B7BCA /* isermon */;
+			targetProxy = BAB5085B1FE015DC009B7BCA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BAB5084D1FE015DB009B7BCA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BAB5084E1FE015DB009B7BCA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BAB508531FE015DB009B7BCA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BAB508611FE015DC009B7BCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BAB508621FE015DC009B7BCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BAB508641FE015DC009B7BCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD6548D0E115DAE2D219C923 /* Pods-isermon.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 745SMA85GR;
+				INFOPLIST_FILE = isermon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BAB508651FE015DC009B7BCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC9D260239DF77FB99E63A06 /* Pods-isermon.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 745SMA85GR;
+				INFOPLIST_FILE = isermon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		BAB508671FE015DC009B7BCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 745SMA85GR;
+				INFOPLIST_FILE = isermonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/isermon.app/isermon";
+			};
+			name = Debug;
+		};
+		BAB508681FE015DC009B7BCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 745SMA85GR;
+				INFOPLIST_FILE = isermonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lethimhear.isermonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/isermon.app/isermon";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BAB508411FE015DB009B7BCA /* Build configuration list for PBXProject "isermon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAB508611FE015DC009B7BCA /* Debug */,
+				BAB508621FE015DC009B7BCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BAB508631FE015DC009B7BCA /* Build configuration list for PBXNativeTarget "isermon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAB508641FE015DC009B7BCA /* Debug */,
+				BAB508651FE015DC009B7BCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BAB508661FE015DC009B7BCA /* Build configuration list for PBXNativeTarget "isermonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAB508671FE015DC009B7BCA /* Debug */,
+				BAB508681FE015DC009B7BCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BAB5083E1FE015DB009B7BCA /* Project object */;
+}
