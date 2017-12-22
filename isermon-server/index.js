@@ -13,6 +13,7 @@ var fs = require('fs');
 var uploadUtil = require('./uploadUtil');
 var sermonsUtil = require('./sermonsUtil');
 var loginUtil = require('./loginUtil');
+var bookmarkUtil = require('./bookmarkUtil');
 
 var db;
 var mongoUtil = require('./mongoUtil');
@@ -126,5 +127,12 @@ app.post('/loginByJson', function(req, res){
   loginUtil.loginByJson(req, db, function(result){
     res.write(result);
     res.end();
+  });
+})
+
+app.get('/bookmarks', function (req, res) {
+  logger.info("index>> GET /bookmarks");
+  bookmarkUtil.bookmarks(req, db, function(result) {
+    res.json(result);
   });
 })

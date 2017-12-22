@@ -22,9 +22,11 @@ class MyViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if Me.sharedInstance.username != nil {
+        if Me.sharedInstance.username != nil && Me.sharedInstance.username != "" {
             username.text = Me.sharedInstance.username
-        }
+        } else {
+			username.text = "guest"		//default
+		}
         if Me.sharedInstance.email != nil {
             email.text = Me.sharedInstance.email
         }

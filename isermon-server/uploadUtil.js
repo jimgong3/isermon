@@ -14,6 +14,15 @@ var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
 
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'isermonhk@gmail.com',
+    pass: 'iSermon@hk'
+  }
+});
+
 // Obsolete
 // upload sermon to server
 // parameters:
@@ -235,5 +244,40 @@ function dbInsert(db, title, description, urlLocal){
     collection.insertOne(sermonJson, function(err, result) {
       if (err) throw err;
       logger.info("uploadUtil>> 1 sermon inserted");
+      sendEmailUploadSuccess(title, description, urlLocal)
     })
+}
+
+function sendEmailUploadSuccess(title, description, urlLocal){
+  var from = "isermonhk@gmail.com";
+  var to = "isermonhk@gmail.com";
+  var subject = "iSermon: New Sermon Uploaded";
+  var text = "";
+  text += "Dear Admin, \n"
+  text += "\n"
+  text += "Below sermon has been added to server: \n"
+  text += "\n"
+  text += "title: " + title + "\n";
+  text += "description: " + description + "\n";
+  text += "urlLocal: " + urlLocal + "\n";
+  text += "\n"
+  text += "Thank you. \n";
+  text += "\n"
+  text += "iSermon Team \n";
+
+  var mailOptions = {
+    from: from,
+    to: to,
+    subject: subject,
+    text: text
+  };
+  logger.info("loginUtil>> mailOptions: " + JSON.stringify(mailOptions));
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      logger.info(error);
+    } else {
+      logger.info('loginUtil>> Email sent: ' + info.response);
+    }
+  });
 }
