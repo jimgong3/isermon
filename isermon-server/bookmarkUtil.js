@@ -26,6 +26,10 @@ exports.bookmarkSermon = function(req, db, callback) {
 var username = req.body.username;
 var sermon_id = req.body.sermon_id;
 
+var collection = db.collection(“bookmarks”);
+
+var query = {username: username};
+
 
   //...
 }
