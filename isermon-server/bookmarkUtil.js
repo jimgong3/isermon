@@ -22,5 +22,10 @@ exports.bookmarks = function(req, db, callback) {
 
 exports.bookmarkSermon = function(req, db, callback) {
   logger.info("bookmarksUtil>> bookmarks start...");
+
+var username = req.body.username;
+var sermon_id = req.body.sermon_id;
+
+
   //...
 }
