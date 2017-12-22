@@ -11,7 +11,6 @@ import UIKit
 class MyViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var email: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +26,6 @@ class MyViewController: UIViewController {
         } else {
 			username.text = "guest"		//default
 		}
-        if Me.sharedInstance.email != nil {
-            email.text = Me.sharedInstance.email
-        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

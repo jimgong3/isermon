@@ -19,6 +19,10 @@ class Sermon {
     var username: String?
     var date: String?
     
+    var num_listen: Int?
+    var num_like: Int?
+    var num_bookmark: Int?
+
     init?(title: String){
         self.title = title
     }
@@ -33,5 +37,9 @@ class Sermon {
         self.urlLocal = json["urlLocal"] as? String
         self.username = json["username"] as? String
         self.date = json["date"] as? String
+
+        self.num_listen = json["num_listen"] as? Int
+        self.num_like = json["num_like"] as? Int
+        self.num_bookmark = json["num_bookmark"] as? Int
     }
 }

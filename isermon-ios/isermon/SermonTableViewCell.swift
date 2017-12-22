@@ -13,18 +13,15 @@ class SermonTableViewCell: UITableViewCell {
     //MARK: Properties
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var desc: UITextView!
-    //    @IBOutlet weak var desc: UILabel!
-    //    @IBOutlet weak var speaker: UILabel!
-//    @IBOutlet weak var scripture: UILabel!
-//    @IBOutlet weak var info: UILabel!
     @IBOutlet weak var remarks: UILabel!
-//    @IBOutlet weak var month: UILabel!
-//    @IBOutlet weak var day: UILabel!
-//    @IBOutlet weak var lang: UILabel!
-//    @IBOutlet weak var duration: UILabel!
+    
+    @IBOutlet weak var num_listen: UILabel!
+    @IBOutlet weak var num_like: UILabel!
+    @IBOutlet weak var num_bookmark: UILabel!
     
     @IBOutlet weak var play: UIButton!
-//    @IBOutlet weak var stop: UIButton!
+    @IBOutlet weak var like: UIButton!
+    @IBOutlet weak var bookmark: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

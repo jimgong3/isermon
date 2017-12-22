@@ -136,3 +136,10 @@ app.get('/bookmarks', function (req, res) {
     res.json(result);
   });
 })
+
+app.post('/bookmarkSermon', function (req, res) {
+  logger.info("index>> POST /bookmarkSermon");
+  bookmarkUtil.bookmarkSermon(req, db, function(result) {
+    res.json(result);
+  });
+})

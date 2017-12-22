@@ -40,7 +40,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         
     }
-
+    
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.sermons.count
@@ -56,10 +56,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.title.text = sermon.title
         cell.desc.text = sermon.description
-//        cell.speaker.text = sermon.speaker
-//        cell.scripture.text = sermon.scripture
-//        cell.info.text = sermon.info
-//        cell.lang.text = sermon.lang
+
         var remarks = " | "
         if sermon.username != nil {
             remarks = sermon.username! + remarks
@@ -68,11 +65,26 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             remarks = remarks + sermon.date!
         }
         cell.remarks.text = remarks
+        
+        cell.num_listen.text = sermon.num_listen?.description
+        cell.num_like.text = sermon.num_like?.description
+        cell.num_bookmark.text = sermon.num_bookmark?.description
+
+        cell.like.tag = 0
+        cell.bookmark.tag = 0
+        
         cell.play.tag = indexPath.row
-//        cell.stop.tag = indexPath.row
         
         return cell
     }
+
+//    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+//    {
+//        let tappedImage = tapGestureRecognizer.view as! UIImageView
+//
+//        // Your action
+//    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -114,11 +126,37 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-//    @IBAction func stop(_ sender: Any) {
-//        print("stopping")
-//        player.pause()
-//    }
+    @IBAction func like(_ sender: Any) {
+        print("tap like...")
+        let button = sender as! UIButton
+        if button.tag == 0 {
+            button.tag = 1
+            if let image = UIImage(named: "liked") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+        } else {
+            button.tag = 0
+            if let image = UIImage(named: "like") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+        }
+    }
     
+    @IBAction func bookmark(_ sender: Any) {
+        print("tap bookmark...")
+        let button = sender as! UIButton
+        if button.tag == 0 {
+            button.tag = 1
+            if let image = UIImage(named: "bookmarked") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+        } else {
+            button.tag = 0
+            if let image = UIImage(named: "bookmark") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+        }
+    }
 }
 
 func loadSermons(completion: @escaping (_ books: [Sermon]) -> ()){
