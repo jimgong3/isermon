@@ -15,11 +15,9 @@ class SermonTableViewCell: UITableViewCell {
     @IBOutlet weak var desc: UITextView!
     @IBOutlet weak var remarks: UILabel!
     
-    @IBOutlet weak var num_listen: UILabel!
-    @IBOutlet weak var num_like: UILabel!
-    @IBOutlet weak var num_bookmark: UILabel!
-    
     @IBOutlet weak var play: UIButton!
+    
+    @IBOutlet weak var listen: UIButton!
     @IBOutlet weak var like: UIButton!
     @IBOutlet weak var bookmark: UIButton!
     

@@ -66,25 +66,16 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         }
         cell.remarks.text = remarks
         
-        cell.num_listen.text = sermon.num_listen?.description
-        cell.num_like.text = sermon.num_like?.description
-        cell.num_bookmark.text = sermon.num_bookmark?.description
-
+        cell.listen.setTitle("  " + (sermon.num_listen?.description)!, for: .normal)
         cell.like.tag = 0
+        cell.like.setTitle("  " + (sermon.num_like?.description)!, for: .normal)
         cell.bookmark.tag = 0
-        
+        cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
+
         cell.play.tag = indexPath.row
         
         return cell
     }
-
-//    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-//    {
-//        let tappedImage = tapGestureRecognizer.view as! UIImageView
-//
-//        // Your action
-//    }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

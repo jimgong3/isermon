@@ -14,6 +14,7 @@ var uploadUtil = require('./uploadUtil');
 var sermonsUtil = require('./sermonsUtil');
 var loginUtil = require('./loginUtil');
 var bookmarkUtil = require('./bookmarkUtil');
+var likeUtil = require('./likeUtil');
 
 var db;
 var mongoUtil = require('./mongoUtil');
@@ -140,6 +141,20 @@ app.get('/bookmarks', function (req, res) {
 app.post('/bookmarkSermon', function (req, res) {
   logger.info("index>> POST /bookmarkSermon");
   bookmarkUtil.bookmarkSermon(req, db, function(result) {
+    res.json(result);
+  });
+})
+
+app.get('/likes', function (req, res) {
+  logger.info("index>> GET /likes");
+  likeUtil.likes(req, db, function(result) {
+    res.json(result);
+  });
+})
+
+app.post('/likeSermon', function (req, res) {
+  logger.info("index>> POST /likeSermon");
+  likeUtil.likeSermon(req, db, function(result) {
     res.json(result);
   });
 })
