@@ -110,8 +110,10 @@ func getLikelist(username: String, completion: @escaping (_ sermon_ids: Set<Stri
                     let likelistJson = array[0] as? [String: Any]
                     print(likelistJson as Any)
                     let sids = likelistJson!["sermon_ids"] as! [String]
-                    for i in 0...sids.count-1 {
-                        sermon_ids.insert(sids[i])
+                    if sids.count>0 {
+                        for i in 0...sids.count-1 {
+                            sermon_ids.insert(sids[i])
+                        }
                     }
                 }
                 else{
@@ -137,8 +139,10 @@ func getBookmark(username: String, completion: @escaping (_ sermon_ids: Set<Stri
                     let bookmarkJson = array[0] as? [String: Any]
                     print(bookmarkJson as Any)
                     let sids = bookmarkJson!["sermon_ids"] as! [String]
-                    for i in 0...sids.count-1 {
-                        sermon_ids.insert(sids[i])
+                    if sids.count>0 {
+                        for i in 0...sids.count-1 {
+                            sermon_ids.insert(sids[i])
+                        }
                     }
                 }
                 else{

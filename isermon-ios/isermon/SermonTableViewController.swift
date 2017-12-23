@@ -12,6 +12,7 @@ import AVFoundation
 
 class SermonTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var bookmarkedByUsername: String?
     var sermons = [Sermon]()
     
     @IBOutlet var tableView: UITableView!
@@ -36,7 +37,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             })
         }
 
-        loadSermons(completion: {(sermons: [Sermon]) -> () in
+        loadSermons(bookmarkedByUsername: bookmarkedByUsername, completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
                 self.tableView.reloadData()
@@ -215,9 +216,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
 }
 
-func loadSermons(completion: @escaping (_ books: [Sermon]) -> ()){
+func loadSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ books: [Sermon]) -> ()){
     
-    let url = URL(string: "http://" + SERVER_IP + ":" + PORT + "/sermons")
+    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
+    if bookmarkedByUsername != nil {
+        urlStr += "?bookmarkedBy=" + bookmarkedByUsername!
+    }
+    let url = URL(string: urlStr)
     print("Query:>> url: ")
     print(url!)
     

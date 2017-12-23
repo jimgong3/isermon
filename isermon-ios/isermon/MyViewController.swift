@@ -33,14 +33,27 @@ class MyViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let sermonTableViewController = segue.destination as? SermonTableViewController {
+            print("destination: SermonTableViewController")
+            if let username = Me.sharedInstance.username {
+                sermonTableViewController.bookmarkedByUsername = username
+            } else {
+                let alert = UIAlertController(title: "提示", message: "請先登錄。", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+
     }
-    */
+    
 
 }

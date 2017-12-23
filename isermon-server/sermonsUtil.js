@@ -12,15 +12,47 @@ var mongo = require('mongodb');
 exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
-  var collection = db.collection("sermons");
+  var bookmarkedByUsername = req.query.bookmarkedBy;
+  logger.info("bookmarkedByUsername: " +bookmarkedByUsername);
 
-  var order = {_id: -1};
-  logger.info("sermonssUtil>> order: " + JSON.stringify(order));
+  if (bookmarkedByUsername != null) {
+    logger.info("query from bookmarks...");
+    var collection = db.collection("bookmarks");
+    var query = {"username": bookmarkedByUsername};
+    collection.find(query).toArray(function(err, results){
+      if (results.length == 0){
+        logger.info("bookmark not exist for user: " + bookmarkedByUsername);
+        callback(result);
+      } else {
+        var bookmarkJson = results[0];
+        var sermon_ids = bookmarkJson["sermon_ids"];
+        logger.info("sermon_ids: " + sermon_ids);
+        var sermon_oids = [];
+        for (var i=0; i<sermon_ids.length; i++){
+          var oid = new mongo.ObjectID(sermon_ids[i]);
+          sermon_oids.push(oid);
+        }
 
-  collection.find().sort(order).toArray(function(err, result) {
-    logger.info("sermonsUtil>> # of sermons: " + result.length);
-    callback(result);
-  })
+        var coll2 = db.collection("sermons");
+        var query2 = {_id: {$in: sermon_oids}};
+        logger.info("query2: " + JSON.stringify(query2));
+        var order = {_id: -1};
+        coll2.find(query2).sort(order).toArray(function(err, results2){
+          logger.info("# of sermons: " + results2.length);
+          callback(results2);
+        })
+      }
+    })
+  } else {
+    logger.info("query from sermons...");
+    var collection = db.collection("sermons");
+    var order = {_id: -1};
+    logger.info("sermonssUtil>> order: " + JSON.stringify(order));
+    collection.find().sort(order).toArray(function(err, result) {
+      logger.info("# of sermons: " + result.length);
+      callback(result);
+    })
+  }
 }
 
 exports.addSermonListenCount = function(req, db, callback){
