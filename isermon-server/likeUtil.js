@@ -78,7 +78,7 @@ exports.likeSermon = function(req, db, callback) {
 }
 
 function updateSermonLikeCount(sermon_id, delta, db){
-  logger.info("updateSermonLikeCount start...");
+  logger.info("likeUtil>> updateSermonLikeCount start...");
 
   var collection = db.collection("sermons");
   var oid = new mongo.ObjectID(sermon_id);
@@ -97,7 +97,6 @@ function updateSermonLikeCount(sermon_id, delta, db){
     }
   })
 }
-
 
 exports.unlikeSermon = function(req, db, callback) {
   logger.info("likeUtil>> unlikeSermon start...");

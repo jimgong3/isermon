@@ -172,3 +172,10 @@ app.post('/unlikeSermon', function (req, res) {
     res.json(result);
   });
 })
+
+app.post('/addSermonListenCount', function (req, res) {
+  logger.info("index>> POST /addSermonListenCount");
+  sermonsUtil.addSermonListenCount(req, db, function(result) {
+    res.json(result);
+  });
+})

@@ -143,6 +143,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             player.rate = 1.0;
             player.play()
             button.setTitle("STOP", for: .normal)
+            
+            let sermon_id = sermon.id
+            addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
+                print("result: \(result)")
+                button.setTitle("  ", for: .normal)
+            })
         } else {
             print("stopping")
             player.pause()
@@ -312,6 +318,26 @@ func unbookmarkSermon(username: String, sermon_id: String, completion: @escaping
         }
     }
 }
+
+func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: String) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/addSermonListenCount"
+    let url = URL(string: urlStr!)
+    print("url: \(url!)")
+    
+    let parameters: Parameters = [
+        "sermon_id": sermon_id
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+
 
 
 
