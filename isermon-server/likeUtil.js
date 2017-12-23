@@ -10,11 +10,24 @@ exports.likes = function(req, db, callback) {
 	logger.info("likeUtil>> likes start...");
 
   var collection = db.collection("likes");
+  var condition = [];
+
+  if (req.query.username != null) {
+    var username = req.query.username;
+    logger.info("add condition: username = " + username);
+    condition.push({"username": username});
+  }
+
+  var query = {};
+  if (condition.length > 0) {
+    query = {$and: condition};
+  }
+  logger.info("query: " + JSON.stringify(query));
 
   var order = {_id: -1};
   logger.info("order: " + JSON.stringify(order));
 
-  collection.find().sort(order).toArray(function(err, result) {
+  collection.find(query).sort(order).toArray(function(err, result) {
     logger.info("# of like lists: " + result.length);
     callback(result);
   })

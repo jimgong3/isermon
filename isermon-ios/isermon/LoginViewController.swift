@@ -54,6 +54,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     NSLog("The \"OK\" alert occured.")
                 }))
                 self.present(alert, animated: true, completion: nil)
+                
+                isermon.getLikelist(username: self.username.text!, completion: {(sermon_ids: Set<String>) -> () in
+                    Me.sharedInstance.liked_sermon_ids = sermon_ids
+                })
+                
             } else {
                 let alert = UIAlertController(title: "提示", message: "登錄不成功，請檢查登錄名和密碼。", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
@@ -82,6 +87,35 @@ func login(username: String, password: String, completion: @escaping (_ result: 
         if let result = response.result.value {
             print("Response: \(result)")
             completion(result)
+        }
+    }
+}
+
+
+func getLikelist(username: String, completion: @escaping (_ sermon_ids: Set<String>) -> ()){
+
+    let url = URL(string: "http://" + SERVER_IP + ":" + PORT + "/likes?username=" + username)
+    print("Query:>> url: ")
+    print(url!)
+    
+    Alamofire.request(url!).responseJSON { response in
+        var sermon_ids = Set<String>()
+        if let json = response.result.value {
+            if let array = json as? [Any] {
+                if array.count>0 {
+                    let likelistJson = array[0] as? [String: Any]
+                    print(likelistJson as Any)
+                    let sids = likelistJson!["sermon_ids"] as! [String]
+                    for i in 0...sids.count-1 {
+                        sermon_ids.insert(sids[i])
+                    }
+                }
+                else{
+                    print("Query>> oops, nothing has been liked")
+                }
+            }
+            print ("Query>> \(sermon_ids.count)" + " sermons found, callback completion")
+            completion(sermon_ids)
         }
     }
 }
