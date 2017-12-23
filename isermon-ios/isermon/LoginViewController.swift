@@ -55,6 +55,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }))
                 self.present(alert, animated: true, completion: nil)
                 
+                UserDefaults.standard.set(self.username.text, forKey: "username")
+                UserDefaults.standard.set(self.password.text, forKey: "password")
+                
                 isermon.getLikelist(username: self.username.text!, completion: {(sermon_ids: Set<String>) -> () in
                     Me.sharedInstance.liked_sermon_ids = sermon_ids
                 })

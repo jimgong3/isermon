@@ -240,9 +240,9 @@ function dbInsert(db, title, description, urlLocal){
 
     sermonJson["username"] = "guest"; //temporary
 
-    sermonJson["num_listen"] = 100;   //to be revised
-    sermonJson["num_like"] = 50;  //to be revised
-    sermonJson["num_bookmark"] = 10;  //to be revised
+    sermonJson["num_listen"] = 0;
+    sermonJson["num_like"] = 0;
+    sermonJson["num_bookmark"] = 0;
 
     var collection = db.collection("sermons");
     collection.insertOne(sermonJson, function(err, result) {

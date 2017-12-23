@@ -25,6 +25,16 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let username  = UserDefaults.standard.string(forKey: "username") {
+            print("get username: \(username)")
+            isermon.getLikelist(username: username, completion: {(sermon_ids: Set<String>) -> () in
+                Me.sharedInstance.liked_sermon_ids = sermon_ids
+            })
+            isermon.getBookmark(username: username, completion: {(sermon_ids: Set<String>) -> () in
+                Me.sharedInstance.bookmarked_sermon_ids = sermon_ids
+            })
+        }
+
         loadSermons(completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
@@ -67,9 +77,33 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         cell.remarks.text = remarks
         
         cell.listen.setTitle("  " + (sermon.num_listen?.description)!, for: .normal)
-        cell.like.tag = 0
+        
+        let liked_sermon_ids = Me.sharedInstance.liked_sermon_ids
+        if liked_sermon_ids != nil && liked_sermon_ids!.contains(sermon.id!) {
+            cell.like.tag = 1
+            if let image = UIImage(named: "liked") {
+                cell.like.setImage(image, for: UIControlState.normal)
+            }
+        } else {
+            cell.like.tag = 0
+            if let image = UIImage(named: "like") {
+                cell.like.setImage(image, for: UIControlState.normal)
+            }
+        }
         cell.like.setTitle("  " + (sermon.num_like?.description)!, for: .normal)
-        cell.bookmark.tag = 0
+        
+        let bookmarked_sermon_ids = Me.sharedInstance.bookmarked_sermon_ids
+        if bookmarked_sermon_ids != nil && bookmarked_sermon_ids!.contains(sermon.id!) {
+            cell.bookmark.tag = 1
+            if let image = UIImage(named: "bookmarked") {
+                cell.bookmark.setImage(image, for: UIControlState.normal)
+            }
+        } else {
+            cell.bookmark.tag = 0
+            if let image = UIImage(named: "bookmark") {
+                cell.bookmark.setImage(image, for: UIControlState.normal)
+            }
+        }
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
 
         cell.play.tag = indexPath.row

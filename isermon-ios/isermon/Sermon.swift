@@ -9,6 +9,7 @@
 import Foundation
 
 class Sermon {
+    var id: String?
     var title: String
     var description: String?
     var speaker: String?
@@ -28,6 +29,7 @@ class Sermon {
     }
     
     init?(json: [String: Any]){
+        self.id = json["_id"] as? String
         self.title = json["title"] as! String
         self.description = json["description"] as? String
         self.speaker = json["speaker"] as? String
