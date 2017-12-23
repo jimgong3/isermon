@@ -27,6 +27,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
         if let username  = UserDefaults.standard.string(forKey: "username") {
             print("get username: \(username)")
+            Me.sharedInstance.username = username
             isermon.getLikelist(username: username, completion: {(sermon_ids: Set<String>) -> () in
                 Me.sharedInstance.liked_sermon_ids = sermon_ids
             })
@@ -79,13 +80,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         cell.listen.setTitle("  " + (sermon.num_listen?.description)!, for: .normal)
         
         let liked_sermon_ids = Me.sharedInstance.liked_sermon_ids
+        cell.like.tag = indexPath.row
         if liked_sermon_ids != nil && liked_sermon_ids!.contains(sermon.id!) {
-            cell.like.tag = 1
             if let image = UIImage(named: "liked") {
                 cell.like.setImage(image, for: UIControlState.normal)
             }
         } else {
-            cell.like.tag = 0
             if let image = UIImage(named: "like") {
                 cell.like.setImage(image, for: UIControlState.normal)
             }
@@ -93,13 +93,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         cell.like.setTitle("  " + (sermon.num_like?.description)!, for: .normal)
         
         let bookmarked_sermon_ids = Me.sharedInstance.bookmarked_sermon_ids
+        cell.bookmark.tag = indexPath.row
         if bookmarked_sermon_ids != nil && bookmarked_sermon_ids!.contains(sermon.id!) {
-            cell.bookmark.tag = 1
             if let image = UIImage(named: "bookmarked") {
                 cell.bookmark.setImage(image, for: UIControlState.normal)
             }
         } else {
-            cell.bookmark.tag = 0
             if let image = UIImage(named: "bookmark") {
                 cell.bookmark.setImage(image, for: UIControlState.normal)
             }
@@ -152,32 +151,38 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func like(_ sender: Any) {
-        print("tap like...")
         let button = sender as! UIButton
-        if button.tag == 0 {
-            button.tag = 1
-            if let image = UIImage(named: "liked") {
-                button.setImage(image, for: UIControlState.normal)
-            }
-        } else {
-            button.tag = 0
+        if button.currentImage == UIImage(named: "liked") {
+            print("tap to un-like")
             if let image = UIImage(named: "like") {
                 button.setImage(image, for: UIControlState.normal)
             }
+        } else {
+            print("tap to like...")
+            if let image = UIImage(named: "liked") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+            if let username = Me.sharedInstance.username {
+                let sermon_id = sermons[button.tag].id
+                likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    print("result: \(result)")
+                    button.setTitle("  ", for: .normal)
+                })
+            }
         }
+
     }
     
     @IBAction func bookmark(_ sender: Any) {
-        print("tap bookmark...")
         let button = sender as! UIButton
-        if button.tag == 0 {
-            button.tag = 1
-            if let image = UIImage(named: "bookmarked") {
+        if button.currentImage == UIImage(named: "bookmarked") {
+            print("tap to un-bookmark")
+            if let image = UIImage(named: "bookmark") {
                 button.setImage(image, for: UIControlState.normal)
             }
         } else {
-            button.tag = 0
-            if let image = UIImage(named: "bookmark") {
+            print("tap to bookmark...")
+            if let image = UIImage(named: "bookmarked") {
                 button.setImage(image, for: UIControlState.normal)
             }
         }
@@ -210,5 +215,26 @@ func loadSermons(completion: @escaping (_ books: [Sermon]) -> ()){
         }
     }
 }
+
+func likeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/likeSermon"
+    let url = URL(string: urlStr!)
+    print("url: \(url!)")
+    
+    let parameters: Parameters = [
+        "username": username,
+        "sermon_id": sermon_id
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+
 
 
