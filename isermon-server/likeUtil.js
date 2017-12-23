@@ -97,3 +97,38 @@ function updateSermonLikeCount(sermon_id, delta, db){
     }
   })
 }
+
+
+exports.unlikeSermon = function(req, db, callback) {
+  logger.info("likeUtil>> unlikeSermon start...");
+
+  var username = req.body.username;
+  logger.info("username: " + username);
+  var sermon_id = req.body.sermon_id;
+  logger.info("sermon_id: " + sermon_id);
+
+  var collection = db.collection("likes");
+  var query = {username: username};
+  collection.find(query).toArray(function(err, results){
+    if (results.length == 0) {
+      logger.info("not likely to happen...");
+    } else {
+      logger.info("like list exists for username: " + username);
+      var likelistJson = results[0];
+      var sermon_ids = likelistJson["sermon_ids"];
+      var index = sermon_ids.indexOf(sermon_id);
+      if(index> -1){
+        sermon_ids.splice(index, 1);
+      }
+      logger.info("updated sermon_ids: " + sermon_ids);
+
+      var update = {$set: {sermon_ids: sermon_ids}};
+      logger.info("update: " + JSON.stringify(update));
+      collection.update(query, update, function(err, results2){
+        logger.info("update complete.")
+        updateSermonLikeCount(sermon_id, -1, db);
+      });
+    }
+    callback("unlike success.");
+  });
+}

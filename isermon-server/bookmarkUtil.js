@@ -6,6 +6,8 @@ var logger = new (winston.Logger)({
   ]
 });
 
+var mongo = require('mongodb');
+
 exports.bookmarks = function(req, db, callback) {
 	logger.info("bookmarksUtil>> bookmarks start...");
 
@@ -56,6 +58,7 @@ exports.bookmarkSermon = function(req, db, callback) {
       collection.insertOne(bookmarkJson, function(err, results2){
         if (err) throw err;
         logger.info("1 bookmark inserted.");
+        updateSermonBookmarkCount(sermon_id, 1, db);
       });
     } else {
       logger.info("bookmark exists for username: " + username);
@@ -68,8 +71,64 @@ exports.bookmarkSermon = function(req, db, callback) {
       logger.info("update: " + JSON.stringify(update));
       collection.update(query, update, function(err, results2){
         logger.info("update complete.")
+        updateSermonBookmarkCount(sermon_id, 1, db);
       });
     }
     callback("bookmark success.");
+  });
+}
+
+function updateSermonBookmarkCount(sermon_id, delta, db){
+  logger.info("bookmarkUtil>> updateSermonBookmarkCount start...");
+
+  var collection = db.collection("sermons");
+  var oid = new mongo.ObjectID(sermon_id);
+  var query = {"_id": oid};
+  logger.info("query: " + JSON.stringify(query));
+  collection.find(query).toArray(function(err, results){
+    if(results.length == 0){
+      logger.info("sermon not found: " + sermon_id);
+    } else {
+      var sermonJson = results[0];
+      var update = {$set: {num_bookmark: sermonJson["num_bookmark"] + delta}};
+      logger.info("update: " + JSON.stringify(update));
+      collection.update(query, update, function(err, results2){
+        logger.info("update success.")
+      })
+    }
+  })
+}
+
+exports.unbookmarkSermon = function(req, db, callback) {
+  logger.info("bookmarkUtil>> unbookmarkSermon start...");
+
+  var username = req.body.username;
+  logger.info("username: " + username);
+  var sermon_id = req.body.sermon_id;
+  logger.info("sermon_id: " + sermon_id);
+
+  var collection = db.collection("bookmarks");
+  var query = {username: username};
+  collection.find(query).toArray(function(err, results){
+    if (results.length == 0) {
+      logger.info("not likely to happen...");
+    } else {
+      logger.info("bookmark exists for username: " + username);
+      var bookmarkJson = results[0];
+      var sermon_ids = bookmarkJson["sermon_ids"];
+      var index = sermon_ids.indexOf(sermon_id);
+      if(index> -1){
+        sermon_ids.splice(index, 1);
+      }
+      logger.info("updated sermon_ids: " + sermon_ids);
+
+      var update = {$set: {sermon_ids: sermon_ids}};
+      logger.info("update: " + JSON.stringify(update));
+      collection.update(query, update, function(err, results2){
+        logger.info("update complete.")
+        updateSermonBookmarkCount(sermon_id, -1, db);
+      });
+    }
+    callback("unbookmark success.");
   });
 }

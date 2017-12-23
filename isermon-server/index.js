@@ -145,6 +145,13 @@ app.post('/bookmarkSermon', function (req, res) {
   });
 })
 
+app.post('/unbookmarkSermon', function (req, res) {
+  logger.info("index>> POST /unbookmarkSermon");
+  bookmarkUtil.unbookmarkSermon(req, db, function(result) {
+    res.json(result);
+  });
+})
+
 app.get('/likes', function (req, res) {
   logger.info("index>> GET /likes");
   likeUtil.likes(req, db, function(result) {
@@ -155,6 +162,13 @@ app.get('/likes', function (req, res) {
 app.post('/likeSermon', function (req, res) {
   logger.info("index>> POST /likeSermon");
   likeUtil.likeSermon(req, db, function(result) {
+    res.json(result);
+  });
+})
+
+app.post('/unlikeSermon', function (req, res) {
+  logger.info("index>> POST /unlikeSermon");
+  likeUtil.unlikeSermon(req, db, function(result) {
     res.json(result);
   });
 })

@@ -157,6 +157,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             if let image = UIImage(named: "like") {
                 button.setImage(image, for: UIControlState.normal)
             }
+            if let username = Me.sharedInstance.username {
+                let sermon_id = sermons[button.tag].id
+                unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    print("result: \(result)")
+                    button.setTitle("  ", for: .normal)
+                })
+            }
         } else {
             print("tap to like...")
             if let image = UIImage(named: "liked") {
@@ -170,7 +177,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
                 })
             }
         }
-
     }
     
     @IBAction func bookmark(_ sender: Any) {
@@ -180,10 +186,24 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             if let image = UIImage(named: "bookmark") {
                 button.setImage(image, for: UIControlState.normal)
             }
+            if let username = Me.sharedInstance.username {
+                let sermon_id = sermons[button.tag].id
+                unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    print("result: \(result)")
+                    button.setTitle("  ", for: .normal)
+                })
+            }
         } else {
             print("tap to bookmark...")
             if let image = UIImage(named: "bookmarked") {
                 button.setImage(image, for: UIControlState.normal)
+            }
+            if let username = Me.sharedInstance.username {
+                let sermon_id = sermons[button.tag].id
+                bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    print("result: \(result)")
+                    button.setTitle("  ", for: .normal)
+                })
             }
         }
     }
@@ -219,6 +239,64 @@ func loadSermons(completion: @escaping (_ books: [Sermon]) -> ()){
 func likeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
     var urlStr: String?
     urlStr = "http://" + SERVER_IP + ":" + PORT + "/likeSermon"
+    let url = URL(string: urlStr!)
+    print("url: \(url!)")
+    
+    let parameters: Parameters = [
+        "username": username,
+        "sermon_id": sermon_id
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+func unlikeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unlikeSermon"
+    let url = URL(string: urlStr!)
+    print("url: \(url!)")
+    
+    let parameters: Parameters = [
+        "username": username,
+        "sermon_id": sermon_id
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+
+func bookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/bookmarkSermon"
+    let url = URL(string: urlStr!)
+    print("url: \(url!)")
+    
+    let parameters: Parameters = [
+        "username": username,
+        "sermon_id": sermon_id
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+func unbookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unbookmarkSermon"
     let url = URL(string: urlStr!)
     print("url: \(url!)")
     
