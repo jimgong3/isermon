@@ -1,8 +1,8 @@
 //
-//  SermonTableViewController.swift
+//  SermonHotTableViewController.swift
 //  isermon
 //
-//  Created by jim on 12/12/2017.
+//  Created by jim on 24/12/2017.
 //  Copyright © 2017年 jimgong. All rights reserved.
 //
 
@@ -10,23 +10,23 @@ import UIKit
 import Alamofire
 import AVFoundation
 
-class SermonTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SermonHotTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var bookmarkedByUsername: String?
     var sermons = [Sermon]()
     
     @IBOutlet var tableView: UITableView!
-
+    
     let cellReuseIdentifier = "cell"
     let cellIdentifier = "SermonTableViewCell"
-
+    
     var player = AVPlayer()
     var lastPlay: UIButton?
     @IBOutlet weak var nowPlaying: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         if let username  = UserDefaults.standard.string(forKey: "username") {
             print("get username: \(username)")
@@ -38,8 +38,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
                 Me.sharedInstance.bookmarked_sermon_ids = sermon_ids
             })
         }
-
-        loadSermons(bookmarkedByUsername: bookmarkedByUsername, completion: {(sermons: [Sermon]) -> () in
+        
+        loadHotSermons(bookmarkedByUsername: bookmarkedByUsername, completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
                 self.tableView.reloadData()
@@ -52,7 +52,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
-       
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             print("Playback OK")
@@ -78,7 +78,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.title.text = sermon.title
         cell.desc.text = sermon.description
-
+        
         var remarks = " | "
         if sermon.username != nil {
             remarks = sermon.username! + remarks
@@ -115,28 +115,28 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
-
+        
         cell.play.tag = indexPath.row
         
         return cell
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     @IBAction func play(_ sender: Any) {
         print("playing")
         
@@ -149,7 +149,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             let url = URL(string: urlString!)
             let asset = AVAsset(url: url!)
             let playerItem = AVPlayerItem(asset: asset)
-
+            
             if player.currentItem == nil {
                 print("play a new audio...")
                 player = AVPlayer(playerItem:playerItem)
@@ -158,7 +158,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
                 nowPlaying.text = sermon.title
                 button.setTitle("PAUSE", for: .normal)
                 lastPlay = button
-
+                
                 let sermon_id = sermon.id
                 addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
                     print("result: \(result)")
@@ -251,12 +251,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
 }
 
-func loadSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ books: [Sermon]) -> ()){
+
+func loadHotSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ books: [Sermon]) -> ()){
     
-    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
-    if bookmarkedByUsername != nil {
-        urlStr += "?bookmarkedBy=" + bookmarkedByUsername!
-    }
+    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
     let url = URL(string: urlStr)
     print("Query:>> url: ")
     print(url!)
@@ -273,112 +271,11 @@ func loadSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ b
                     }
                 }
                 else{
-                    print("oops, no sermon is found")
+                    print("Query>> oops, no book is found")
                 }
             }
-            print ("\(sermons.count)" + " sermons loaded, callback completion")
+            print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
             completion(sermons)
         }
     }
 }
-
-func likeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/likeSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func unlikeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unlikeSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-
-func bookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/bookmarkSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func unbookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unbookmarkSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/addSermonListenCount"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-
-
-
-
-

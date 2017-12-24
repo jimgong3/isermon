@@ -8,12 +8,16 @@ var logger = new (winston.Logger)({
 
 var mongo = require('mongodb');
 
-// find sermons from server
+// find sermons from server, parameters (all optional):
+//    bookmarkedBy
+//    sortBy
 exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
   var bookmarkedByUsername = req.query.bookmarkedBy;
   logger.info("bookmarkedByUsername: " +bookmarkedByUsername);
+  var sortBy = req.query.sortBy;
+  logger.info("sortBy: " + sortBy);
 
   if (bookmarkedByUsername != null) {
     logger.info("query from bookmarks...");
@@ -37,6 +41,12 @@ exports.sermons = function(req, db, callback) {
         var query2 = {_id: {$in: sermon_oids}};
         logger.info("query2: " + JSON.stringify(query2));
         var order = {_id: -1};
+        if (sortBy != null){
+          delete order["_id"];
+          order[sortBy] = -1;
+        }
+        logger.info("order: " + JSON.stringify(order));
+
         coll2.find(query2).sort(order).toArray(function(err, results2){
           logger.info("# of sermons: " + results2.length);
           callback(results2);
@@ -47,7 +57,12 @@ exports.sermons = function(req, db, callback) {
     logger.info("query from sermons...");
     var collection = db.collection("sermons");
     var order = {_id: -1};
-    logger.info("sermonssUtil>> order: " + JSON.stringify(order));
+    if (sortBy != null){
+      delete order["_id"];
+      order[sortBy] = -1;
+    }
+    logger.info("order: " + JSON.stringify(order));
+
     collection.find().sort(order).toArray(function(err, result) {
       logger.info("# of sermons: " + result.length);
       callback(result);
