@@ -195,38 +195,51 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9r5-AJ-3yg">
-                                <rect key="frame" x="74" y="72" width="186" height="30"/>
+                                <rect key="frame" x="74" y="72" width="191" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3BA-j0-C3x">
-                                <rect key="frame" x="281" y="72" width="78" height="22"/>
+                                <rect key="frame" x="273" y="75" width="86" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="登入"/>
+                                <state key="normal" title="登入／註冊"/>
                                 <connections>
                                     <segue destination="XY6-vZ-bzd" kind="show" id="qGU-nk-Ef7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krF-Fk-ooc">
-                                <rect key="frame" x="281" y="94" width="78" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMX-eZ-pB1">
+                                <rect key="frame" x="16" y="127" width="128" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="我上傳的講道"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XE8-Ik-bkG">
+                                <rect key="frame" x="16" y="157" width="95" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="註冊新用戶">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="  現在上傳" image="upload">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="JXB-d5-FPj" kind="show" id="9vr-5a-WZ4"/>
+                                    <action selector="like:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lbK-Z8-9oY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cd5-RD-YIj">
-                                <rect key="frame" x="16" y="143" width="128" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cd5-RD-YIj">
+                                <rect key="frame" x="16" y="190" width="128" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="我收藏的講道"/>
+                                <state key="normal" title="我的收藏"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="bookmarkedSermons" id="q0x-bj-cVe"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Z-ml-kEJ">
+                                <rect key="frame" x="16" y="228" width="128" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="我的訂閱"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -238,9 +251,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAa-wu-BOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2934" y="1646"/>
+            <point key="canvasLocation" x="2933.5999999999999" y="1645.7271364317842"/>
         </scene>
-        <!--登入-->
+        <!--登入／註冊-->
         <scene sceneID="9rh-lE-01o">
             <objects>
                 <viewController id="XY6-vZ-bzd" customClass="LoginViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
@@ -252,89 +265,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jim" borderStyle="roundedRect" placeholder="User" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k7I-Ak-V3h">
-                                <rect key="frame" x="77" y="121" width="220" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jim" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DVP-29-Wi8">
-                                <rect key="frame" x="77" y="159" width="220" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSQ-gt-8CI">
-                                <rect key="frame" x="148" y="197" width="78" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="登入"/>
-                                <connections>
-                                    <action selector="login:" destination="XY6-vZ-bzd" eventType="touchUpInside" id="KMO-mu-e21"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Yp-tD-HLX">
+                                <rect key="frame" x="81" y="84" width="212" height="150"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jim" borderStyle="roundedRect" placeholder="用戶名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k7I-Ak-V3h">
+                                        <rect key="frame" x="0.0" y="0.0" width="212" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jim" borderStyle="roundedRect" placeholder="密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DVP-29-Wi8">
+                                        <rect key="frame" x="0.0" y="40" width="212" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email（可選，註冊時使用）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0dq-uw-JHg">
+                                        <rect key="frame" x="0.0" y="80" width="212" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" textContentType="email"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoB-Jj-v3Y">
+                                        <rect key="frame" x="0.0" y="120" width="212" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9MX-D4-rZb">
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
+                                                <state key="normal" title="    註冊新用戶    "/>
+                                                <connections>
+                                                    <action selector="register:" destination="XY6-vZ-bzd" eventType="touchUpInside" id="bVQ-KH-iar"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSQ-gt-8CI">
+                                                <rect key="frame" x="109" y="0.0" width="103" height="30"/>
+                                                <state key="normal" title="         登入         "/>
+                                                <connections>
+                                                    <action selector="login:" destination="XY6-vZ-bzd" eventType="touchUpInside" id="KMO-mu-e21"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3Yp-tD-HLX" firstAttribute="centerX" secondItem="3al-ox-WmV" secondAttribute="centerX" id="ReF-Zx-bXz"/>
+                            <constraint firstItem="3Yp-tD-HLX" firstAttribute="top" secondItem="cJp-md-Jgf" secondAttribute="bottom" constant="20" id="itx-X3-bFo"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="登入" id="iFO-Mr-iGj"/>
+                    <navigationItem key="navigationItem" title="登入／註冊" id="iFO-Mr-iGj"/>
                     <connections>
+                        <outlet property="email" destination="0dq-uw-JHg" id="Bw6-0o-ArJ"/>
                         <outlet property="password" destination="DVP-29-Wi8" id="xgl-hB-mSC"/>
                         <outlet property="username" destination="k7I-Ak-V3h" id="yUy-sf-S6L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GY-FL-gTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4633" y="1335"/>
-        </scene>
-        <!--註冊新用戶-->
-        <scene sceneID="qQQ-EO-G9Q">
-            <objects>
-                <viewController id="JXB-d5-FPj" customClass="RegisterViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="J2T-84-t4v"/>
-                        <viewControllerLayoutGuide type="bottom" id="tTa-jB-xwf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6VL-0k-wLL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wG-kQ-lkb">
-                                <rect key="frame" x="16" y="72" width="343" height="493"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1H-SU-bz6">
-                                <rect key="frame" x="16" y="580" width="63" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="back:" destination="Zhc-ax-HSP" eventType="touchUpInside" id="ECl-TI-8Ct"/>
-                                    <action selector="back:" destination="XY6-vZ-bzd" eventType="touchUpInside" id="eX5-TK-dym"/>
-                                    <action selector="back:" destination="JXB-d5-FPj" eventType="touchUpInside" id="rnn-EG-vAc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l80-IH-v2f">
-                                <rect key="frame" x="296" y="580" width="63" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancel:" destination="Zhc-ax-HSP" eventType="touchUpInside" id="VYx-ca-SMk"/>
-                                    <action selector="cancel:" destination="JXB-d5-FPj" eventType="touchUpInside" id="guP-HR-koJ"/>
-                                    <action selector="cancel:" destination="XY6-vZ-bzd" eventType="touchUpInside" id="qhW-4f-OdB"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="註冊新用戶" id="jwd-P4-itN"/>
-                    <connections>
-                        <outlet property="webView" destination="9wG-kQ-lkb" id="JSV-tE-uQC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F2Z-Gc-E73" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4633" y="2064"/>
+            <point key="canvasLocation" x="4632.8000000000002" y="1334.4827586206898"/>
         </scene>
         <!--聽道-->
         <scene sceneID="HRZ-22-E02">
@@ -419,6 +408,7 @@
         <image name="like" width="25" height="25"/>
         <image name="listen" width="25" height="25"/>
         <image name="me" width="25" height="25"/>
+        <image name="upload" width="25" height="25"/>
         <image name="upload3" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

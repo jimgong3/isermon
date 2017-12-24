@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var email: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         username.delegate = self
         password.delegate = self
+        email.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         username.resignFirstResponder()
         password.resignFirstResponder()
+        email.resignFirstResponder()
         return true
     }
 
@@ -74,6 +77,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
+    @IBAction func register(_ sender: Any) {
+        isermon.register(username: username.text!, password: password.text!, email: email.text!, completion: {(result: String) -> () in
+            print("register result: \(result)")
+            if result.range(of:"success") != nil {
+                Me.sharedInstance.username = self.username.text!
+                
+                let alert = UIAlertController(title: "提示", message: "註冊成功，請登入。", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+                UserDefaults.standard.set(self.username.text, forKey: "username")
+                UserDefaults.standard.set(self.password.text, forKey: "password")
+            } else {
+                let alert = UIAlertController(title: "提示", message: "註冊不成功，登錄名已被使用。", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
 }
 
 func login(username: String, password: String, completion: @escaping (_ result: String) -> ()){
@@ -87,6 +113,30 @@ func login(username: String, password: String, completion: @escaping (_ result: 
         "username": username,
         "password": password
     ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+        if let result = response.result.value {
+            print("Response: \(result)")
+            completion(result)
+        }
+    }
+}
+
+func register(username: String, password: String, email: String? = nil,
+              completion: @escaping (_ result: String) -> ()){
+    
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/registerByJson"
+    let url = URL(string: urlStr!)
+    print("Query>> url: \(url!)")
+    
+    var parameters: Parameters = [
+        "username": username,
+        "password": password,
+    ]
+    if email != nil && email != "" {
+        parameters["email"] = email
+    }
     
     Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
         if let result = response.result.value {
