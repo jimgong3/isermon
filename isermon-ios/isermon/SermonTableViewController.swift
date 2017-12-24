@@ -21,7 +21,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     let cellIdentifier = "SermonTableViewCell"
 
     var player = AVPlayer()
-
+    var lastPlay: UIButton?
+    @IBOutlet weak var nowPlaying: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -139,16 +141,42 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             let url = URL(string: urlString!)
             let asset = AVAsset(url: url!)
             let playerItem = AVPlayerItem(asset: asset)
-            
-            player = AVPlayer(playerItem:playerItem)
-            player.rate = 1.0;
-            player.play()
-            button.setTitle("STOP", for: .normal)
-            
-            let sermon_id = sermon.id
-            addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
-                print("result: \(result)")
-            })
+
+            if player.currentItem == nil {
+                print("play a new audio...")
+                player = AVPlayer(playerItem:playerItem)
+                player.rate = 1.0;
+                player.play()
+                nowPlaying.text = sermon.title
+                button.setTitle("PAUSE", for: .normal)
+                lastPlay = button
+
+                let sermon_id = sermon.id
+                addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    print("result: \(result)")
+                })
+            } else {
+                let url2 = ((player.currentItem?.asset) as? AVURLAsset)?.url
+                if url == url2 {
+                    print("continue to play an audio...")
+                    player.play()
+                    button.setTitle("PAUSE", for: .normal)
+                } else {
+                    print("switch to play another audio")
+                    player = AVPlayer(playerItem:playerItem)
+                    player.rate = 1.0;
+                    player.play()
+                    nowPlaying.text = sermon.title
+                    button.setTitle("PAUSE", for: .normal)
+                    lastPlay?.setTitle("PLAY", for: .normal)
+                    lastPlay = button
+                    
+                    let sermon_id = sermon.id
+                    addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
+                        print("result: \(result)")
+                    })
+                }
+            }
         } else {
             print("stopping")
             player.pause()
