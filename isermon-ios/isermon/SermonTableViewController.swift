@@ -148,7 +148,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             let sermon_id = sermon.id
             addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
                 print("result: \(result)")
-                button.setTitle("  ", for: .normal)
             })
         } else {
             print("stopping")
