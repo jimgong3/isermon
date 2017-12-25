@@ -15,6 +15,7 @@ var sermonsUtil = require('./sermonsUtil');
 var loginUtil = require('./loginUtil');
 var bookmarkUtil = require('./bookmarkUtil');
 var likeUtil = require('./likeUtil');
+var subscribeUtil = require('./subscribeUtil');
 
 var db;
 var mongoUtil = require('./mongoUtil');
@@ -177,6 +178,20 @@ app.post('/unlikeSermon', function (req, res) {
 app.post('/addSermonListenCount', function (req, res) {
   logger.info("index>> POST /addSermonListenCount");
   sermonsUtil.addSermonListenCount(req, db, function(result) {
+    res.json(result);
+  });
+})
+
+app.get('/subscribes', function (req, res) {
+  logger.info("index>> GET /subscribes");
+  subscribeUtil.subscribes(req, db, function(result) {
+    res.json(result);
+  });
+})
+
+app.post('/subscribeUser', function (req, res) {
+  logger.info("index>> POST /subscribeUser");
+  subscribeUtil.subscribeUser(req, db, function(result) {
     res.json(result);
   });
 })
