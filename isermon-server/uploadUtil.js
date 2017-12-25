@@ -109,22 +109,26 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
 exports.getUpload = function (req, res) {
   logger.info("uploadUtil>> getUpload start...");
 
-  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
   // res.writeHead(200, {'Content-Type': 'application/x-www-form-urlencoded'});
   res.write('<form action="fileupload" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
-  res.write('Upload Sermon Recording<br><br>');
+  res.write('上傳講道錄音<br><br>');
 
-  res.write('Sermon title: <br>');
-  res.write('<input type="text" name="title" placeholder="Title" size=40><br><br>');
+  res.write('講題: <br>');
+  res.write('<input type="text" name="title" placeholder="講道題目" size=40><br><br>');
 
-  res.write('Sermon description: <br>');
+  res.write('描述: <br>');
   // res.write('<input type="text" name="description" placeholder="Description" size=35><br><br>');
-  res.write('<textarea name="description2" placeholder="Description" cols=40 rows=5></textarea><br><br>');
+  res.write('<textarea name="description2" placeholder="說點什麼..." cols=40 rows=5></textarea><br><br>');
 
-  res.write('Choose local mp3 file: <br>');
+  res.write('從本地選擇講道錄音MP3文件: <br>');
   res.write('<input type="file" name="filetoupload" accept="audio/mp3"><br>');
-  res.write('Or upload mp3 from Internet: <br>');
-  res.write('<input type="text" name="url" placeholder="URL" size=40><br><br>');
+  res.write('或者，指定講道錄音MP3下載鏈接: <br>');
+  res.write('<input type="text" name="url" placeholder="下載鏈接URL" size=40><br><br>');
+
+  res.write('用戶名和密碼 - 可留空並以訪客身份上傳: <br>');
+  res.write('<input type="text" name="username" placeholder="用戶名（可選）" size=40><br>');
+  res.write('<input type="password" name="password" placeholder="密碼（可選）" size=40><br><br>');
 
   res.write('<input type="submit">');
   res.write('</form>');
@@ -138,37 +142,63 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
   form.parse(req, function (err, fields, files) {
 	  var title = fields.title;
 	  logger.info("title: " + title);
-	  // var description = fields.description;
-	  // logger.info("description: " + description);
     var description2 = fields.description2;
 	  logger.info("description2: " + description2);
+    var username = fields.username;
+    var password = fields.password;
+    logger.info("username: " + username + ", password: " + password);
 
-    var url = fields.url;
-    var file = files.filetoupload;
-    if (url != null && url != "") {
-      uploadFromUrl(url, db, title, description2, hostHttp, portHttp, function(result){
-        logger.info("callback from uploadFromUrl, result: " + result);
-        if(result == "success") {
-          callback("Upload success.");
-        } else {
-          callback("Upload failure, invalid url: " + url);
-        }
-      });
-    } else if (file.name != null && file.name != ""){
-        uploadFromLocal(file, db, title, description2, hostHttp, portHttp, function(result){
-          if(result == "success"){
+    getUploadUsername(username, password, db, function(uploadUsername){
+      var url = fields.url;
+      var file = files.filetoupload;
+      if (url != null && url != "") {
+        uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, function(result){
+          logger.info("callback from uploadFromUrl, result: " + result);
+          if(result == "success") {
             callback("Upload success.");
           } else {
-            callback("Upload failure, cannot read file: " + file.name);
+            callback("Upload failure, invalid url: " + url);
           }
         });
+      } else if (file.name != null && file.name != ""){
+          uploadFromLocal(file, db, title, description2, uploadUsername,hostHttp, portHttp, function(result){
+            if(result == "success"){
+              callback("Upload success.");
+            } else {
+              callback("Upload failure, cannot read file: " + file.name);
+            }
+          });
+      } else {
+          callback("Upload failure: either choose a local file or input valid URL.");
+      }
+    });
+  });
+}
+
+function getUploadUsername(username, password, db, callback){
+  logger.info("uploadUtil>> getUploadUsername start...");
+
+  if (!username || !password){
+        logger.info("invalid username or password, upload username: guest");
+        callback("guest");
+      };
+
+  var collection = db.collection('users');
+  var query = {username: username, password: password};
+  logger.info("query: " + JSON.stringify(query));
+
+  collection.find(query).toArray(function(err, results){
+    if(results.length == 0){
+      logger.info("username/password not found, upload username: guest");
+      callback("guest");
     } else {
-        callback("Upload failure: either choose a local file or input valid URL.");
+      logger.info("username/password found, upload username: " + username);
+      callback(username);
     }
   });
 }
 
-function uploadFromUrl(url, db, title, description, hostHttp, portHttp, callback) {
+function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, portHttp, callback) {
   logger.info("upload from URL: " + url);
   var basename = path.basename(urltool.parse(url).pathname);
   logger.info("basename: " + basename);
@@ -185,7 +215,7 @@ function uploadFromUrl(url, db, title, description, hostHttp, portHttp, callback
       response.pipe(file);
       // res.write('File upload success!');
       // res.end();
-      dbInsert(db, title, description, urlLocal);
+      dbInsert(db, title, description, urlLocal, uploadUsername);
       callback("success");
     });
   } else if (url.indexOf("https://") == 0) {
@@ -193,7 +223,7 @@ function uploadFromUrl(url, db, title, description, hostHttp, portHttp, callback
         response.pipe(file);
         // res.write('File upload success!');
         // res.end();
-        dbInsert(db, title, description, urlLocal);
+        dbInsert(db, title, description, urlLocal, uploadUsername);
         callback("success");
       });
   } else {
@@ -204,7 +234,7 @@ function uploadFromUrl(url, db, title, description, hostHttp, portHttp, callback
   }
 }
 
-function uploadFromLocal(file, db, title, description, hostHttp, portHttp, callback) {
+function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp, portHttp, callback) {
   var oldpath = file.path;
   logger.info("upload from local, oldpath: " + oldpath);
   var basename = file.name;
@@ -218,12 +248,12 @@ function uploadFromLocal(file, db, title, description, hostHttp, portHttp, callb
 
   fs.rename(oldpath, filepathLocal, function (err) {
     if (err) throw err;
-    dbInsert(db, title, description, urlLocal);
+    dbInsert(db, title, description, urlLocal, uploadUsername);
     callback("success");
   });
 }
 
-function dbInsert(db, title, description, urlLocal){
+function dbInsert(db, title, description, urlLocal, uploadUsername){
     logger.info("uploadUtil>> dbInsert start...");
 
     var sermonJson = {};
@@ -238,7 +268,7 @@ function dbInsert(db, title, description, urlLocal){
     var datehk = "" + datetimehk.getFullYear() + "-" + (datetimehk.getMonth()+1) + "-" + datetimehk.getDate();
     sermonJson["date"] = datehk;
 
-    sermonJson["username"] = "guest"; //temporary
+    sermonJson["username"] = uploadUsername;
 
     sermonJson["num_listen"] = 0;
     sermonJson["num_like"] = 0;
@@ -248,11 +278,11 @@ function dbInsert(db, title, description, urlLocal){
     collection.insertOne(sermonJson, function(err, result) {
       if (err) throw err;
       logger.info("uploadUtil>> 1 sermon inserted");
-      sendEmailUploadSuccess(title, description, urlLocal)
+      sendEmailUploadSuccess(title, description, urlLocal, uploadUsername);
     })
 }
 
-function sendEmailUploadSuccess(title, description, urlLocal){
+function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername){
   var from = "isermonhk@gmail.com";
   var to = "isermonhk@gmail.com";
   var subject = "iSermon: New Sermon Uploaded";
@@ -264,6 +294,7 @@ function sendEmailUploadSuccess(title, description, urlLocal){
   text += "title: " + title + "\n";
   text += "description: " + description + "\n";
   text += "urlLocal: " + urlLocal + "\n";
+  text += "uploadUsername: " + uploadUsername + "\n";
   text += "\n"
   text += "Thank you. \n";
   text += "\n"
