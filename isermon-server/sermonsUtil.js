@@ -17,10 +17,17 @@ exports.sermons = function(req, db, callback) {
 
   var bookmarkedByUsername = req.query.bookmarkedBy;
   logger.info("bookmarkedByUsername: " +bookmarkedByUsername);
-  var sortBy = req.query.sortBy;
-  logger.info("sortBy: " + sortBy);
   var uploadedBy = req.query.uploadedBy;
   logger.info("uploadedBy: " + uploadedBy);
+
+  var sortBy = req.query.sortBy;
+  logger.info("sortBy: " + sortBy);
+  var order = {_id: -1};
+  if (sortBy != null){
+    delete order["_id"];
+    order[sortBy] = -1;
+  }
+  logger.info("order: " + JSON.stringify(order));
 
   if (bookmarkedByUsername != null) {
     logger.info("query from bookmarks...");
@@ -43,12 +50,6 @@ exports.sermons = function(req, db, callback) {
         var coll2 = db.collection("sermons");
         var query2 = {_id: {$in: sermon_oids}};
         logger.info("query2: " + JSON.stringify(query2));
-        var order = {_id: -1};
-        if (sortBy != null){
-          delete order["_id"];
-          order[sortBy] = -1;
-        }
-        logger.info("order: " + JSON.stringify(order));
 
         coll2.find(query2).sort(order).toArray(function(err, results2){
           logger.info("# of sermons: " + results2.length);
@@ -64,13 +65,6 @@ exports.sermons = function(req, db, callback) {
       query = {username: uploadedBy};
     }
     logger.info("query: " + JSON.stringify(query));
-
-    var order = {_id: -1};
-    if (sortBy != null){
-      delete order["_id"];
-      order[sortBy] = -1;
-    }
-    logger.info("order: " + JSON.stringify(order));
 
     collection.find(query).sort(order).toArray(function(err, result) {
       logger.info("# of sermons: " + result.length);
