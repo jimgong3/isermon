@@ -16,7 +16,9 @@ exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
   var bookmarkedByUsername = req.query.bookmarkedBy;
-  logger.info("bookmarkedByUsername: " +bookmarkedByUsername);
+  logger.info("bookmarkedByUsername: " + bookmarkedByUsername);
+  var subscribedByUsername = req.query.subscribedByUsername;
+  logger.info("subscribedByUsername: " + subscribedByUsername);
   var uploadedBy = req.query.uploadedBy;
   logger.info("uploadedBy: " + uploadedBy);
 
@@ -31,32 +33,14 @@ exports.sermons = function(req, db, callback) {
 
   if (bookmarkedByUsername != null) {
     logger.info("query from bookmarks...");
-    var collection = db.collection("bookmarks");
-    var query = {"username": bookmarkedByUsername};
-    collection.find(query).toArray(function(err, results){
-      if (results.length == 0){
-        logger.info("bookmark not exist for user: " + bookmarkedByUsername);
-        callback(result);
-      } else {
-        var bookmarkJson = results[0];
-        var sermon_ids = bookmarkJson["sermon_ids"];
-        logger.info("sermon_ids: " + sermon_ids);
-        var sermon_oids = [];
-        for (var i=0; i<sermon_ids.length; i++){
-          var oid = new mongo.ObjectID(sermon_ids[i]);
-          sermon_oids.push(oid);
-        }
-
-        var coll2 = db.collection("sermons");
-        var query2 = {_id: {$in: sermon_oids}};
-        logger.info("query2: " + JSON.stringify(query2));
-
-        coll2.find(query2).sort(order).toArray(function(err, results2){
-          logger.info("# of sermons: " + results2.length);
-          callback(results2);
-        })
-      }
-    })
+    querySermonsByBookmarks(bookmarkedByUsername, db, order, function(result){
+      callback(result);
+    });
+  } else if (subscribedByUsername != null) {
+    logger.info("query from subscriptions...");
+    querySermonsBySubscription(subscribedByUsername, db, order, function(result){
+      callback(result);
+    });
   } else {
     logger.info("query from sermons...");
     var collection = db.collection("sermons");
@@ -71,6 +55,65 @@ exports.sermons = function(req, db, callback) {
       callback(result);
     })
   }
+}
+
+function querySermonsByBookmarks(bookmarkedByUsername, db, order, callback){
+  logger.info("sermonsUtil>> querySermonsByBookmarks start...");
+
+  var collection = db.collection("bookmarks");
+  var query = {"username": bookmarkedByUsername};
+
+  collection.find(query).toArray(function(err, results){
+    if (results.length == 0){
+      logger.info("bookmark not exist for user: " + bookmarkedByUsername);
+      callback(result);
+    } else {
+      var bookmarkJson = results[0];
+      var sermon_ids = bookmarkJson["sermon_ids"];
+      logger.info("sermon_ids: " + sermon_ids);
+      var sermon_oids = [];
+      for (var i=0; i<sermon_ids.length; i++){
+        var oid = new mongo.ObjectID(sermon_ids[i]);
+        sermon_oids.push(oid);
+      }
+
+      var coll2 = db.collection("sermons");
+      var query2 = {_id: {$in: sermon_oids}};
+      logger.info("query2: " + JSON.stringify(query2));
+
+      coll2.find(query2).sort(order).toArray(function(err, results2){
+        logger.info("# of sermons: " + results2.length);
+        callback(results2);
+      })
+    }
+  })
+}
+
+function querySermonsBySubscription(subscribedByUsername, db, order, callback){
+  logger.info("sermonsUtil>> querySermonsBySubscription start...");
+
+  var collection = db.collection("subscribes");
+  var query = {"username": subscribedByUsername};
+
+  collection.find(query).toArray(function(err, results){
+    if (results.length == 0){
+      logger.info("subscription not exist for user: " + bookmarkedByUsername);
+      callback(result);
+    } else {
+      var json = results[0];
+      var subscribe_usernames = json["subscribe_usernames"];
+      logger.info("subscribe_usernames: " + subscribe_usernames);
+
+      var coll2 = db.collection("sermons");
+      var query2 = {username: {$in: subscribe_usernames}};
+      logger.info("query2: " + JSON.stringify(query2));
+
+      coll2.find(query2).sort(order).toArray(function(err, results2){
+        logger.info("# of sermons: " + results2.length);
+        callback(results2);
+      })
+    }
+  })
 }
 
 exports.addSermonListenCount = function(req, db, callback){

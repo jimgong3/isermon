@@ -8,8 +8,8 @@
 
 import Foundation
 
-//let SERVER_IP = "localhost"       //local
-let SERVER_IP = "52.221.212.21"     //AWS
+let SERVER_IP = "localhost"       //local
+//let SERVER_IP = "52.221.212.21"     //AWS
 let PORT = "4001"
 
 class Me {

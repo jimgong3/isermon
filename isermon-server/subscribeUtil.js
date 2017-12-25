@@ -30,8 +30,17 @@ exports.subscribes = function(req, db, callback) {
   logger.info("order: " + JSON.stringify(order));
 
   collection.find(query).sort(order).toArray(function(err, result) {
-    logger.info("# of subscriptions: " + result.length);
-    callback(result);
+    if(result.length == 0){
+      logger.info("no subscription found for user: " + username);
+      var result = {};
+      callback(result);
+    } else {
+      logger.info("subscriptions found for user: " + username);
+      var json = result[0];
+      var subscribe_usernames = json["subscribe_usernames"];
+      logger.info(subscribe_usernames.length + " subscribed users found for: " + username);
+      callback(json);
+    }
   })
 }
 

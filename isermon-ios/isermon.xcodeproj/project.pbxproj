@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		078D7F1277FFE787134B18C6 /* Pods_isermon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC049D4F1AC07953C660610C /* Pods_isermon.framework */; };
 		BA15714F1FEFFB6900FE570E /* SermonHotTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15714E1FEFFB6900FE570E /* SermonHotTableViewController.swift */; };
+		BA3E84A01FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E849F1FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift */; };
+		BA3E84A21FF11A7E00C0BFA4 /* MySubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */; };
+		BA3E84A41FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */; };
 		BA41CEE81FEC0A0400FAC81A /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */; };
 		BA41CEEA1FEC0A4200FAC81A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */; };
 		BA41CEEC1FEC0C2700FAC81A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */; };
@@ -37,6 +40,9 @@
 
 /* Begin PBXFileReference section */
 		BA15714E1FEFFB6900FE570E /* SermonHotTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonHotTableViewController.swift; sourceTree = "<group>"; };
+		BA3E849F1FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonSubscribedViewController.swift; sourceTree = "<group>"; };
+		BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySubscriptionViewController.swift; sourceTree = "<group>"; };
+		BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedUserTableViewCell.swift; sourceTree = "<group>"; };
 		BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -117,14 +123,17 @@
 				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
 				BAB5086D1FE01DBD009B7BCA /* Sermon.swift */,
 				BA15714E1FEFFB6900FE570E /* SermonHotTableViewController.swift */,
+				BA3E849F1FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift */,
 				BAB508501FE015DB009B7BCA /* Assets.xcassets */,
 				BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */,
 				BAB508551FE015DB009B7BCA /* Info.plist */,
 				BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */,
 				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
 				BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */,
+				BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */,
 				BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */,
 				BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */,
+				BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */,
 			);
 			path = isermon;
 			sourceTree = "<group>";
@@ -314,16 +323,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA3E84A01FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift in Sources */,
 				BA41CEEA1FEC0A4200FAC81A /* LoginViewController.swift in Sources */,
 				BA15714F1FEFFB6900FE570E /* SermonHotTableViewController.swift in Sources */,
 				BA41CEEC1FEC0C2700FAC81A /* RegisterViewController.swift in Sources */,
 				BAB5086A1FE0188B009B7BCA /* SermonTableViewCell.swift in Sources */,
 				BAB508701FE17BBE009B7BCA /* UploadViewController.swift in Sources */,
 				BAB5086C1FE01DA1009B7BCA /* SermonTableViewController.swift in Sources */,
+				BA3E84A21FF11A7E00C0BFA4 /* MySubscriptionViewController.swift in Sources */,
 				BAB508721FE17F81009B7BCA /* iSermonConfig.swift in Sources */,
 				BAB5086E1FE01DBD009B7BCA /* Sermon.swift in Sources */,
 				BAB5084C1FE015DB009B7BCA /* ViewController.swift in Sources */,
 				BA41CEE81FEC0A0400FAC81A /* MyViewController.swift in Sources */,
+				BA3E84A41FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift in Sources */,
 				BAB5084A1FE015DB009B7BCA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

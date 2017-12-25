@@ -254,7 +254,7 @@ class SermonHotTableViewController: UIViewController, UITableViewDataSource, UIT
 
 func loadHotSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ books: [Sermon]) -> ()){
     
-    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
+    let urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
     let url = URL(string: urlStr)
     print("Query:>> url: ")
     print(url!)
