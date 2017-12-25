@@ -12,7 +12,8 @@ import AVFoundation
 
 class SermonTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var bookmarkedByUsername: String?
+    var bookmarkedByUsername: String?   //user tap My Bookmarked Sermons
+    var uploadedByUsername: String?     //user tap My Uploaded Sermons
     var sermons = [Sermon]()
     
     @IBOutlet var tableView: UITableView!
@@ -39,7 +40,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             })
         }
 
-        loadSermons(bookmarkedByUsername: bookmarkedByUsername, completion: {(sermons: [Sermon]) -> () in
+        loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
                 self.tableView.reloadData()
@@ -251,12 +252,17 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
 }
 
-func loadSermons(bookmarkedByUsername: String? = nil, completion: @escaping (_ sermons: [Sermon]) -> ()){
+func loadSermons(bookmarkedByUsername: String? = nil,
+                 uploadedByUsername: String? = nil,
+                 completion: @escaping (_ sermons: [Sermon]) -> ()){
     
     var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
     if bookmarkedByUsername != nil {
         print("user tapped: my bookmarked sermons")
         urlStr += "?bookmarkedBy=" + bookmarkedByUsername!
+    } else if uploadedByUsername != nil {
+        print("user tapped: my uploaded sermons")
+        urlStr += "?uploadedBy=" + uploadedByUsername!
     }
     let url = URL(string: urlStr)
     print("Query:>> url: ")

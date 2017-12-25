@@ -93,6 +93,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BA3E84A51FF13A0800C0BFA4 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */,
+				BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
 		BAB5083D1FE015DB009B7BCA = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +125,7 @@
 		BAB508481FE015DB009B7BCA /* isermon */ = {
 			isa = PBXGroup;
 			children = (
+				BA3E84A51FF13A0800C0BFA4 /* login */,
 				BAB508491FE015DB009B7BCA /* AppDelegate.swift */,
 				BAB5084B1FE015DB009B7BCA /* ViewController.swift */,
 				BAB5084D1FE015DB009B7BCA /* Main.storyboard */,
@@ -131,8 +141,6 @@
 				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
 				BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */,
 				BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */,
-				BA41CEE91FEC0A4200FAC81A /* LoginViewController.swift */,
-				BA41CEEB1FEC0C2700FAC81A /* RegisterViewController.swift */,
 				BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */,
 			);
 			path = isermon;

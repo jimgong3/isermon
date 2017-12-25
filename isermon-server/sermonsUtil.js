@@ -97,7 +97,7 @@ function querySermonsBySubscription(subscribedByUsername, db, order, callback){
 
   collection.find(query).toArray(function(err, results){
     if (results.length == 0){
-      logger.info("subscription not exist for user: " + bookmarkedByUsername);
+      logger.info("subscription not exist for user: " + subscribedByUsername);
       callback(result);
     } else {
       var json = results[0];

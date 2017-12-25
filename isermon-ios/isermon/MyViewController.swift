@@ -42,8 +42,13 @@ class MyViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if let sermonTableViewController = segue.destination as? SermonTableViewController {
             print("destination: SermonTableViewController")
+            let button = sender as? UIButton
             if let username = Me.sharedInstance.username {
-                sermonTableViewController.bookmarkedByUsername = username
+                if button?.titleLabel?.text?.range(of: "收藏") != nil{
+                    sermonTableViewController.bookmarkedByUsername = username
+                } else if button?.titleLabel?.text?.range(of: "上傳") != nil{
+                    sermonTableViewController.uploadedByUsername = username
+                }
             } else {
                 let alert = UIAlertController(title: "提示", message: "請先登錄。", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in

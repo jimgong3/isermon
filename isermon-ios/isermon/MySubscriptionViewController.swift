@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class MySubscriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MySubscriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var subscribeUsername: UITextField!
     
@@ -38,6 +38,8 @@ class MySubscriptionViewController: UIViewController, UITableViewDataSource, UIT
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        subscribeUsername.delegate = self
     }
 
     
@@ -62,6 +64,10 @@ class MySubscriptionViewController: UIViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        subscribeUsername.resignFirstResponder()
+        return true
+    }
 
     /*
     // MARK: - Navigation
@@ -78,6 +84,12 @@ class MySubscriptionViewController: UIViewController, UITableViewDataSource, UIT
         let subscribe_username = subscribeUsername.text
         if username == nil || username == "" || username == "guest" {
             let alert = UIAlertController(title: "提示", message: "請先登錄。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else if subscribe_username == nil || subscribe_username == "" {
+            let alert = UIAlertController(title: "提示", message: "請檢查訂閱用戶名。", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
                 NSLog("The \"OK\" alert occured.")
             }))
@@ -134,10 +146,15 @@ func loadSubscribedUsers(username: String? = nil, completion: @escaping (_ subsc
     Alamofire.request(url!).responseJSON { response in
         if let json = response.result.value as? [String: Any] {
             let username = json["username"]
-            print("subcribed by:")
-            print(username!)
-            let usernames = json["subscribe_usernames"] as! [String]
-            completion(usernames)
+            if username != nil {
+                print("subcribed by:")
+                print(username!)
+                let usernames = json["subscribe_usernames"] as! [String]
+                completion(usernames)
+            } else {
+                let usernames = [String]()
+                completion(usernames)
+            }
         }
         
     }
