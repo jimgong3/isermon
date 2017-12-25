@@ -181,6 +181,7 @@ function getUploadUsername(username, password, db, callback){
   if (!username || !password){
         logger.info("invalid username or password, upload username: guest");
         callback("guest");
+        return;
       };
 
   var collection = db.collection('users');

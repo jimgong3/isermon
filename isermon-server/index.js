@@ -68,8 +68,9 @@ app.get('/upload', function (req, res) {
 app.post('/fileupload', function (req, res) {
   logger.info("index>> POST /fileupload");
   uploadUtil.fileupload(req, res, db, hostHttp, portHttp, function(result){
-    res.write(result);
-    res.end();
+    res.write(result, function(err){
+      res.end();
+    });
   });
   // var form = new formidable.IncomingForm();
   // form.parse(req, function (err, fields, files) {
