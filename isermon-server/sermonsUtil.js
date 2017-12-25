@@ -9,8 +9,9 @@ var logger = new (winston.Logger)({
 var mongo = require('mongodb');
 
 // find sermons from server, parameters (all optional):
-//    bookmarkedBy
-//    sortBy
+//    bookmarkedBy: return sermons bookmarked by a specific user
+//    sortBy: specify a sermon attribute as sorting criteria
+//    uploadedBy: return sermons uploaded by a specific user
 exports.sermons = function(req, db, callback) {
 	logger.info("sermonsUtil>> sermons start...");
 
@@ -18,6 +19,8 @@ exports.sermons = function(req, db, callback) {
   logger.info("bookmarkedByUsername: " +bookmarkedByUsername);
   var sortBy = req.query.sortBy;
   logger.info("sortBy: " + sortBy);
+  var uploadedBy = req.query.uploadedBy;
+  logger.info("uploadedBy: " + uploadedBy);
 
   if (bookmarkedByUsername != null) {
     logger.info("query from bookmarks...");
@@ -56,6 +59,12 @@ exports.sermons = function(req, db, callback) {
   } else {
     logger.info("query from sermons...");
     var collection = db.collection("sermons");
+    var query = {};
+    if (uploadedBy != null && uploadedBy != ""){
+      query = {username: uploadedBy};
+    }
+    logger.info("query: " + JSON.stringify(query));
+
     var order = {_id: -1};
     if (sortBy != null){
       delete order["_id"];
@@ -63,7 +72,7 @@ exports.sermons = function(req, db, callback) {
     }
     logger.info("order: " + JSON.stringify(order));
 
-    collection.find().sort(order).toArray(function(err, result) {
+    collection.find(query).sort(order).toArray(function(err, result) {
       logger.info("# of sermons: " + result.length);
       callback(result);
     })
