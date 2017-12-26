@@ -16,6 +16,7 @@ var loginUtil = require('./loginUtil');
 var bookmarkUtil = require('./bookmarkUtil');
 var likeUtil = require('./likeUtil');
 var subscribeUtil = require('./subscribeUtil');
+var iSermonConfig = require('./iSermonConfig');
 
 var db;
 var mongoUtil = require('./mongoUtil');
@@ -30,11 +31,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// var hostHttp = "localhost";
-var hostHttp = "52.221.212.21";
-var portHttp = "8080";
+var hostHttp = iSermonConfig.hostHttp;
+var portHttp = iSermonConfig.portHttp;
+var port = iSermonConfig.port;
 
-var port = 4001;
 app.listen(port, function () {
   logger.info("index>> server listening on port " + port);
 });
@@ -73,22 +73,6 @@ app.post('/fileupload', function (req, res) {
       res.end();
     });
   });
-  // var form = new formidable.IncomingForm();
-  // form.parse(req, function (err, fields, files) {
-	//   var title = fields.title;
-	//   logger.info("title: " + title);
-	//   var description = fields.description;
-	//   logger.info("description: " + description);
-  //     var oldpath = files.filetoupload.path;
-	//   logger.info("oldpath: " + oldpath);
-  //     var newpath = 'upload/' + files.filetoupload.name;
-	//   logger.info("newpath: " + newpath);
-  //     fs.rename(oldpath, newpath, function (err) {
-  //       if (err) throw err;
-  //       res.write('File uploaded and moved!');
-  //       res.end();
-	//   });
-  // });
 })
 
 app.get('/register', function (req, res) {
