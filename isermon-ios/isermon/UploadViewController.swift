@@ -30,7 +30,7 @@ class UploadViewController: UIViewController, UITextFieldDelegate, WKUIDelegate 
 //        descText.delegate = self
 //        urlText.delegate = self
         
-        let url = URL(string: "http://" + SERVER_IP + ":4001/upload")
+        let url = URL(string: "http://" + SERVER_IP + ":" + PORT + "/upload")
         print("load url page: ")
         print(url!)
         let request = URLRequest(url: url!)
