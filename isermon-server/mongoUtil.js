@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb' ).MongoClient;
-var url = 'mongodb://localhost:27017/isermon';
+var iSermonConfig = require('./iSermonConfig');
+var url = iSermonConfig.mongoUrl;
 var _db;
 
 module.exports = {

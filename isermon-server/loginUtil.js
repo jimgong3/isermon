@@ -6,13 +6,15 @@ var logger = new (winston.Logger)({
   ]
 });
 
+var iSermonConfig = require('./iSermonConfig');
+
 var formidable = require('formidable');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: iSermonConfig.iSermonEmailProvider,
   auth: {
-    user: 'isermonhk@gmail.com',
-    pass: 'iSermon@hk'
+    user: iSermonConfig.iSermonEmailAccount,
+    pass: iSermonConfig.iSermonEmailPassword
   }
 });
 
@@ -105,9 +107,9 @@ function register(username, password, email, db, callback){
 }
 
 function sendEmailRegisterSuccess(username, email){
-  var from = "isermonhk@gmail.com";
+  var from = iSermonConfig.iSermonEmailAccount;
   var to = email;
-  var cc = "isermonhk@gmail.com";
+  var cc = iSermonConfig.iSermonEmailAccount;
   var subject = "iSermon: Register Success";
   var text = "";
   text += "Dear Customer, \n\nThanks for your registration, below please find the user account details for your reference: "

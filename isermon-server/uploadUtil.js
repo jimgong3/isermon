@@ -14,12 +14,14 @@ var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
 
+var iSermonConfig = require('./iSermonConfig');
+
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: iSermonConfig.iSermonEmailProvider,
   auth: {
-    user: 'isermonhk@gmail.com',
-    pass: 'iSermon@hk'
+    user: iSermonConfig.iSermonEmailAccount,
+    pass: iSermonConfig.iSermonEmailPassword
   }
 });
 
@@ -284,8 +286,8 @@ function dbInsert(db, title, description, urlLocal, uploadUsername){
 }
 
 function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername){
-  var from = "isermonhk@gmail.com";
-  var to = "isermonhk@gmail.com";
+  var from = iSermonConfig.iSermonEmailAccount;
+  var to = iSermonConfig.iSermonEmailAccount;
   var subject = "iSermon: New Sermon Uploaded";
   var text = "";
   text += "Dear Admin, \n"
