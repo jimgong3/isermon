@@ -56,12 +56,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             })
         }
 		
-//        loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
-//            self.sermons = sermons
-//            DispatchQueue.main.async{
-//                self.tableView.reloadData()
-//            }
-//        })
         if selectedTabIndex == 0 {  // Latest
             loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
@@ -272,7 +266,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(seconds, 1)
         player.seek(to: targetTime)
-        player.play()
+        //player.play()
     }
     
     func setTotalTime(){
