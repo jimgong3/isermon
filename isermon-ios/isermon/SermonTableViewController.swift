@@ -10,10 +10,14 @@ import UIKit
 import Alamofire
 import AVFoundation
 
-class SermonTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SermonTableViewController: UIViewController, UITableViewDataSource, 
+									// UITabBarControllerDelegate,
+									UITableViewDelegate {
     
     var bookmarkedByUsername: String?   //user tap My Bookmarked Sermons
     var uploadedByUsername: String?     //user tap My Uploaded Sermons
+	// var isHot: Bool?					// TRUE when user tap Hot Sermons
+	// var isSubscribed: Bool?			// TRUE when user tap Subscribed Sermons
     var sermons = [Sermon]()
     
     @IBOutlet var tableView: UITableView!
@@ -24,11 +28,16 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
     var player = AVPlayer()
     var lastPlay: UIButton?
     @IBOutlet weak var nowPlaying: UILabel!
+	
+	// @IBOutlet weak var progressView: UIProgressView!
+	// var updater : CADisplayLink! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		// self.tabBarController?.delegate = self
+		
         if let username  = UserDefaults.standard.string(forKey: "username") {
             print("get username: \(username)")
             Me.sharedInstance.username = username
@@ -40,6 +49,24 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             })
         }
 
+		/*
+		if isHot {
+			loadHotSermons2(completion: {(sermons: [Sermon]) -> () in
+				self.sermons = sermons
+				DispatchQueue.main.async{
+					self.tableView.reloadData()
+				}
+			})
+		} else if isSubscribed {
+		     loadSubscribedSermons2(username: username, completion: {(sermons: [Sermon]) -> () in
+                self.sermons = sermons
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            })
+		} else 
+		*/
+		
         loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
@@ -63,6 +90,22 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             print(error)
         }
     }
+	
+	/*
+	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 0 {
+			self.title = "最新講道"
+            // loadSermons
+        } else if tabBarIndex == 1 {
+			self.title = "熱門講道"
+			// loadHotSermons2
+		} else if tabBarIndex == 2 {
+			self.title = "訂閱內容"
+			// loadSubscribedSermons2
+		}
+	}
+	*/
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,6 +186,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         let button = sender as! UIButton
         if button.titleLabel?.text == "PLAY" {
+			print("tap to play...")
             let index = (sender as! UIButton).tag
             let sermon = sermons[index]
             let urlString = sermon.urlLocal
@@ -150,6 +194,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
             let url = URL(string: urlString!)
             let asset = AVAsset(url: url!)
             let playerItem = AVPlayerItem(asset: asset)
+			
+			// updater = CADisplayLink(target: self, selector: Selector("trackAudio"))
+			// updater.frameInterval = 1
+			// updater.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
 
             if player.currentItem == nil {
                 print("play a new audio...")
@@ -159,6 +207,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
                 nowPlaying.text = sermon.title
                 button.setTitle("PAUSE", for: .normal)
                 lastPlay = button
+				
+				// var currentTime = player.currentTime
+				// progressView.minimumValue = 0
+				// progressView.maximumValue = 100	//percentage
 
                 let sermon_id = sermon.id
                 addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -187,11 +239,16 @@ class SermonTableViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         } else {
-            print("stopping")
+            print("tap to pause...")
             player.pause()
             button.setTitle("PLAY", for: .normal)
         }
     }
+	
+	func trackAudio() {
+		var normalizedTime = Float(player.currentTime * 100.0 / player.duration)
+		progressView.value = normalizedTime
+	}
     
     @IBAction func like(_ sender: Any) {
         let button = sender as! UIButton
@@ -284,6 +341,65 @@ func loadSermons(bookmarkedByUsername: String? = nil,
                 }
             }
             print ("\(sermons.count)" + " sermons loaded, callback completion")
+            completion(sermons)
+        }
+    }
+}
+
+
+func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
+    
+    let urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
+    let url = URL(string: urlStr)
+    print("Query:>> url: ")
+    print(url!)
+    
+    Alamofire.request(url!).responseJSON { response in
+        if let json = response.result.value {
+            var sermons = [Sermon]()
+            if let array = json as? [Any] {
+                if array.count>0 {
+                    for i in 0...array.count-1 {
+                        let sermonJson = array[i] as? [String: Any]
+                        let s = Sermon(json: sermonJson!)
+                        sermons.append(s!)
+                    }
+                }
+                else{
+                    print("Query>> oops, no book is found")
+                }
+            }
+            print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
+            completion(sermons)
+        }
+    }
+}
+
+
+func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ sermons: [Sermon]) -> ()){
+    
+    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?subscribedByUsername="
+    urlStr = urlStr + username!
+    let url = URL(string: urlStr)
+    print("Query:>> url: ")
+    print(url!)
+    
+    Alamofire.request(url!).responseJSON { response in
+        if let json = response.result.value {
+            var sermons = [Sermon]()
+            if let array = json as? [Any] {
+                if array.count>0 {
+                    for i in 0...array.count-1 {
+                        let sermonJson = array[i] as? [String: Any]
+                        let s = Sermon(json: sermonJson!)
+                        sermons.append(s!)
+                    }
+                }
+                else{
+                    print("Query>> oops, no book is found")
+                }
+            }
+            print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
             completion(sermons)
         }
     }
