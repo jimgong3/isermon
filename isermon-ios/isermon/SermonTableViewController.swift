@@ -19,6 +19,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	// var isHot: Bool?					// TRUE when user tap Hot Sermons
 	// var isSubscribed: Bool?			// TRUE when user tap Subscribed Sermons
     var sermons = [Sermon]()
+	// var sermonPlaying: Sermon?
     
     @IBOutlet var tableView: UITableView!
 
@@ -31,6 +32,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	
 	// @IBOutlet weak var progressView: UIProgressView!
 	// var updater : CADisplayLink! = nil
+	
+	// @IBOutlet var playbackSlider: UISlider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,6 +192,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 			print("tap to play...")
             let index = (sender as! UIButton).tag
             let sermon = sermons[index]
+			// sermonPlaying = sermon
             let urlString = sermon.urlLocal
             print("sermon url: " + urlString!)
             let url = URL(string: urlString!)
@@ -200,8 +204,15 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 			// updater.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
 
             if player.currentItem == nil {
-                print("play a new audio...")
+                print("play a new audio...")				
                 player = AVPlayer(playerItem:playerItem)
+
+				// let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
+				// let lastPlayTime = dict[sermonPlaying.id]
+				// player.seek(to: lastPlayTime)
+				
+				// show duration in UI - player.currentItem.asset.duration
+
                 player.rate = 1.0;
                 player.play()
                 nowPlaying.text = sermon.title
@@ -210,7 +221,15 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 				
 				// var currentTime = player.currentTime
 				// progressView.minimumValue = 0
-				// progressView.maximumValue = 100	//percentage
+				// progressView.maximumValue = duration...	//
+				
+				//http://swiftdeveloperblog.com/code-examples/add-playback-slider-to-avplayer-example-in-swift/
+				// let duration: CMTime = player.currentItem.asset.duration
+				// let seconds: Float64 = CMTimeGetSeconds(duration)
+				// playbackSlider.maximumValue = Float(seconds)
+				// playbackSlider.isContinuous = true
+				// playbackSlider.tintColor = UIColor.green
+				// playbackSlider.addTarget(self, action: #selector(ViewController.playbackSliderValueChanged(_:)), for: .valueChanged)
 
                 let sermon_id = sermon.id
                 addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -245,9 +264,24 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
     }
 	
+	func playbackSliderValueChanged(_ playbackSlider:UISlider) {
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(seconds, 1)
+        
+        player!.seek(to: targetTime)
+        player?.play()
+    }
+	
 	func trackAudio() {
-		var normalizedTime = Float(player.currentTime * 100.0 / player.duration)
+		var currentTime = player.currentTime
+		// show current time in UI
+		var duration = player.currentItem.asset.duration
+		var normalizedTime = Float(player.currentTime / player.duration)	//player.currentItem.asset.duration
 		progressView.value = normalizedTime
+		
+		let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
+		dict[sermonPlaying.id] = currentTime
+		UserDefaults.standard.set(dict, forKey: "lastPlayProgress")
 	}
     
     @IBAction func like(_ sender: Any) {
