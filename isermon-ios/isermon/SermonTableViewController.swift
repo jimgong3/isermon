@@ -27,8 +27,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
     var player = AVPlayer()
     var lastPlay: UIButton?
+    
     @IBOutlet weak var nowPlaying: UILabel!
-	
+    @IBOutlet weak var playCurrentButton: UIButton!
+    
 	// @IBOutlet weak var progressView: UIProgressView!
      var updater : CADisplayLink?
 	
@@ -181,6 +183,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         if button.titleLabel?.text == "PLAY" {
 			print("tap to play...")
+            if let image = UIImage(named: "stop") {
+                playCurrentButton.setImage(image, for: UIControlState.normal)
+            }
+
             let index = (sender as! UIButton).tag
             sermonPlaying = sermons[index]
             let playerItem = playerItemInit()
@@ -202,7 +208,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 player.rate = 1.0;
                 player.play()
 				
-                nowPlaying.text = sermonPlaying?.title
                 playbackSliderInit()
                 setTotalTime()
 
@@ -225,7 +230,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                     player.rate = 1.0;
                     player.play()
                     
-                    nowPlaying.text = sermonPlaying?.title
                     playbackSliderInit()
                     setTotalTime()
                     
@@ -238,6 +242,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             print("tap to pause...")
             player.pause()
             button.setTitle("PLAY", for: .normal)
+            if let image = UIImage(named: "play") {
+                playCurrentButton.setImage(image, for: UIControlState.normal)
+            }
         }
     }
     
@@ -257,6 +264,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         playbackSlider.isContinuous = true
         playbackSlider.tintColor = UIColor.blue
         playbackSlider.addTarget(self, action: #selector(SermonTableViewController.playbackSliderValueChanged(_:)), for: .valueChanged)
+        
+        nowPlaying.text = sermonPlaying?.title
     }
 	
     func playbackSliderValueChanged(_ playbackSlider:UISlider) {
@@ -282,11 +291,31 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         playbackSlider.value = Float(currentSeconds)
         
         let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(currentSeconds))
-        self.currentTime.text = "\(h):\(m):\(s)"        
+        self.currentTime.text = "\(h):\(m):\(s)"
 
 //        let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
 //        dict[sermonPlaying.id] = currentTime
 //        UserDefaults.standard.set(dict, forKey: "lastPlayProgress")
+    }
+    
+    @IBAction func tapPlayCurrent(_ sender: Any) {
+        let button = sender as! UIButton
+        if player.rate == 1.0 { //was playing - to stop
+            player.pause()
+            lastPlay?.setTitle("PLAY", for: .normal)
+            if let image = UIImage(named: "play") {
+                button.setImage(image, for: UIControlState.normal)
+            }
+        } else {    //was stop - try to start
+            if player.currentItem != nil {
+                player.rate = 1.0
+                player.play()
+                lastPlay?.setTitle("PAUSE", for: .normal)
+                if let image = UIImage(named: "stop") {
+                    button.setImage(image, for: UIControlState.normal)
+                }
+            }
+        }
     }
     
     @IBAction func like(_ sender: Any) {
