@@ -179,3 +179,11 @@ app.post('/subscribeUser', function (req, res) {
     res.json(result);
   });
 })
+
+app.get('/search', function (req, res) {
+  logger.info("index>> GET /search");
+  sermonsUtil.search(req, db, function(result) {
+    res.json(result);
+  });
+})
+

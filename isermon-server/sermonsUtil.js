@@ -7,9 +7,11 @@ var logger = new (winston.Logger)({
 });
 
 var mongo = require('mongodb');
+var translator = require('./translator');
 
 // find sermons from server, parameters (all optional):
 //    bookmarkedBy: return sermons bookmarked by a specific user
+//    subscribedByUsername: return sermons subscribed by a specific user
 //    sortBy: specify a sermon attribute as sorting criteria
 //    uploadedBy: return sermons uploaded by a specific user
 exports.sermons = function(req, db, callback) {
@@ -141,3 +143,33 @@ exports.addSermonListenCount = function(req, db, callback){
     }
   })
 }
+
+exports.search = function(req, db, callback){
+  logger.info("sermonsUtil>> search start...");
+  var collection = db.collection('sermons');
+  var condition = [];
+
+  var keyword = req.query.q;
+  if (keyword != null){
+    keyword = translator.translate2(keyword);
+    var regexStr = ".*" + keyword + ".*";
+	  condition.push({$or:[
+						{"title": {$regex: regexStr}},
+						{"description": {$regex: regexStr}}
+					]});
+  }
+
+  var query = {};
+  if (condition.length > 0)
+	   query = {$and: condition};
+     logger.info("query: " + JSON.stringify(query));
+
+  var order = {_id: -1};
+  logger.info("order: " + JSON.stringify(order));
+
+  collection.find(query).sort(order).toArray(function(err, results) {
+    logger.info("# of sermons: " + results.length);
+    callback(results);
+  });
+}
+
