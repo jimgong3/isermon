@@ -15,6 +15,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 
 var iSermonConfig = require('./iSermonConfig');
+var translator = require('./translator');
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -29,28 +30,30 @@ var transporter = nodemailer.createTransport({
 // upload sermon to server
 // parameters:
 //	title
-//	speaker (optional)
-//	scripture (optional)
-//	info (optional)
+//	speaker (obsolete)
+//	scripture (obsolete)
+//	info (obsolete)
 //	description (optional)
-//	lang (optional)
+//	lang (obsolete)
 //	url (optional)
 // 	username
 exports.upload = function(req, db, hostHttp, portHttp, callback) {
   logger.info("uploadUtil>> upload start...");
 
   var title = req.body.title;
+  title = translator.translate2(title);
   logger.info("title: " + title);
-  var speaker = req.body.speaker;
-  logger.info("speaker: " + speaker);
-  var scripture = req.body.scripture;
-  logger.info("scripture: " + scripture);
-  var info = req.body.info;
-  logger.info("info: " + info);
+//  var speaker = req.body.speaker;
+//  logger.info("speaker: " + speaker);
+//  var scripture = req.body.scripture;
+//  logger.info("scripture: " + scripture);
+//  var info = req.body.info;
+//  logger.info("info: " + info);
   var description = req.body.description;
+  description = translator.translate2(description);
   logger.info("description: " + description);
-  var lang = req.body.lang;
-  logger.info("lang: " + lang);
+//  var lang = req.body.lang;
+//  logger.info("lang: " + lang);
   var url = req.body.url;
   logger.info("url: " + url);
   var username = req.body.username;
@@ -78,11 +81,11 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
 
   var sermonJson = {};
   sermonJson["title"] = title;
-  sermonJson["speaker"] = speaker;
-  sermonJson["scripture"] = scripture;
-  sermonJson["info"] = info;
+//  sermonJson["speaker"] = speaker;
+//  sermonJson["scripture"] = scripture;
+//  sermonJson["info"] = info;
   sermonJson["description"] = description;
-  sermonJson["lang"] = lang;
+//  sermonJson["lang"] = lang;
 
   sermonJson["url"] = url;
   sermonJson["filename"] = filename;
@@ -143,8 +146,10 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
 	  var title = fields.title;
+	  title = translator.translate2(title);
 	  logger.info("title: " + title);
     var description2 = fields.description2;
+	description2 = translator.translate2(description2);
 	  logger.info("description2: " + description2);
     var username = fields.username;
     var password = fields.password;

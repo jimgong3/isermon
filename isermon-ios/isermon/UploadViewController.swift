@@ -61,6 +61,7 @@ class UploadViewController: UIViewController, UITextFieldDelegate, WKUIDelegate 
     }
     */
 
+	// Obsolete
     @IBAction func upload(_ sender: Any) {
         print("upload")
         uploadSermon(title: titleText.text!,
@@ -93,6 +94,7 @@ class UploadViewController: UIViewController, UITextFieldDelegate, WKUIDelegate 
     }
 }
 
+// Obsolete
 func uploadSermon(title: String,
                   speaker: String? = nil,
                   description: String? = nil,
