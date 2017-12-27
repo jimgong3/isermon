@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-Nj-8of">
-                                <rect key="frame" x="16" y="20" width="343" height="561"/>
+                                <rect key="frame" x="16" y="20" width="343" height="540"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -120,17 +120,35 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正在播放: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzj-C2-pp5">
-                                <rect key="frame" x="16" y="589" width="56" height="21"/>
+                                <rect key="frame" x="16" y="574" width="56" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hh:mm:ss" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mo-vC-Utl">
+                                <rect key="frame" x="303" y="598" width="56" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oz-ue-Oxu">
-                                <rect key="frame" x="75" y="589" width="229" height="21"/>
+                                <rect key="frame" x="16" y="594" width="154" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3MY-aC-G5t">
+                                <rect key="frame" x="176" y="568" width="185" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hh:mm:ss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-M6-yC9">
+                                <rect key="frame" x="178" y="598" width="56" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -138,13 +156,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="最新講道" id="6kx-Bj-1Q3"/>
                     <connections>
+                        <outlet property="currentTime" destination="oLg-M6-yC9" id="YQT-w5-o5W"/>
                         <outlet property="nowPlaying" destination="7Oz-ue-Oxu" id="A97-bp-C6A"/>
+                        <outlet property="playbackSlider" destination="3MY-aC-G5t" id="yob-uZ-IVd"/>
                         <outlet property="tableView" destination="dSp-Nj-8of" id="V2b-vj-teZ"/>
+                        <outlet property="totalTime" destination="1mo-vC-Utl" id="IeA-oo-UJM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5428" y="672"/>
+            <point key="canvasLocation" x="5428" y="671.51424287856082"/>
         </scene>
         <!--我的訂閱-->
         <scene sceneID="64r-UD-Wsc">
@@ -276,7 +297,7 @@
         <!--熱門講道-->
         <scene sceneID="SAq-72-4S4">
             <objects>
-                <viewController id="cF1-EV-Ym7" customClass="SermonHotTableViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cF1-EV-Ym7" customClass="SermonTableViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YvD-3y-c5q"/>
                         <viewControllerLayoutGuide type="bottom" id="LmG-WQ-7aG"/>
@@ -413,7 +434,7 @@
         <!--訂閱內容-->
         <scene sceneID="tFA-J3-Wrr">
             <objects>
-                <viewController id="DJr-me-Q0j" customClass="SermonSubscribedViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DJr-me-Q0j" customClass="SermonTableViewController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T83-7B-Wzb"/>
                         <viewControllerLayoutGuide type="bottom" id="Dg0-2z-y8o"/>
@@ -725,10 +746,10 @@
             </objects>
             <point key="canvasLocation" x="1282" y="860"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--My Tab Bar Controller-->
         <scene sceneID="pEB-Cp-R3I">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Bih-i2-kKa" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Bih-i2-kKa" customClass="MyTabBarController" customModule="isermon" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k0N-Pd-uhx">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -814,6 +835,6 @@
         <image name="upload" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XjB-gN-mAb"/>
+        <segue reference="N7F-E9-cyL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,15 +11,14 @@ import Alamofire
 import AVFoundation
 
 class SermonTableViewController: UIViewController, UITableViewDataSource, 
-									// UITabBarControllerDelegate,
+									UITabBarControllerDelegate,
 									UITableViewDelegate {
     
+    var username: String?
     var bookmarkedByUsername: String?   //user tap My Bookmarked Sermons
     var uploadedByUsername: String?     //user tap My Uploaded Sermons
-	// var isHot: Bool?					// TRUE when user tap Hot Sermons
-	// var isSubscribed: Bool?			// TRUE when user tap Subscribed Sermons
     var sermons = [Sermon]()
-	// var sermonPlaying: Sermon?
+    var sermonPlaying: Sermon?
     
     @IBOutlet var tableView: UITableView!
 
@@ -31,9 +30,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var nowPlaying: UILabel!
 	
 	// @IBOutlet weak var progressView: UIProgressView!
-	// var updater : CADisplayLink! = nil
+     var updater : CADisplayLink?
 	
-	// @IBOutlet var playbackSlider: UISlider?
+    @IBOutlet weak var playbackSlider: UISlider!
+    @IBOutlet weak var currentTime: UILabel!
+    @IBOutlet weak var totalTime: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,41 +42,47 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         // Do any additional setup after loading the view.
 		// self.tabBarController?.delegate = self
 		
-        if let username  = UserDefaults.standard.string(forKey: "username") {
-            print("get username: \(username)")
+        username = UserDefaults.standard.string(forKey: "username")
+        if username != nil && username != "" {
+            print("get username: \(String(describing: username))")
             Me.sharedInstance.username = username
-            isermon.getLikelist(username: username, completion: {(sermon_ids: Set<String>) -> () in
+            isermon.getLikelist(username: username!, completion: {(sermon_ids: Set<String>) -> () in
                 Me.sharedInstance.liked_sermon_ids = sermon_ids
             })
-            isermon.getBookmark(username: username, completion: {(sermon_ids: Set<String>) -> () in
+            isermon.getBookmark(username: username!, completion: {(sermon_ids: Set<String>) -> () in
                 Me.sharedInstance.bookmarked_sermon_ids = sermon_ids
             })
         }
-
-		/*
-		if isHot {
-			loadHotSermons2(completion: {(sermons: [Sermon]) -> () in
-				self.sermons = sermons
-				DispatchQueue.main.async{
-					self.tableView.reloadData()
-				}
-			})
-		} else if isSubscribed {
-		     loadSubscribedSermons2(username: username, completion: {(sermons: [Sermon]) -> () in
+		
+//        loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
+//            self.sermons = sermons
+//            DispatchQueue.main.async{
+//                self.tableView.reloadData()
+//            }
+//        })
+        if selectedTabIndex == 0 {  // Latest
+            loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
                 DispatchQueue.main.async{
                     self.tableView.reloadData()
                 }
             })
-		} else 
-		*/
-		
-        loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
-            self.sermons = sermons
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
-        })
+        }
+        else if selectedTabIndex == 1 { // Hot
+            loadHotSermons2(completion: {(sermons: [Sermon]) -> () in
+                self.sermons = sermons
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            })
+        } else if selectedTabIndex == 2 {  // Subscribed
+            loadSubscribedSermons2(username: username, completion: {(sermons: [Sermon]) -> () in
+                self.sermons = sermons
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            })
+        }
         
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -93,22 +100,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             print(error)
         }
     }
-	
-	/*
-	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let tabBarIndex = tabBarController.selectedIndex
-        if tabBarIndex == 0 {
-			self.title = "最新講道"
-            // loadSermons
-        } else if tabBarIndex == 1 {
-			self.title = "熱門講道"
-			// loadHotSermons2
-		} else if tabBarIndex == 2 {
-			self.title = "訂閱內容"
-			// loadSubscribedSermons2
-		}
-	}
-	*/
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -191,68 +182,54 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if button.titleLabel?.text == "PLAY" {
 			print("tap to play...")
             let index = (sender as! UIButton).tag
-            let sermon = sermons[index]
-			// sermonPlaying = sermon
-            let urlString = sermon.urlLocal
-            print("sermon url: " + urlString!)
-            let url = URL(string: urlString!)
-            let asset = AVAsset(url: url!)
-            let playerItem = AVPlayerItem(asset: asset)
+            sermonPlaying = sermons[index]
+            let playerItem = playerItemInit()
 			
-			// updater = CADisplayLink(target: self, selector: Selector("trackAudio"))
-			// updater.frameInterval = 1
-			// updater.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+            updater = CADisplayLink(target: self, selector: #selector(SermonTableViewController.trackAudio))
+            updater?.preferredFramesPerSecond = 1
+            updater?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
             if player.currentItem == nil {
                 print("play a new audio...")				
-                player = AVPlayer(playerItem:playerItem)
+                button.setTitle("PAUSE", for: .normal)
+                lastPlay = button
 
 				// let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
 				// let lastPlayTime = dict[sermonPlaying.id]
 				// player.seek(to: lastPlayTime)
 				
-				// show duration in UI - player.currentItem.asset.duration
-
+                player = AVPlayer(playerItem:playerItem)
                 player.rate = 1.0;
                 player.play()
-                nowPlaying.text = sermon.title
-                button.setTitle("PAUSE", for: .normal)
-                lastPlay = button
 				
-				// var currentTime = player.currentTime
-				// progressView.minimumValue = 0
-				// progressView.maximumValue = duration...	//
-				
-				//http://swiftdeveloperblog.com/code-examples/add-playback-slider-to-avplayer-example-in-swift/
-				// let duration: CMTime = player.currentItem.asset.duration
-				// let seconds: Float64 = CMTimeGetSeconds(duration)
-				// playbackSlider.maximumValue = Float(seconds)
-				// playbackSlider.isContinuous = true
-				// playbackSlider.tintColor = UIColor.green
-				// playbackSlider.addTarget(self, action: #selector(ViewController.playbackSliderValueChanged(_:)), for: .valueChanged)
+                nowPlaying.text = sermonPlaying?.title
+                playbackSliderInit()
+                setTotalTime()
 
-                let sermon_id = sermon.id
-                addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
+                addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
                     print("result: \(result)")
                 })
             } else {
                 let url2 = ((player.currentItem?.asset) as? AVURLAsset)?.url
-                if url == url2 {
+                if (playerItem.asset as? AVURLAsset)?.url == url2 {
                     print("continue to play an audio...")
                     player.play()
                     button.setTitle("PAUSE", for: .normal)
                 } else {
                     print("switch to play another audio")
-                    player = AVPlayer(playerItem:playerItem)
-                    player.rate = 1.0;
-                    player.play()
-                    nowPlaying.text = sermon.title
                     button.setTitle("PAUSE", for: .normal)
                     lastPlay?.setTitle("PLAY", for: .normal)
                     lastPlay = button
+
+                    player = AVPlayer(playerItem:playerItem)
+                    player.rate = 1.0;
+                    player.play()
                     
-                    let sermon_id = sermon.id
-                    addSermonListenCount(sermon_id: sermon_id!, completion: {(result: String) -> () in
+                    nowPlaying.text = sermonPlaying?.title
+                    playbackSliderInit()
+                    setTotalTime()
+                    
+                    addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
                         print("result: \(result)")
                     })
                 }
@@ -263,26 +240,54 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             button.setTitle("PLAY", for: .normal)
         }
     }
-	
-	func playbackSliderValueChanged(_ playbackSlider:UISlider) {
-        let seconds : Int64 = Int64(playbackSlider.value)
-        let targetTime:CMTime = CMTimeMake(seconds, 1)
-        
-        player!.seek(to: targetTime)
-        player?.play()
+    
+    func playerItemInit() -> AVPlayerItem {
+        let urlString = sermonPlaying?.urlLocal
+        print("sermon url: " + urlString!)
+        let url = URL(string: urlString!)
+        let asset = AVAsset(url: url!)
+        let playerItem = AVPlayerItem(asset: asset)
+        return playerItem
+    }
+    
+    func playbackSliderInit(){
+        let duration: CMTime = player.currentItem!.asset.duration
+        let seconds: Float64 = CMTimeGetSeconds(duration)
+        playbackSlider.maximumValue = Float(seconds)
+        playbackSlider.isContinuous = true
+        playbackSlider.tintColor = UIColor.blue
+        playbackSlider.addTarget(self, action: #selector(SermonTableViewController.playbackSliderValueChanged(_:)), for: .valueChanged)
     }
 	
-	func trackAudio() {
-		var currentTime = player.currentTime
-		// show current time in UI
-		var duration = player.currentItem.asset.duration
-		var normalizedTime = Float(player.currentTime / player.duration)	//player.currentItem.asset.duration
-		progressView.value = normalizedTime
-		
-		let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
-		dict[sermonPlaying.id] = currentTime
-		UserDefaults.standard.set(dict, forKey: "lastPlayProgress")
-	}
+    func playbackSliderValueChanged(_ playbackSlider:UISlider) {
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(seconds, 1)
+        player.seek(to: targetTime)
+        player.play()
+    }
+    
+    func setTotalTime(){
+        let totalTimeSeconds: Float64 = CMTimeGetSeconds(player.currentItem!.asset.duration)
+        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(totalTimeSeconds))
+        self.totalTime.text = "\(h):\(m):\(s)"
+    }
+	
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func trackAudio() {
+        let currentTime = player.currentTime
+        let currentSeconds: Float64 = CMTimeGetSeconds(currentTime())
+        playbackSlider.value = Float(currentSeconds)
+        
+        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(currentSeconds))
+        self.currentTime.text = "\(h):\(m):\(s)"        
+
+//        let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
+//        dict[sermonPlaying.id] = currentTime
+//        UserDefaults.standard.set(dict, forKey: "lastPlayProgress")
+    }
     
     @IBAction func like(_ sender: Any) {
         let button = sender as! UIButton
@@ -411,6 +416,11 @@ func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
 
 
 func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ sermons: [Sermon]) -> ()){
+    
+    if username == nil || username == "" {
+        let sermons = [Sermon]()
+        completion(sermons)
+    }
     
     var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?subscribedByUsername="
     urlStr = urlStr + username!
