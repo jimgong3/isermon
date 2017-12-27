@@ -254,7 +254,7 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
   logger.info("urlLocal: " + urlLocal);
 
-  fs.rename(oldpath, filepathLocal, function (err) {
+  fs.rename(oldpath, 'http/'+filepathLocal, function (err) {
     if (err) throw err;
     dbInsert(db, title, description, urlLocal, uploadUsername);
     callback("success");
