@@ -280,7 +280,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
 		let totalTimeSeconds: Float64 = CMTimeGetSeconds(player.currentItem!.asset.duration)
         let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(totalTimeSeconds))
-        self.totalTime.text = "\(h):\(m):\(s)"
+		if h==0{
+			self.totalTime.text = "\(m):\(s)"
+		} else {
+			self.totalTime.text = "\(h):\(m):\(s)"
+		}
     }
 	
     func playbackSliderValueChanged(_ playbackSlider:UISlider) {
@@ -306,7 +310,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         playbackSlider.value = Float(currentSeconds)
         
         let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(currentSeconds))
-        self.currentTime.text = "\(h):\(m):\(s)"
+		if h==0 {
+			self.currentTime.text = "\(m):\(s)"
+		} else {
+			self.currentTime.text = "\(h):\(m):\(s)"
+		}
 
         lastPlayProgress[sermonPlaying.id] = currentTime
         UserDefaults.standard.set(lastPlayProgress, forKey: "lastPlayProgress")
