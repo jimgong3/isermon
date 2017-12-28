@@ -26,7 +26,7 @@
                                 <rect key="frame" x="16" y="74" width="343" height="469.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="FsE-as-Wib" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="FsE-as-Wib" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FsE-as-Wib" id="RWY-SM-ts8">
@@ -269,7 +269,7 @@
                                 <rect key="frame" x="16" y="186.5" width="343" height="421.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscribedUserTableViewCell" id="E2h-NH-oMj" customClass="SubscribedUserTableViewCell" customModule="isermon" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscribedUserTableViewCell" id="E2h-NH-oMj" customClass="SubscribedUserTableViewCell" customModule="isermon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E2h-NH-oMj" id="QRf-kh-ccC">
@@ -388,7 +388,7 @@
                                 <rect key="frame" x="16" y="74" width="343" height="469"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="yb1-MH-Gzs" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="yb1-MH-Gzs" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yb1-MH-Gzs" id="7ch-qD-Gdc">
@@ -591,7 +591,7 @@
                                 <rect key="frame" x="16" y="74" width="343" height="469.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="s79-Va-r5g" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="s79-Va-r5g" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s79-Va-r5g" id="p86-tY-qeq">
@@ -793,22 +793,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6F3-EZ-tTf">
-                                <rect key="frame" x="16" y="74" width="343" height="30"/>
+                                <rect key="frame" x="16" y="74" width="343" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用戶名  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ei2-rz-sG4">
-                                        <rect key="frame" x="0.0" y="0.0" width="54" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="54" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9r5-AJ-3yg">
-                                        <rect key="frame" x="54" y="0.0" width="204" height="30"/>
+                                        <rect key="frame" x="54" y="0.0" width="204" height="0.0"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3BA-j0-C3x">
-                                        <rect key="frame" x="258" y="0.0" width="85" height="30"/>
+                                        <rect key="frame" x="258" y="0.0" width="85" height="0.0"/>
                                         <state key="normal" title="  登入／註冊"/>
                                         <connections>
                                             <segue destination="XY6-vZ-bzd" kind="show" id="qGU-nk-Ef7"/>
@@ -817,10 +817,13 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-Pu-pXf">
-                                <rect key="frame" x="16" y="124" width="343" height="157"/>
+                                <rect key="frame" x="16" y="94" width="343" height="514"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMX-eZ-pB1">
-                                        <rect key="frame" x="0.0" y="0.0" width="111" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="4nG-OP-9NC"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="我上傳的講道"/>
                                         <connections>
@@ -828,10 +831,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XE8-Ik-bkG">
-                                        <rect key="frame" x="0.0" y="44" width="81" height="25"/>
+                                        <rect key="frame" x="0.0" y="40" width="81" height="30"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES"/>
                                         </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="dRM-Nm-1bN"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="  現在上傳" image="upload">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -841,7 +847,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cd5-RD-YIj">
-                                        <rect key="frame" x="0.0" y="79" width="74" height="34"/>
+                                        <rect key="frame" x="0.0" y="80" width="74" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="CYR-CR-3MT"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="我的收藏"/>
                                         <connections>
@@ -849,14 +858,38 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Z-ml-kEJ">
-                                        <rect key="frame" x="0.0" y="123" width="74" height="34"/>
+                                        <rect key="frame" x="0.0" y="120" width="74" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="sac-k7-PVc"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="我的訂閱"/>
                                         <connections>
                                             <segue destination="aUb-yJ-UFq" kind="show" id="cKJ-H6-0cN"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tSZ-9b-OBB">
+                                        <rect key="frame" x="0.0" y="160" width="343" height="304"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="版權聲明：本平台提供的所有講道資源均來自網絡，版權屬相關教會或講員所有。如果認為本平台侵犯了您的版權，請電郵至isermonhk@gmail.com告知，我們會立即刪除。" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M4S-IN-IQQ">
+                                        <rect key="frame" x="0.0" y="474" width="343" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="QSf-TE-moj"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="M4S-IN-IQQ" firstAttribute="trailing" secondItem="e8Z-Pu-pXf" secondAttribute="trailingMargin" id="7I6-wN-AiQ"/>
+                                    <constraint firstItem="M4S-IN-IQQ" firstAttribute="leading" secondItem="e8Z-Pu-pXf" secondAttribute="leadingMargin" id="dbY-Kl-Udi"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -864,6 +897,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="e8Z-Pu-pXf" secondAttribute="trailing" id="5BL-qf-K23"/>
                             <constraint firstItem="6F3-EZ-tTf" firstAttribute="leading" secondItem="h8X-oI-Ile" secondAttribute="leadingMargin" id="AU2-oe-c02"/>
                             <constraint firstItem="6F3-EZ-tTf" firstAttribute="top" secondItem="62v-gQ-R5C" secondAttribute="bottom" constant="10" id="GPx-eU-evJ"/>
+                            <constraint firstItem="pcF-mW-YVT" firstAttribute="top" secondItem="e8Z-Pu-pXf" secondAttribute="bottom" constant="10" id="Niz-1R-yBl"/>
                             <constraint firstItem="e8Z-Pu-pXf" firstAttribute="top" secondItem="6F3-EZ-tTf" secondAttribute="bottom" constant="20" id="OAo-zX-1JB"/>
                             <constraint firstItem="e8Z-Pu-pXf" firstAttribute="leading" secondItem="h8X-oI-Ile" secondAttribute="leadingMargin" id="XJ7-pq-1fy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6F3-EZ-tTf" secondAttribute="trailing" id="k9R-zx-8n2"/>
@@ -876,7 +910,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAa-wu-BOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2716" y="1300"/>
+            <point key="canvasLocation" x="2716" y="1299.400299850075"/>
         </scene>
         <!--登入／註冊-->
         <scene sceneID="9rh-lE-01o">
