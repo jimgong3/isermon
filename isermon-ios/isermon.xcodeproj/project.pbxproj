@@ -113,7 +113,6 @@
 				BAB5084B1FE015DB009B7BCA /* ViewController.swift */,
 				BA15714E1FEFFB6900FE570E /* SermonHotTableViewController.swift */,
 				BA3E849F1FF0A4F000C0BFA4 /* SermonSubscribedViewController.swift */,
-				BAB508551FE015DB009B7BCA /* Info.plist */,
 			);
 			path = misc;
 			sourceTree = "<group>";
@@ -143,6 +142,7 @@
 			children = (
 				BA3E84AA1FF408E100C0BFA4 /* misc */,
 				BA3E84A51FF13A0800C0BFA4 /* login */,
+				BAB508551FE015DB009B7BCA /* Info.plist */,
 				BAB5084D1FE015DB009B7BCA /* Main.storyboard */,
 				BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */,
 				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
