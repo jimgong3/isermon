@@ -56,7 +56,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             })
         }
 		
-		lastPlayProgress = UserDefaults.standard.string(forKey: "lastPlayProgress")
+		lastPlayProgress = UserDefaults.standard.dictionary(forKey: "lastPlayProgress")
 		
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -172,7 +172,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         // Pass the selected object to the new view controller.
     }
     */
-
+	
     @IBAction func play(_ sender: Any) {
         print("tap play/pause...")
         
