@@ -31,9 +31,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var nowPlaying: UILabel!
     @IBOutlet weak var playCurrentButton: UIButton!
     
-	// @IBOutlet weak var progressView: UIProgressView!
-     var updater : CADisplayLink?
-	
+    var updater : CADisplayLink?
     @IBOutlet weak var playbackSlider: UISlider!
     @IBOutlet weak var currentTime: UILabel!
     @IBOutlet weak var totalTime: UILabel!
@@ -46,7 +44,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
         username = UserDefaults.standard.string(forKey: "username")
         if username != nil && username != "" {
-            print("get username: \(String(describing: username))")
+            print("returning user: \(String(describing: username))")
             Me.sharedInstance.username = username
             isermon.getLikelist(username: username!, completion: {(sermon_ids: Set<String>) -> () in
                 Me.sharedInstance.liked_sermon_ids = sermon_ids
@@ -56,6 +54,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             })
         }
 		
+        // Register the table view cell class and its reuse id
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        
+        // This view controller itself will provide the delegate methods and row data for the table view.
+        tableView.delegate = self
+        tableView.dataSource = self
+		
         if selectedTabIndex == 0 {  // Latest
             loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
@@ -63,8 +68,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                     self.tableView.reloadData()
                 }
             })
-        }
-        else if selectedTabIndex == 1 { // Hot
+        } else if selectedTabIndex == 1 { // Hot
             loadHotSermons2(completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
                 DispatchQueue.main.async{
@@ -79,19 +83,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 }
             })
         }
-        
-        // Register the table view cell class and its reuse id
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        
-        // This view controller itself will provide the delegate methods and row data for the table view.
-        tableView.delegate = self
-        tableView.dataSource = self
        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-            print("Playback OK")
             try AVAudioSession.sharedInstance().setActive(true)
-            print("Session is Active")
         } catch {
             print(error)
         }
@@ -124,29 +119,32 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         
         cell.listen.setTitle("  " + (sermon.num_listen?.description)!, for: .normal)
         
-        let liked_sermon_ids = Me.sharedInstance.liked_sermon_ids
         cell.like.tag = indexPath.row
-        if liked_sermon_ids != nil && liked_sermon_ids!.contains(sermon.id!) {
-            if let image = UIImage(named: "liked") {
-                cell.like.setImage(image, for: UIControlState.normal)
-            }
+        if Me.sharedInstance.liked_sermon_ids != nil && Me.sharedInstance.liked_sermon_ids!.contains(sermon.id!) {
+//            if let image = UIImage(named: "liked") {
+//               cell.like.setImage(image, for: UIControlState.normal)
+//            }
+			cell.like.image = UIImage(named: "liked")
         } else {
-            if let image = UIImage(named: "like") {
-                cell.like.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "like") {
+//                cell.like.setImage(image, for: UIControlState.normal)
+//            }
+			cell.like.image = UIImage(named: "like")
         }
         cell.like.setTitle("  " + (sermon.num_like?.description)!, for: .normal)
         
         let bookmarked_sermon_ids = Me.sharedInstance.bookmarked_sermon_ids
         cell.bookmark.tag = indexPath.row
         if bookmarked_sermon_ids != nil && bookmarked_sermon_ids!.contains(sermon.id!) {
-            if let image = UIImage(named: "bookmarked") {
-                cell.bookmark.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "bookmarked") {
+//                cell.bookmark.setImage(image, for: UIControlState.normal)
+//            }
+			cell.like.image = UIImage(named: "bookmarked")
         } else {
-            if let image = UIImage(named: "bookmark") {
-                cell.bookmark.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "bookmark") {
+//                cell.bookmark.setImage(image, for: UIControlState.normal)
+//            }
+			cell.like.image = UIImage(named: "bookmark")
         }
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
 
@@ -172,14 +170,16 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     */
 
     @IBAction func play(_ sender: Any) {
-        print("playing")
+        print("tap play/pause...")
         
         let button = sender as! UIButton
         if button.titleLabel?.text == "PLAY" {
-			print("tap to play...")
-            if let image = UIImage(named: "stop") {
-                playCurrentButton.setImage(image, for: UIControlState.normal)
-            }
+			print("tap play...")
+			button.setTitle("PAUSE", for: .normal)
+//            if let image = UIImage(named: "stop") {
+//                playCurrentButton.setImage(image, for: UIControlState.normal)
+//            }
+			playCurrentButton.image = UIImage(named: "stop")
 
             let index = (sender as! UIButton).tag
             sermonPlaying = sermons[index]
@@ -191,56 +191,67 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
             if player.currentItem == nil {
                 print("play a new audio...")				
-                button.setTitle("PAUSE", for: .normal)
+//                button.setTitle("PAUSE", for: .normal)
                 lastPlay = button
 
 				// let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
 				// let lastPlayTime = dict[sermonPlaying.id]
 				// player.seek(to: lastPlayTime)
 				
-                player = AVPlayer(playerItem:playerItem)
-                player.rate = 1.0;
-                player.play()
-				
-                playbackSliderInit()
-                setTotalTime()
-
-                addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
-                    print("result: \(result)")
-                })
+//                player = AVPlayer(playerItem:playerItem)
+//                player.rate = 1.0;
+//                player.play()
+//                playbackSliderInit()
+//                setTotalTime()
+//                addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
+//                    print("result: \(result)")
+//                })
+				playItem(playerItem: playerItem)
             } else {
                 let url2 = ((player.currentItem?.asset) as? AVURLAsset)?.url
                 if (playerItem.asset as? AVURLAsset)?.url == url2 {
                     print("continue to play an audio...")
                     player.play()
-                    button.setTitle("PAUSE", for: .normal)
+//                    button.setTitle("PAUSE", for: .normal)
                 } else {
                     print("switch to play another audio")
-                    button.setTitle("PAUSE", for: .normal)
+//                    button.setTitle("PAUSE", for: .normal)
                     lastPlay?.setTitle("PLAY", for: .normal)
                     lastPlay = button
 
-                    player = AVPlayer(playerItem:playerItem)
-                    player.rate = 1.0;
-                    player.play()
-                    
-                    playbackSliderInit()
-                    setTotalTime()
-                    
-                    addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
-                        print("result: \(result)")
-                    })
+//                    player = AVPlayer(playerItem:playerItem)
+//                    player.rate = 1.0;
+//                    player.play()
+//                    playbackSliderInit()
+//                    setTotalTime()
+//                    addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
+//                        print("result: \(result)")
+//                    })
+					playItem(playerItem: playerItem)
                 }
             }
         } else {
             print("tap to pause...")
             player.pause()
             button.setTitle("PLAY", for: .normal)
-            if let image = UIImage(named: "play") {
-                playCurrentButton.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "play") {
+//                playCurrentButton.setImage(image, for: UIControlState.normal)
+//            }
+			playCurrentButton.image = UIImage(named: "play")
         }
     }
+	
+	func playItem(playerItem: AVPlayerItem){
+		player = AVPlayer(playerItem:playerItem)
+		player.rate = 1.0;
+		player.play()
+		
+		playbackSliderInit()
+//        setTotalTime()
+        addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
+			print("result: \(result)")
+        })
+	}
     
     func playerItemInit() -> AVPlayerItem {
         let urlString = sermonPlaying?.urlLocal
@@ -260,6 +271,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         playbackSlider.addTarget(self, action: #selector(SermonTableViewController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
         nowPlaying.text = sermonPlaying?.title
+		
+		let totalTimeSeconds: Float64 = CMTimeGetSeconds(player.currentItem!.asset.duration)
+        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(totalTimeSeconds))
+        self.totalTime.text = "\(h):\(m):\(s)"
     }
 	
     func playbackSliderValueChanged(_ playbackSlider:UISlider) {
@@ -269,11 +284,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         //player.play()
     }
     
-    func setTotalTime(){
-        let totalTimeSeconds: Float64 = CMTimeGetSeconds(player.currentItem!.asset.duration)
-        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(totalTimeSeconds))
-        self.totalTime.text = "\(h):\(m):\(s)"
-    }
+//    func setTotalTime(){
+//        let totalTimeSeconds: Float64 = CMTimeGetSeconds(player.currentItem!.asset.duration)
+//        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(totalTimeSeconds))
+//        self.totalTime.text = "\(h):\(m):\(s)"
+//    }
 	
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
@@ -297,17 +312,19 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if player.rate == 1.0 { //was playing - to stop
             player.pause()
             lastPlay?.setTitle("PLAY", for: .normal)
-            if let image = UIImage(named: "play") {
-                button.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "play") {
+//                button.setImage(image, for: UIControlState.normal)
+//            }
+			button.image = UIImage(named: "play")
         } else {    //was stop - try to start
             if player.currentItem != nil {
                 player.rate = 1.0
                 player.play()
                 lastPlay?.setTitle("PAUSE", for: .normal)
-                if let image = UIImage(named: "stop") {
-                    button.setImage(image, for: UIControlState.normal)
-                }
+//                if let image = UIImage(named: "stop") {
+//                    button.setImage(image, for: UIControlState.normal)
+//                }
+				button.image = UIImage(named: "stop")
             }
         }
     }
@@ -316,9 +333,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         if button.currentImage == UIImage(named: "liked") {
             print("tap to un-like")
-            if let image = UIImage(named: "like") {
-                button.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "like") {
+//                button.setImage(image, for: UIControlState.normal)
+//            }
+			button.image = UIImage(named: "like")
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -328,9 +346,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             }
         } else {
             print("tap to like...")
-            if let image = UIImage(named: "liked") {
-                button.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "liked") {
+//                button.setImage(image, for: UIControlState.normal)
+//            }
+			button.image = UIImage(named: "liked")
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -345,9 +364,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         if button.currentImage == UIImage(named: "bookmarked") {
             print("tap to un-bookmark")
-            if let image = UIImage(named: "bookmark") {
-                button.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "bookmark") {
+//                button.setImage(image, for: UIControlState.normal)
+//            }
+			button.image = UIImage(named: "bookmark")
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -357,9 +377,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             }
         } else {
             print("tap to bookmark...")
-            if let image = UIImage(named: "bookmarked") {
-                button.setImage(image, for: UIControlState.normal)
-            }
+//            if let image = UIImage(named: "bookmarked") {
+//                button.setImage(image, for: UIControlState.normal)
+//            }
+			button.image = UIImage(named: "bookmarked")
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
@@ -408,7 +429,6 @@ func loadSermons(bookmarkedByUsername: String? = nil,
     }
 }
 
-
 func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
     
     let urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
@@ -428,7 +448,7 @@ func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
                     }
                 }
                 else{
-                    print("Query>> oops, no book is found")
+                    print("Query>> oops, no sermons is found")
                 }
             }
             print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
@@ -463,7 +483,7 @@ func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ se
                     }
                 }
                 else{
-                    print("Query>> oops, no book is found")
+                    print("Query>> oops, no sermon is found")
                 }
             }
             print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
@@ -566,9 +586,4 @@ func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: St
         }
     }
 }
-
-
-
-
-
 
