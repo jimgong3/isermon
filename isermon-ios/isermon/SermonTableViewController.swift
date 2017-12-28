@@ -35,6 +35,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var playbackSlider: UISlider!
     @IBOutlet weak var currentTime: UILabel!
     @IBOutlet weak var totalTime: UILabel!
+	
+	var lastPlayProgress: [String, CMTime] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +55,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 Me.sharedInstance.bookmarked_sermon_ids = sermon_ids
             })
         }
+		
+		lastPlayProgress = UserDefaults.standard.string(forKey: "lastPlayProgress")
 		
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -193,11 +197,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 print("play a new audio...")				
 //                button.setTitle("PAUSE", for: .normal)
                 lastPlay = button
-
-				// let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
-				// let lastPlayTime = dict[sermonPlaying.id]
-				// player.seek(to: lastPlayTime)
-				
+	
 //                player = AVPlayer(playerItem:playerItem)
 //                player.rate = 1.0;
 //                player.play()
@@ -244,6 +244,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	func playItem(playerItem: AVPlayerItem){
 		player = AVPlayer(playerItem:playerItem)
 		player.rate = 1.0;
+		
+		let lastPlayTime = lastPlayProgress[sermonPlaying.id]
+		if lastPlayTime != nil {
+			player.seek(to: lastPlayTime)
+		}
+				
 		player.play()
 		
 		playbackSliderInit()
@@ -302,9 +308,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(currentSeconds))
         self.currentTime.text = "\(h):\(m):\(s)"
 
-//        let dict = UserDefaults.standard.string(forKey: "lastPlayProgress")
-//        dict[sermonPlaying.id] = currentTime
-//        UserDefaults.standard.set(dict, forKey: "lastPlayProgress")
+        lastPlayProgress[sermonPlaying.id] = currentTime
+        UserDefaults.standard.set(lastPlayProgress, forKey: "lastPlayProgress")
     }
     
     @IBAction func tapPlayCurrent(_ sender: Any) {
