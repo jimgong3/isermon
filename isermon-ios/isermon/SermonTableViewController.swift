@@ -67,7 +67,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         tableView.delegate = self
         tableView.dataSource = self
 		
-        if selectedTabIndex == 0 {  // Latest
+        if selectedTabIndex == 0 || selectedTabIndex == 3 {  // Latest
             loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
                 DispatchQueue.main.async{
@@ -170,7 +170,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if button.titleLabel?.text == "PLAY" {
 			print("tap play...")
 			button.setTitle("PAUSE", for: .normal)
-            playCurrentButton.setImage(UIImage(named: "stop"), for: .normal)
+            playCurrentButton.setImage(UIImage(named: "pause"), for: .normal)
 
             let index = (sender as! UIButton).tag
             sermonPlaying = sermons[index]
@@ -323,19 +323,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if player.rate == 1.0 { //was playing - to stop
             player.pause()
             lastPlay?.setTitle("PLAY", for: .normal)
-//            if let image = UIImage(named: "play") {
-//                button.setImage(image, for: UIControlState.normal)
-//            }
             button.setImage(UIImage(named: "play"), for: .normal)
         } else {    //was stop - try to start
             if player.currentItem != nil {
                 player.rate = 1.0
                 player.play()
                 lastPlay?.setTitle("PAUSE", for: .normal)
-//                if let image = UIImage(named: "stop") {
-//                    button.setImage(image, for: UIControlState.normal)
-//                }
-                button.setImage(UIImage(named: "stop"), for: .normal)
+                button.setImage(UIImage(named: "pause"), for: .normal)
             }
         }
     }
