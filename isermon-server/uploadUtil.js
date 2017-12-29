@@ -130,10 +130,10 @@ exports.getUpload = function (req, res) {
 
   res.write('從本地選擇講道錄音MP3文件: <br>');
   res.write('<input type="file" name="filetoupload" accept="audio/mp3"><br>');
-  res.write('或者，指定講道錄音MP3下載鏈接: <br>');
-  res.write('<input type="text" name="url" placeholder="下載鏈接URL" size=40><br><br>');
+  res.write('或者，指定講道錄音MP3下載鏈接URL: <br>');
+  res.write('<input type="text" name="url" placeholder="e.g. http://wwww.website.org/recording.mp3" size=40><br><br>');
 
-  res.write('用戶名和密碼 - 可留空並以訪客身份上傳: <br>');
+  res.write('用戶名和密碼 - 可留空以訪客身份上傳: <br>');
   res.write('<input type="text" name="username" placeholder="用戶名（可選）" size=40><br>');
   res.write('<input type="password" name="password" placeholder="密碼（可選）" size=40><br><br>');
 
@@ -165,19 +165,12 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
       if (url != null && url != "") {
         uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, function(result){
           logger.info("callback from uploadFromUrl, result: " + result);
-          if(result == "success") {
-            callback("Upload success.");
-          } else {
-            callback("Upload failure, invalid url: " + url);
-          }
+          callback(result);
         });
       } else if (file.name != null && file.name != ""){
           uploadFromLocal(file, db, title, description2, uploadUsername,hostHttp, portHttp, function(result){
-            if(result == "success"){
-              callback("Upload success.");
-            } else {
-              callback("Upload failure, cannot read file: " + file.name);
-            }
+			logger.info("callback from uploadFromLocal, result: " + result);
+			callback(result);
           });
       } else {
           callback("Upload failure: either choose a local file or input valid URL.");
@@ -219,6 +212,11 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
   var basenameNew = randomeFilename + path.extname(basename);
   logger.info("basenameNew: " + basenameNew);
   
+  if (path.extname(basename) != ".mp3"){
+	  callback("Upload failure - currently only mp3 file format is supported");
+	  return;
+  }
+  
   var filename = Date.now() + "_" + basenameNew;
   // logger.info("filename: " + filename);
   var filepathLocal = "upload/" + filename;
@@ -233,11 +231,11 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
       // res.write('File upload success!');
       // res.end();
       dbInsert(db, title, description, urlLocal, uploadUsername);
-      callback("success");
+      callback("Upload success");
     });
 	request.on('error', function(err){
 		logger.error("error when download from url: " + err);
-		callback("upload failed, please check URL.");
+		callback("Upload failed, please check URL.");
 	});
   } else if (url.indexOf("https://") == 0) {
       var request = https.get(url, function(response) {
@@ -245,17 +243,17 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
         // res.write('File upload success!');
         // res.end();
         dbInsert(db, title, description, urlLocal, uploadUsername);
-        callback("success");
+        callback("Upload success");
       });
 	request.on('error', function(err){
 		logger.error("error when download from url: " + err);
-		callback("upload failed, please check URL.");
+		callback("Upload failed, please check URL.");
 	});
   } else {
      logger.error("uploadUtil>> invalid url");
      // res.write({"status": "upload failed, invalid url: " + url});
      // res.end();
-     callback("failure");
+     callback("Upload failure, invalid url: " + url);
   }
 }
 
@@ -279,7 +277,7 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   fs.rename(oldpath, 'http/'+filepathLocal, function (err) {
     if (err) throw err;
     dbInsert(db, title, description, urlLocal, uploadUsername);
-    callback("success");
+    callback("Upload success");
   });
 }
 
