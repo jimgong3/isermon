@@ -70,7 +70,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if bookmarkedByUsername != nil {
             self.title = "我的收藏"
         } else if uploadedByUsername != nil {
-            self.title = "我上傳的講道"
+            self.title = "我上傳的"
         }
 
         if selectedTabIndex == 0 || selectedTabIndex == 3 {  // Latest
@@ -473,6 +473,7 @@ func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ se
     if username == nil || username == "" {
         let sermons = [Sermon]()
         completion(sermons)
+        return
     }
     
     var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?subscribedByUsername="
