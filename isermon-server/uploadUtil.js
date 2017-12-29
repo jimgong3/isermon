@@ -217,7 +217,7 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
   var urlLocal = "http://" + hostHttp + ":" + portHttp + "/" + filepathLocal;
   logger.info("urlLocal: " + urlLocal);
 
-  var file = fs.createWriteStream(filepathLocal);
+  var file = fs.createWriteStream("http/"+filepathLocal);
   if (url.indexOf("http://") == 0) {
     var request = http.get(url, function(response) {
       response.pipe(file);
