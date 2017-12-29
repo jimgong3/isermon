@@ -119,7 +119,7 @@ exports.getUpload = function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
   // res.writeHead(200, {'Content-Type': 'application/x-www-form-urlencoded'});
   res.write('<form action="fileupload" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
-  res.write('上傳講道錄音<br><br>');
+  res.write('<h1>上傳講道錄音</h1>');
 
   res.write('講題: <br>');
   res.write('<input type="text" name="title" placeholder="講道題目" size=40><br><br>');

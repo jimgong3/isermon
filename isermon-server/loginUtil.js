@@ -25,7 +25,7 @@ exports.getRegister = function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('<form action="registerByForm" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
 
-  res.write('New User Registration<br><br>');
+  res.write('<h1>New User Registration</h1>');
   res.write('Username: <br>');
   res.write('<input type="text" name="username" placeholder="Username" size=40><br><br>');
   res.write('Password: <br>');
