@@ -8,6 +8,12 @@ var logger = new (winston.Logger)({
 
 var mongo = require('mongodb');
 var translator = require('./translator');
+var formidable = require('formidable');
+var path = require('path');
+var fs = require('fs');
+var urltool = require('url');
+
+var iSermonConfig = require('./iSermonConfig');
 
 // find sermons from server, parameters (all optional):
 //    bookmarkedBy: return sermons bookmarked by a specific user
@@ -181,14 +187,71 @@ exports.getDelete = function (req, res) {
 
   res.write('<h1>講道錄音下架</h1>');
   res.write('講道ID: <br>');
-  res.write('<input type="text" name="sermonid" placeholder="" size=40><br>');
+  res.write('<input type="text" name="sermonId" placeholder="" size=40><br>');
   res.write('<br>');
   res.write('管理員密碼: <br>');
-  res.write('<input type="password" name="password" placeholder="" size=40><br><br>');
+  res.write('<input type="password" name="adminPassword" placeholder="" size=40><br><br>');
 
   res.write('<input type="submit">');
   res.write('</form>');
 
   return res.end();
+}
+
+exports.deleteSermon = function(req, res, db, callback) {
+  logger.info("sermonsUtil>> deleteSermon start...");
+
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+	var sermonId = fields.sermonId;
+	logger.info("sermonId: " + sermonId);
+	var adminPassword = fields.adminPassword;
+	logger.info("adminPassword: " + adminPassword);
+	
+	if (adminPassword != iSermonConfig.adminPassword){
+		logger.info("delete failure - incorrect admin password");
+		callback("Delete failure - incorrect admin password");
+		return;
+	}
+	
+	if (!(/[a-f0-9]{24}/.test(req.params.id))) {
+		logger.info("delete failure - invalid sermon id");
+		callback("Delete failure - invalid sermon id");
+		return;
+	}
+	
+	var oid = new mongo.ObjectID(sermonId);
+	var query = {_id: oid};
+	logger.info("query: " + JSON.stringify(query));
+
+	var collection = db.collection('sermons');
+	collection.find(query).toArray(function(err, results2){
+		if(results2.length == 0){
+			logger.info("Delete failure, sermonId not found");
+			callback("Delete failure, sermonId not found");
+		} else {
+			var json = results2[0];
+			var urlLocal = json["urlLocal"];
+			logger.info("urlLocal: " + urlLocal);
+			
+			collection.deleteOne(query, function(err, results){
+				if(err) throw err;
+				logger.info("1 sermon deleted.")
+				callback("Delete success.")
+				
+				//delete file on disk 
+				var basename = path.basename(urltool.parse(urlLocal).pathname);
+				logger.info("basename: " + basename);
+				var localPath = "http/upload/" + basename;
+				logger.info("localPath: " + localPath);
+				fs.unlink(localPath, function(err){
+					if(err) throw err;
+					logger.info("local file deleted from disk");
+				});
+			});
+		}
+	});
+	
+  });
 }
 

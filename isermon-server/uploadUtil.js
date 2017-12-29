@@ -79,6 +79,7 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   } else {
 	 logger.error("uploadUtil>> invalid url");
 	 callback({"status": "upload failed, invalid url: " + url});
+	 //todo: delete the empty file 
   }
 
   var sermonJson = {};

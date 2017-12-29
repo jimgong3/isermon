@@ -200,3 +200,13 @@ app.get('/delete', function (req, res) {
   logger.info("index>> GET /delete");
   sermonsUtil.getDelete(req, res);
 })
+
+app.post('/deleteSermon', function (req, res) {
+  logger.info("index>> POST /deleteSermon");
+  sermonsUtil.deleteSermon(req, res, db, function(result){
+    res.write(result, function(err){
+      res.end();
+    });
+  });
+})
+
