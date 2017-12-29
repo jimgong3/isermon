@@ -117,6 +117,17 @@
 			path = misc;
 			sourceTree = "<group>";
 		};
+		BA41185B1FF6772600ED75CA /* my */ = {
+			isa = PBXGroup;
+			children = (
+				BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */,
+				BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */,
+				BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */,
+				BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */,
+			);
+			path = my;
+			sourceTree = "<group>";
+		};
 		BAB5083D1FE015DB009B7BCA = {
 			isa = PBXGroup;
 			children = (
@@ -140,22 +151,19 @@
 		BAB508481FE015DB009B7BCA /* isermon */ = {
 			isa = PBXGroup;
 			children = (
-				BA3E84AA1FF408E100C0BFA4 /* misc */,
 				BA3E84A51FF13A0800C0BFA4 /* login */,
-				BAB508551FE015DB009B7BCA /* Info.plist */,
+				BA41185B1FF6772600ED75CA /* my */,
+				BA3E84AA1FF408E100C0BFA4 /* misc */,
 				BAB5084D1FE015DB009B7BCA /* Main.storyboard */,
-				BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */,
-				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
-				BAB5086D1FE01DBD009B7BCA /* Sermon.swift */,
-				BAB508501FE015DB009B7BCA /* Assets.xcassets */,
 				BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */,
-				BAB5086F1FE17BBE009B7BCA /* UploadViewController.swift */,
-				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
-				BA41CEE71FEC0A0400FAC81A /* MyViewController.swift */,
-				BA3E84A11FF11A7E00C0BFA4 /* MySubscriptionViewController.swift */,
-				BA3E84A31FF1281600C0BFA4 /* SubscribedUserTableViewCell.swift */,
-				BA3E84A61FF1DC0400C0BFA4 /* Global.swift */,
+				BAB508501FE015DB009B7BCA /* Assets.xcassets */,
+				BAB508551FE015DB009B7BCA /* Info.plist */,
 				BA3E84A81FF3D2BE00C0BFA4 /* MyTabBarController.swift */,
+				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
+				BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */,
+				BAB5086D1FE01DBD009B7BCA /* Sermon.swift */,
+				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
+				BA3E84A61FF1DC0400C0BFA4 /* Global.swift */,
 			);
 			path = isermon;
 			sourceTree = "<group>";

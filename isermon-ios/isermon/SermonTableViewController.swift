@@ -66,7 +66,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
-		
+        
+        if bookmarkedByUsername != nil {
+            self.title = "我的收藏"
+        } else if uploadedByUsername != nil {
+            self.title = "我上傳的講道"
+        }
+
         if selectedTabIndex == 0 || selectedTabIndex == 3 {  // Latest
             loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons

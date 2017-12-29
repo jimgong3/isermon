@@ -875,7 +875,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="版權聲明：本平台提供的所有講道資源均來自網絡，版權屬相關教會或講員所有。如果認為本平台侵犯了您的版權，請電郵至isermonhk@gmail.com告知，我們會立即刪除。" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M4S-IN-IQQ">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="版權聲明：本平台提供的所有講道資源均來自網絡，版權屬相關教會或講員所有。如果認為本平台侵犯了您的版權，請電郵至isermonhk@gmail.com告知，我們會立即刪除。" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M4S-IN-IQQ">
                                         <rect key="frame" x="0.0" y="474" width="343" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
