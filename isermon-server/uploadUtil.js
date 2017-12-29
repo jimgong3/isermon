@@ -13,6 +13,8 @@ var http = require('http');
 var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
+var randomstring = require('randomstring');
+var path = require('path');
 
 var iSermonConfig = require('./iSermonConfig');
 var translator = require('./translator');
@@ -157,7 +159,9 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
 
     getUploadUsername(username, password, db, function(uploadUsername){
       var url = fields.url;
+	  logger.info("url: " + url);
       var file = files.filetoupload;
+	  logger.info("file: " + file.name);
       if (url != null && url != "") {
         uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, function(result){
           logger.info("callback from uploadFromUrl, result: " + result);
@@ -210,7 +214,12 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
   logger.info("upload from URL: " + url);
   var basename = path.basename(urltool.parse(url).pathname);
   logger.info("basename: " + basename);
-  var filename = Date.now() + "_" + basename;
+  
+  var randomeFilename = randomstring.generate(7);
+  var basenameNew = randomeFilename + path.extname(basename);
+  logger.info("basenameNew: " + basenameNew);
+  
+  var filename = Date.now() + "_" + basenameNew;
   // logger.info("filename: " + filename);
   var filepathLocal = "upload/" + filename;
   logger.info("filepathLocal: " + filepathLocal);
@@ -226,6 +235,10 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
       dbInsert(db, title, description, urlLocal, uploadUsername);
       callback("success");
     });
+	request.on('error', function(err){
+		logger.error("error when download from url: " + err);
+		callback("upload failed, please check URL.");
+	});
   } else if (url.indexOf("https://") == 0) {
       var request = https.get(url, function(response) {
         response.pipe(file);
@@ -234,6 +247,10 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
         dbInsert(db, title, description, urlLocal, uploadUsername);
         callback("success");
       });
+	request.on('error', function(err){
+		logger.error("error when download from url: " + err);
+		callback("upload failed, please check URL.");
+	});
   } else {
      logger.error("uploadUtil>> invalid url");
      // res.write({"status": "upload failed, invalid url: " + url});
@@ -247,7 +264,12 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   logger.info("upload from local, oldpath: " + oldpath);
   var basename = file.name;
   logger.info("basename: " + basename);
-  var filename = Date.now() + "_" + basename;
+  
+  var randomeFilename = randomstring.generate(7);
+  var basenameNew = randomeFilename + path.extname(basename);
+  logger.info("basenameNew: " + basenameNew);
+  
+  var filename = Date.now() + "_" + basenameNew;
   // logger.info("filename: " + filename);
   var filepathLocal = 'upload/' + filename;
   // logger.info("filepathLocal: " + filepathLocal);
@@ -295,17 +317,24 @@ function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername){
   var to = iSermonConfig.iSermonEmailAccount;
   var subject = "iSermon: New Sermon Uploaded";
   var text = "";
-  text += "Dear Admin, \n"
-  text += "\n"
-  text += "Below sermon has been added to server: \n"
-  text += "\n"
-  text += "title: " + title + "\n";
-  text += "description: " + description + "\n";
-  text += "urlLocal: " + urlLocal + "\n";
-  text += "uploadUsername: " + uploadUsername + "\n";
-  text += "\n"
+  text += "Dear Admin, \n";
+  text += "\n";
+  text += "Below sermon has been added to server: \n";
+  text += "\n";
+  text += "Title: " +  "\n";
+  text += title + "\n";
+  text += "\n";
+  text += "Description: " + "\n";
+  text += description + "\n";
+  text += "\n";
+  text += "URL: " + "\n";
+  text += urlLocal + "\n";
+  text += "\n";
+  text += "Uploaded By: " + "\n";
+  text += uploadUsername + "\n";
+  text += "\n";
   text += "Thank you. \n";
-  text += "\n"
+  text += "\n";
   text += "iSermon Team \n";
 
   var mailOptions = {
