@@ -173,3 +173,22 @@ exports.search = function(req, db, callback){
   });
 }
 
+exports.getDelete = function (req, res) {
+  logger.info("sermonsUtil>> getDelete start...");
+
+  res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+  res.write('<form action="deleteSermon" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
+
+  res.write('<h1>講道錄音下架</h1>');
+  res.write('講道ID: <br>');
+  res.write('<input type="text" name="sermonid" placeholder="" size=40><br>');
+  res.write('<br>');
+  res.write('管理員密碼: <br>');
+  res.write('<input type="password" name="password" placeholder="" size=40><br><br>');
+
+  res.write('<input type="submit">');
+  res.write('</form>');
+
+  return res.end();
+}
+

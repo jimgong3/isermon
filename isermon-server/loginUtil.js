@@ -22,16 +22,16 @@ var transporter = nodemailer.createTransport({
 exports.getRegister = function (req, res) {
   logger.info("loginUtil>> getRegister start...");
 
-  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
   res.write('<form action="registerByForm" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
 
-  res.write('<h1>New User Registration</h1>');
-  res.write('Username: <br>');
-  res.write('<input type="text" name="username" placeholder="Username" size=40><br><br>');
-  res.write('Password: <br>');
-  res.write('<input type="password" name="password" placeholder="Password" size=40><br><br>');
-  res.write('Email: <br>');
-  res.write('<input type="text" name="email" placeholder="Email (optional)" size=40><br><br>');
+  res.write('<h1>註冊新用戶</h1>');
+  res.write('用戶名: <br>');
+  res.write('<input type="text" name="username" placeholder="請輸入用戶名" size=40><br><br>');
+  res.write('密碼: <br>');
+  res.write('<input type="password" name="password" placeholder="請輸入密碼" size=40><br><br>');
+  res.write('電子郵件Email（可選）: <br>');
+  res.write('<input type="text" name="email" placeholder="Email可用作找回密碼" size=40><br><br>');
 
   res.write('<input type="submit">');
   res.write('</form>');

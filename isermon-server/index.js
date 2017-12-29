@@ -41,7 +41,16 @@ app.listen(port, function () {
 
 app.get('/', function (req, res) {
   logger.info("index>> GET /");
-  res.json({"name": "isermon", "vision": "connect people with sermons."});
+  
+  res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+  res.write('有耳可聽的，就應當聽！ 太 11:15 <br><br>');
+  res.write('Quick Links: <br>');
+  res.write('<a href="/register">Register</a> <br>');
+  res.write('<a href="/upload">Upload a Sermon</a> <br>');
+  res.write('<a href="/delete">Delete a Sermon</a> <br>');
+  res.write('<a href="/sermons?pretty">View Sermons</a> <br>');
+
+  return res.end();
 })
 
 //Obsolete, replaced by POST fileupload
@@ -187,3 +196,7 @@ app.get('/search', function (req, res) {
   });
 })
 
+app.get('/delete', function (req, res) {
+  logger.info("index>> GET /delete");
+  sermonsUtil.getDelete(req, res);
+})
