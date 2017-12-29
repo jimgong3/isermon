@@ -74,7 +74,7 @@ function querySermonsByBookmarks(bookmarkedByUsername, db, order, callback){
   collection.find(query).toArray(function(err, results){
     if (results.length == 0){
       logger.info("bookmark not exist for user: " + bookmarkedByUsername);
-      callback(result);
+      callback(results);
     } else {
       var bookmarkJson = results[0];
       var sermon_ids = bookmarkJson["sermon_ids"];
@@ -106,7 +106,7 @@ function querySermonsBySubscription(subscribedByUsername, db, order, callback){
   collection.find(query).toArray(function(err, results){
     if (results.length == 0){
       logger.info("subscription not exist for user: " + subscribedByUsername);
-      callback(result);
+      callback(results);
     } else {
       var json = results[0];
       var subscribe_usernames = json["subscribe_usernames"];
@@ -207,19 +207,19 @@ exports.deleteSermon = function(req, res, db, callback) {
 	logger.info("sermonId: " + sermonId);
 	var adminPassword = fields.adminPassword;
 	logger.info("adminPassword: " + adminPassword);
-	
+
 	if (adminPassword != iSermonConfig.adminPassword){
 		logger.info("delete failure - incorrect admin password");
 		callback("Delete failure - incorrect admin password");
 		return;
 	}
-	
+
 	if (!(/[a-f0-9]{24}/.test(req.params.id))) {
 		logger.info("delete failure - invalid sermon id");
 		callback("Delete failure - invalid sermon id");
 		return;
 	}
-	
+
 	var oid = new mongo.ObjectID(sermonId);
 	var query = {_id: oid};
 	logger.info("query: " + JSON.stringify(query));
@@ -233,13 +233,13 @@ exports.deleteSermon = function(req, res, db, callback) {
 			var json = results2[0];
 			var urlLocal = json["urlLocal"];
 			logger.info("urlLocal: " + urlLocal);
-			
+
 			collection.deleteOne(query, function(err, results){
 				if(err) throw err;
 				logger.info("1 sermon deleted.")
 				callback("Delete success.")
-				
-				//delete file on disk 
+
+				//delete file on disk
 				var basename = path.basename(urltool.parse(urlLocal).pathname);
 				logger.info("basename: " + basename);
 				var localPath = "http/upload/" + basename;
@@ -251,7 +251,6 @@ exports.deleteSermon = function(req, res, db, callback) {
 			});
 		}
 	});
-	
+
   });
 }
-
