@@ -100,6 +100,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         })
     }
+    
+    @IBAction func logout(_ sender: Any) {
+        UserDefaults.standard.set("", forKey: "username")
+        Me.sharedInstance.username = ""
+        
+        let alert = UIAlertController(title: "提示", message: "登出成功。", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 func login(username: String, password: String, completion: @escaping (_ result: String) -> ()){
