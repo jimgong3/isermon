@@ -341,12 +341,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     }
     
     @IBAction func like(_ sender: Any) {
+        if Me.sharedInstance.username == nil || Me.sharedInstance.username == "" {
+            let alert = UIAlertController(title: "提示", message: "需先登錄，才能發表您的看法。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         let button = sender as! UIButton
         if button.currentImage == UIImage(named: "liked") {
             print("tap to un-like")
-//            if let image = UIImage(named: "like") {
-//                button.setImage(image, for: UIControlState.normal)
-//            }
             button.setImage(UIImage(named: "like"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
@@ -357,9 +363,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             }
         } else {
             print("tap to like...")
-//            if let image = UIImage(named: "liked") {
-//                button.setImage(image, for: UIControlState.normal)
-//            }
             button.setImage(UIImage(named: "liked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
@@ -372,6 +375,15 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     }
     
     @IBAction func bookmark(_ sender: Any) {
+        if Me.sharedInstance.username == nil || Me.sharedInstance.username == "" {
+            let alert = UIAlertController(title: "提示", message: "需先登錄，才能收藏。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+
         let button = sender as! UIButton
         if button.currentImage == UIImage(named: "bookmarked") {
             print("tap to un-bookmark")
