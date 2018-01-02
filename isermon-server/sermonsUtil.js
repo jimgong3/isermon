@@ -150,6 +150,8 @@ exports.addSermonListenCount = function(req, db, callback){
   })
 }
 
+// search sermons, parameters (all optional):
+//    q: search keyword
 exports.search = function(req, db, callback){
   logger.info("sermonsUtil>> search start...");
   var collection = db.collection('sermons');

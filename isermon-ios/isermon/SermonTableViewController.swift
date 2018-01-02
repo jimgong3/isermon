@@ -12,6 +12,7 @@ import AVFoundation
 
 class SermonTableViewController: UIViewController, UITableViewDataSource, 
 									UITabBarControllerDelegate,
+									UISearchBarDelegate,
 									UITableViewDelegate {
     
     var username: String?
@@ -37,6 +38,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var totalTime: UILabel!
 	
     var lastPlayProgress = [String: Int64]()
+	
+	@IBOutlet weak var searchBar: UISearchBar!
+	var keyword: String?
+	var isTypingMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +71,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
+		searchBar.delegate = self
         
         if bookmarkedByUsername != nil {
             self.title = "我的收藏"
@@ -158,7 +164,41 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         // Dispose of any resources that can be recreated.
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        print("search button clicked...")
+        searchBar.resignFirstResponder()
+        
+        keyword = searchBar.text
+        print("search keyword: " + keyword!)
+        
+		loadSermons(keyword: keyword, completion: {(sermons: [Sermon]) -> () in
+            self.sermons = sermons
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
+        })
+    }
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("search bar text did change start...")
+        self.isTypingMode = true
+		
+        if searchBar.text == "" {    //tap "clear"
+            print("user tap clear...")
+            searchBar.resignFirstResponder()
+            searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
+            self.isSearchingMode = false
+            self.isTypingMode = false
 
+            loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
+                self.sermons = sermons
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            })
+        }
+    }
+	
     /*
     // MARK: - Navigation
 
@@ -188,38 +228,17 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
             if player.currentItem == nil {
                 print("play a new audio...")				
-//                button.setTitle("PAUSE", for: .normal)
                 lastPlay = button
-	
-//                player = AVPlayer(playerItem:playerItem)
-//                player.rate = 1.0;
-//                player.play()
-//                playbackSliderInit()
-//                setTotalTime()
-//                addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
-//                    print("result: \(result)")
-//                })
 				playItem(playerItem: playerItem)
             } else {
                 let url2 = ((player.currentItem?.asset) as? AVURLAsset)?.url
                 if (playerItem.asset as? AVURLAsset)?.url == url2 {
                     print("continue to play an audio...")
                     player.play()
-//                    button.setTitle("PAUSE", for: .normal)
                 } else {
                     print("switch to play another audio")
-//                    button.setTitle("PAUSE", for: .normal)
                     lastPlay?.setTitle("PLAY", for: .normal)
                     lastPlay = button
-
-//                    player = AVPlayer(playerItem:playerItem)
-//                    player.rate = 1.0;
-//                    player.play()
-//                    playbackSliderInit()
-//                    setTotalTime()
-//                    addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
-//                        print("result: \(result)")
-//                    })
 					playItem(playerItem: playerItem)
                 }
             }
@@ -244,7 +263,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		player.play()
 		
 		playbackSliderInit()
-//        setTotalTime()
         addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
 			print("result: \(result)")
         })
@@ -387,9 +405,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         if button.currentImage == UIImage(named: "bookmarked") {
             print("tap to un-bookmark")
-//            if let image = UIImage(named: "bookmark") {
-//                button.setImage(image, for: UIControlState.normal)
-//            }
             button.setImage(UIImage(named: "bookmark"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
@@ -400,9 +415,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             }
         } else {
             print("tap to bookmark...")
-//            if let image = UIImage(named: "bookmarked") {
-//                button.setImage(image, for: UIControlState.normal)
-//            }
             button.setImage(UIImage(named: "bookmarked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
@@ -417,6 +429,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
 func loadSermons(bookmarkedByUsername: String? = nil,
                  uploadedByUsername: String? = nil,
+				 keyword: String? = nil,
                  completion: @escaping (_ sermons: [Sermon]) -> ()){
     
     var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
@@ -426,10 +439,15 @@ func loadSermons(bookmarkedByUsername: String? = nil,
     } else if uploadedByUsername != nil {
         print("user tapped: my uploaded sermons")
         urlStr += "?uploadedBy=" + uploadedByUsername!
-    }
+    } else if keyword != nil {
+		print("search keyword: \(keyword)")
+		urlStr = "http://" + SERVER_IP + ":" + PORT + "/search?q=" + keyword
+	}
+	
+	print("loadSermons url: \(urlStr)")
     let url = URL(string: urlStr)
-    print("Query:>> url: ")
-    print(url!)
+//    print("Query:>> url: ")
+//    print(url!)
     
     Alamofire.request(url!).responseJSON { response in
         if let json = response.result.value {
