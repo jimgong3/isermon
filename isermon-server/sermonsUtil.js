@@ -181,6 +181,35 @@ exports.search = function(req, db, callback){
   });
 }
 
+exports.searchPost = function(req, db, callback){
+  logger.info("sermonsUtil>> search start...");
+  var collection = db.collection('sermons');
+  var condition = [];
+
+  var keyword = req.body.q;
+  if (keyword != null){
+    keyword = translator.translate2(keyword);
+    var regexStr = ".*" + keyword + ".*";
+	  condition.push({$or:[
+						{"title": {$regex: regexStr}},
+						{"description": {$regex: regexStr}}
+					]});
+  }
+
+  var query = {};
+  if (condition.length > 0)
+	   query = {$and: condition};
+     logger.info("query: " + JSON.stringify(query));
+
+  var order = {_id: -1};
+  logger.info("order: " + JSON.stringify(order));
+
+  collection.find(query).sort(order).toArray(function(err, results) {
+    logger.info("# of sermons: " + results.length);
+    callback(results);
+  });
+}
+
 exports.getDelete = function (req, res) {
   logger.info("sermonsUtil>> getDelete start...");
 

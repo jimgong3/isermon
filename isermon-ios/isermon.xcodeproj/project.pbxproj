@@ -158,12 +158,12 @@
 				BAB508521FE015DB009B7BCA /* LaunchScreen.storyboard */,
 				BAB508501FE015DB009B7BCA /* Assets.xcassets */,
 				BAB508551FE015DB009B7BCA /* Info.plist */,
-				BA3E84A81FF3D2BE00C0BFA4 /* MyTabBarController.swift */,
 				BAB5086B1FE01DA1009B7BCA /* SermonTableViewController.swift */,
 				BAB508691FE0188B009B7BCA /* SermonTableViewCell.swift */,
 				BAB5086D1FE01DBD009B7BCA /* Sermon.swift */,
 				BAB508711FE17F81009B7BCA /* iSermonConfig.swift */,
 				BA3E84A61FF1DC0400C0BFA4 /* Global.swift */,
+				BA3E84A81FF3D2BE00C0BFA4 /* MyTabBarController.swift */,
 			);
 			path = isermon;
 			sourceTree = "<group>";

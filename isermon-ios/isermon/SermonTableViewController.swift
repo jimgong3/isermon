@@ -176,7 +176,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         keyword = searchBar.text
         print("search keyword: " + keyword!)
         
-		loadSermons(keyword: keyword, completion: {(sermons: [Sermon]) -> () in
+        searchSermons(keyword: keyword!, completion: {(sermons: [Sermon]) -> () in
             self.sermons = sermons
             DispatchQueue.main.async{
                 self.tableView.reloadData()
@@ -192,7 +192,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             print("user tap clear...")
             searchBar.resignFirstResponder()
             searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
-            self.isSearchingMode = false
             self.isTypingMode = false
 
             loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
@@ -274,7 +273,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	}
     
     func playerItemInit() -> AVPlayerItem {
-        var urlString = downloadedSermons[sermonPlaying.id]
+        var urlString = downloadedSermons[(sermonPlaying?.id!)!]
 		if urlString == nil || urlString == "" {
 			urlString = sermonPlaying?.urlLocal
 		}		
@@ -439,7 +438,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         print("tap to download")      
         let sermon = sermons[button.tag]
-        downloadSermon(sermon: sermon, completion: {(result: String) -> () in
+        downloadSermon(sermon: sermon, downloadedSermons: downloadedSermons, completion: {(result: String) -> () in
             print("result: \(result)")
             button.setTitle("  ", for: .normal)
         })
@@ -450,7 +449,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
 func loadSermons(bookmarkedByUsername: String? = nil,
                  uploadedByUsername: String? = nil,
-				 keyword: String? = nil,
                  completion: @escaping (_ sermons: [Sermon]) -> ()){
     
     var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
@@ -460,10 +458,7 @@ func loadSermons(bookmarkedByUsername: String? = nil,
     } else if uploadedByUsername != nil {
         print("user tapped: my uploaded sermons")
         urlStr += "?uploadedBy=" + uploadedByUsername!
-    } else if keyword != nil {
-		print("search keyword: \(keyword)")
-		urlStr = "http://" + SERVER_IP + ":" + PORT + "/search?q=" + keyword
-	}
+    }
 	
 	print("loadSermons url: \(urlStr)")
     let url = URL(string: urlStr)
@@ -471,6 +466,37 @@ func loadSermons(bookmarkedByUsername: String? = nil,
 //    print(url!)
     
     Alamofire.request(url!).responseJSON { response in
+        if let json = response.result.value {
+            var sermons = [Sermon]()
+            if let array = json as? [Any] {
+                if array.count>0 {
+                    for i in 0...array.count-1 {
+                        let sermonJson = array[i] as? [String: Any]
+                        let s = Sermon(json: sermonJson!)
+                        sermons.append(s!)
+                    }
+                }
+                else{
+                    print("oops, no sermon is found")
+                }
+            }
+            print ("\(sermons.count)" + " sermons loaded, callback completion")
+            completion(sermons)
+        }
+    }
+}
+
+func searchSermons(keyword: String, completion: @escaping (_ sermons: [Sermon]) -> ()){
+    var urlStr: String?
+    urlStr = "http://" + SERVER_IP + ":" + PORT + "/search"
+    let url = URL(string: urlStr!)
+    print("Query>> url: \(url!)")
+    
+    let parameters: Parameters = [
+        "q": keyword
+    ]
+    
+    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
         if let json = response.result.value {
             var sermons = [Sermon]()
             if let array = json as? [Any] {
@@ -649,36 +675,36 @@ func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: St
     }
 }
 
-func downloadSermon(sermon: Sermon, completion: @escaping (_ result: String) -> ()){
+func downloadSermon(sermon: Sermon, downloadedSermons: [String: String], completion: @escaping (_ result: String) -> ()){
 
 	//test
 	viewLocalFiles()
 	
 	var sermonUrl = sermon.urlLocal
-	var basename = (sermonUrl as NSString).lastPathComponent
+    var basename = (sermonUrl as! NSString).lastPathComponent
     let url = URL(string: sermonUrl!)
     print("download sermon url: \(url!)")
     
-	var fileUrl: String?
+	var fileUrl: URL?
 	let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-		fileURL = documentsURL.appendingPathComponent(basename)
-		print("fileURL: \(fileURL)")
-		return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        fileUrl = documentsURL.appendingPathComponent(basename)
+        print("fileURL: \(fileUrl)")
+        return (fileUrl!, [.removePreviousFile, .createIntermediateDirectories])
 	}
 
-	Alamofire.download(url, to: destination)
+    Alamofire.download(url!, to: destination)
 		.downloadProgress{ progress in
 			print("Download Progress: \(progress.fractionCompleted)")
 		}
 		.response { response in
-		   if let result = response.result.value {
-				print("Response: \(result)")
+		   if response.error == nil {
+				print("Response: \(response)")
 				
-				downloadedSermons[sermon.id] = fileURL
-				UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")				
+//            downloadedSermons[sermon.id!] = fileUrl
+//            UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")
 				
-				completion(result)
+				completion("download success")
 			}
 		}
 }

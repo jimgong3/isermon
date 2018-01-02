@@ -41,7 +41,7 @@ app.listen(port, function () {
 
 app.get('/', function (req, res) {
   logger.info("index>> GET /");
-  
+
   res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
   res.write('有耳可聽的，就應當聽！ 太 11:15 <br><br>');
   res.write('Quick Links: <br>');
@@ -196,6 +196,13 @@ app.get('/search', function (req, res) {
   });
 })
 
+app.post('/search', function (req, res) {
+  logger.info("index>> GET /search");
+  sermonsUtil.searchPost(req, db, function(result) {
+    res.json(result);
+  });
+})
+
 app.get('/delete', function (req, res) {
   logger.info("index>> GET /delete");
   sermonsUtil.getDelete(req, res);
@@ -209,4 +216,3 @@ app.post('/deleteSermon', function (req, res) {
     });
   });
 })
-

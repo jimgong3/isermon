@@ -22,8 +22,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" placeholder="搜索講道" translatesAutoresizingMaskIntoConstraints="NO" id="0jB-0b-A2N">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-Nj-8of">
-                                <rect key="frame" x="16" y="74" width="343" height="469.5"/>
+                                <rect key="frame" x="16" y="120" width="343" height="423"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="FsE-as-Wib" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
@@ -218,11 +222,15 @@
                             <constraint firstItem="6ju-3v-Sf3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Fi2-sc-xbZ"/>
                             <constraint firstItem="Jp5-m6-WSt" firstAttribute="top" secondItem="6ju-3v-Sf3" secondAttribute="bottom" constant="10" id="Gc2-sP-0lt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dSp-Nj-8of" secondAttribute="trailing" id="L05-Mo-ZLQ"/>
-                            <constraint firstItem="dSp-Nj-8of" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="10" id="R1N-Cl-7Wv" userLabel="Table View.top = topMargin + 10"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jp5-m6-WSt" secondAttribute="bottom" constant="10" id="TC1-OP-v4p"/>
+                            <constraint firstItem="0jB-0b-A2N" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TFX-Rx-dKf"/>
+                            <constraint firstAttribute="trailing" secondItem="0jB-0b-A2N" secondAttribute="trailing" id="c2f-dO-Ykr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jp5-m6-WSt" secondAttribute="trailing" id="fus-qH-t8s"/>
                             <constraint firstItem="6ju-3v-Sf3" firstAttribute="top" secondItem="dSp-Nj-8of" secondAttribute="bottom" constant="10" id="jQK-H4-jRL" userLabel="Stack View.top = Table View.bottom + 10"/>
+                            <constraint firstItem="dSp-Nj-8of" firstAttribute="top" secondItem="0jB-0b-A2N" secondAttribute="bottom" id="kpe-pF-nJl"/>
+                            <constraint firstItem="0jB-0b-A2N" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kxQ-7S-MZn"/>
                             <constraint firstItem="dSp-Nj-8of" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nre-uG-T9u"/>
+                            <constraint firstItem="0jB-0b-A2N" firstAttribute="centerX" secondItem="dSp-Nj-8of" secondAttribute="centerX" id="rvp-vF-GXv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6ju-3v-Sf3" secondAttribute="trailing" id="sG0-hp-d1n"/>
                             <constraint firstItem="Jp5-m6-WSt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="xQe-TM-0bH"/>
                         </constraints>
@@ -233,6 +241,7 @@
                         <outlet property="nowPlaying" destination="7Oz-ue-Oxu" id="A97-bp-C6A"/>
                         <outlet property="playCurrentButton" destination="Sln-ST-ygx" id="A1f-iw-lwM"/>
                         <outlet property="playbackSlider" destination="3MY-aC-G5t" id="yob-uZ-IVd"/>
+                        <outlet property="searchBar" destination="0jB-0b-A2N" id="q3S-cu-va2"/>
                         <outlet property="tableView" destination="dSp-Nj-8of" id="V2b-vj-teZ"/>
                         <outlet property="totalTime" destination="1mo-vC-Utl" id="IeA-oo-UJM"/>
                     </connections>
@@ -415,8 +424,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Aqq-gH-5WD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ISn-fs-Toe">
-                                <rect key="frame" x="16" y="74" width="343" height="469"/>
+                                <rect key="frame" x="16" y="120" width="343" height="423"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="yb1-MH-Gzs" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
@@ -615,16 +628,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Zxf-nX-nET" firstAttribute="top" secondItem="ISn-fs-Toe" secondAttribute="bottom" constant="10" id="0Ah-Xj-sbl"/>
+                            <constraint firstItem="Aqq-gH-5WD" firstAttribute="centerX" secondItem="QOp-kn-4jU" secondAttribute="centerX" id="11t-nm-yNC"/>
+                            <constraint firstItem="ISn-fs-Toe" firstAttribute="top" secondItem="Aqq-gH-5WD" secondAttribute="bottom" id="6zW-NT-0Fo"/>
                             <constraint firstItem="LmG-WQ-7aG" firstAttribute="top" secondItem="vyU-57-Fy8" secondAttribute="bottom" constant="10" id="9GP-1E-27G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ISn-fs-Toe" secondAttribute="trailing" id="FBp-Lc-akc"/>
                             <constraint firstItem="vyU-57-Fy8" firstAttribute="leading" secondItem="QOp-kn-4jU" secondAttribute="leadingMargin" id="Fs5-Mk-hv0"/>
                             <constraint firstItem="Zxf-nX-nET" firstAttribute="leading" secondItem="QOp-kn-4jU" secondAttribute="leadingMargin" id="M5x-GV-ENq"/>
-                            <constraint firstItem="Zxf-nX-nET" firstAttribute="top" secondItem="ISn-fs-Toe" secondAttribute="bottom" constant="10" id="S5L-yK-b1O"/>
+                            <constraint firstAttribute="trailing" secondItem="Aqq-gH-5WD" secondAttribute="trailing" id="RmN-F2-AEq"/>
                             <constraint firstItem="vyU-57-Fy8" firstAttribute="top" secondItem="Zxf-nX-nET" secondAttribute="bottom" constant="10" id="VJg-P7-oWX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zxf-nX-nET" secondAttribute="trailing" id="aMT-1K-g62"/>
-                            <constraint firstItem="ISn-fs-Toe" firstAttribute="top" secondItem="QOp-kn-4jU" secondAttribute="topMargin" constant="10" id="gpT-gU-BiP"/>
+                            <constraint firstItem="Aqq-gH-5WD" firstAttribute="top" secondItem="YvD-3y-c5q" secondAttribute="bottom" id="auX-In-ftl"/>
                             <constraint firstItem="ISn-fs-Toe" firstAttribute="leading" secondItem="QOp-kn-4jU" secondAttribute="leadingMargin" id="vyw-HD-PaN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vyU-57-Fy8" secondAttribute="trailing" id="wSZ-lc-Qki"/>
+                            <constraint firstItem="Aqq-gH-5WD" firstAttribute="leading" secondItem="QOp-kn-4jU" secondAttribute="leading" id="xWc-aO-DnC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="熱門講道" id="wRF-Xp-RRe"/>
@@ -633,6 +649,7 @@
                         <outlet property="nowPlaying" destination="9Bc-sE-Qfc" id="JYm-G5-6Cq"/>
                         <outlet property="playCurrentButton" destination="NxV-kH-ESz" id="AqV-dc-e5v"/>
                         <outlet property="playbackSlider" destination="D1s-hb-5dh" id="Aw9-Tn-upZ"/>
+                        <outlet property="searchBar" destination="Aqq-gH-5WD" id="cbC-Qt-qoe"/>
                         <outlet property="tableView" destination="ISn-fs-Toe" id="F4G-yL-uAs"/>
                         <outlet property="totalTime" destination="xUa-wM-nBp" id="X3g-Lk-bZd"/>
                     </connections>
@@ -653,8 +670,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qQw-5z-VQv">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-av-eJS">
-                                <rect key="frame" x="16" y="74" width="343" height="469.5"/>
+                                <rect key="frame" x="16" y="120" width="343" height="423"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SermonTableViewCell" id="s79-Va-r5g" customClass="SermonTableViewCell" customModule="isermon" customModuleProvider="target">
@@ -852,13 +873,16 @@
                             <constraint firstItem="OzD-av-eJS" firstAttribute="trailing" secondItem="6oR-av-PrE" secondAttribute="trailingMargin" id="B3U-ur-Sve"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GaI-p8-rAC" secondAttribute="trailing" id="DAK-AZ-LhP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TUT-Jh-0lq" secondAttribute="trailing" id="FB4-kk-wL6"/>
-                            <constraint firstItem="GaI-p8-rAC" firstAttribute="top" secondItem="OzD-av-eJS" secondAttribute="bottom" constant="10" id="Iw7-m2-H9q"/>
                             <constraint firstItem="TUT-Jh-0lq" firstAttribute="top" secondItem="GaI-p8-rAC" secondAttribute="bottom" constant="10" id="JSK-xQ-46u"/>
                             <constraint firstItem="OzD-av-eJS" firstAttribute="leading" secondItem="6oR-av-PrE" secondAttribute="leadingMargin" id="Nqp-63-IhK"/>
+                            <constraint firstItem="OzD-av-eJS" firstAttribute="top" secondItem="qQw-5z-VQv" secondAttribute="bottom" id="PnV-Xv-IHp"/>
                             <constraint firstItem="Dg0-2z-y8o" firstAttribute="top" secondItem="TUT-Jh-0lq" secondAttribute="bottom" constant="10" id="RYS-hQ-Q6K"/>
+                            <constraint firstItem="qQw-5z-VQv" firstAttribute="top" secondItem="T83-7B-Wzb" secondAttribute="bottom" id="Rg2-Oy-rex"/>
                             <constraint firstItem="TUT-Jh-0lq" firstAttribute="top" secondItem="GaI-p8-rAC" secondAttribute="bottom" constant="10" id="dSc-T0-agf"/>
+                            <constraint firstItem="qQw-5z-VQv" firstAttribute="centerX" secondItem="6oR-av-PrE" secondAttribute="centerX" id="hEM-s3-kWx"/>
+                            <constraint firstItem="qQw-5z-VQv" firstAttribute="leading" secondItem="6oR-av-PrE" secondAttribute="leading" id="mtL-oA-CJC"/>
+                            <constraint firstAttribute="trailing" secondItem="qQw-5z-VQv" secondAttribute="trailing" id="pZd-Xy-IDR"/>
                             <constraint firstItem="TUT-Jh-0lq" firstAttribute="leading" secondItem="6oR-av-PrE" secondAttribute="leadingMargin" id="qd0-EN-sFI"/>
-                            <constraint firstItem="OzD-av-eJS" firstAttribute="top" secondItem="T83-7B-Wzb" secondAttribute="bottom" constant="10" id="rc4-M7-LVU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="訂閱內容" id="YYX-iH-Odz"/>
@@ -867,13 +891,14 @@
                         <outlet property="nowPlaying" destination="8lv-Mp-5eE" id="XOG-Hq-gSu"/>
                         <outlet property="playCurrentButton" destination="kif-mS-qf6" id="j5L-7x-6CJ"/>
                         <outlet property="playbackSlider" destination="KNX-nB-AOd" id="n01-xZ-emS"/>
+                        <outlet property="searchBar" destination="qQw-5z-VQv" id="Jvs-o1-7ui"/>
                         <outlet property="tableView" destination="OzD-av-eJS" id="rYf-iH-t2N"/>
                         <outlet property="totalTime" destination="WgC-Py-Ack" id="GhB-tU-Mpd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqI-b1-jNK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2756.25" y="-47.535211267605632"/>
+            <point key="canvasLocation" x="2756" y="-48.125937031484263"/>
         </scene>
         <!--我的-->
         <scene sceneID="yLt-Lz-Hil">
