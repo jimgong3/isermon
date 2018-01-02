@@ -43,7 +43,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	var keyword: String?
 	var isTypingMode = false
 	
-	var downloadedSermons = [String: String]()	//id:locol url
+//    var downloadedSermons = [String: String]()    //id:locol url
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,9 +65,6 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
         if UserDefaults.standard.dictionary(forKey: "lastPlayProgress") != nil {
             lastPlayProgress = (UserDefaults.standard.dictionary(forKey: "lastPlayProgress") as? [String : Int64])!
-        }
-        if UserDefaults.standard.dictionary(forKey: "downloadedSermons") != nil {
-            downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])!
         }
 
         // Register the table view cell class and its reuse id
@@ -159,6 +156,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
 
+        cell.download.tag = indexPath.row
         cell.play.tag = indexPath.row
         
         return cell
@@ -273,13 +271,17 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	}
     
     func playerItemInit() -> AVPlayerItem {
-        var urlString = downloadedSermons[(sermonPlaying?.id!)!]
+        let downloadedSermons = UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String]
+        var urlString: String?
+        if downloadedSermons != nil {
+            urlString = downloadedSermons![(sermonPlaying?.id)!]
+        }
 		if urlString == nil || urlString == "" {
-			urlString = sermonPlaying?.urlLocal
+            urlString = (sermonPlaying?.urlLocal)!
 		}		
-        print("sermon url: " + urlString!)
+        print("sermon url: \(urlString)")
 
-        let url = URL(string: urlString!)
+        var url = URL(string: urlString!)
         let asset = AVAsset(url: url!)
         let playerItem = AVPlayerItem(asset: asset)
         return playerItem
@@ -438,9 +440,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         print("tap to download")      
         let sermon = sermons[button.tag]
-        downloadSermon(sermon: sermon, downloadedSermons: downloadedSermons, completion: {(result: String) -> () in
+        downloadSermon(sermon: sermon, completion: {(result: String) -> () in
             print("result: \(result)")
-            button.setTitle("  ", for: .normal)
+            button.setTitle("已下載", for: .normal)
         })
     }
 	
@@ -675,13 +677,19 @@ func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: St
     }
 }
 
-func downloadSermon(sermon: Sermon, downloadedSermons: [String: String], completion: @escaping (_ result: String) -> ()){
+func downloadSermon(sermon: Sermon, completion: @escaping (_ result: String) -> ()){
 
 	//test
 	viewLocalFiles()
-	
-	var sermonUrl = sermon.urlLocal
-    var basename = (sermonUrl as! NSString).lastPathComponent
+
+    let downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])
+    if downloadedSermons != nil && downloadedSermons![sermon.id!] != nil {
+        print("file exist - skip download")
+        return
+    }
+    
+    let sermonUrl = sermon.urlLocal
+    let basename = (sermonUrl! as NSString).lastPathComponent
     let url = URL(string: sermonUrl!)
     print("download sermon url: \(url!)")
     
@@ -689,7 +697,7 @@ func downloadSermon(sermon: Sermon, downloadedSermons: [String: String], complet
 	let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         fileUrl = documentsURL.appendingPathComponent(basename)
-        print("fileURL: \(fileUrl)")
+        print("fileURL: \(String(describing: fileUrl))")
         return (fileUrl!, [.removePreviousFile, .createIntermediateDirectories])
 	}
 
@@ -699,12 +707,16 @@ func downloadSermon(sermon: Sermon, downloadedSermons: [String: String], complet
 		}
 		.response { response in
 		   if response.error == nil {
-				print("Response: \(response)")
+//                print("Response: \(response)")
 				
-//            downloadedSermons[sermon.id!] = fileUrl
-//            UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")
-				
-				completion("download success")
+                var downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])
+                if downloadedSermons == nil {
+                    downloadedSermons = [String:String]()
+                }
+                downloadedSermons![sermon.id!] = fileUrl?.description
+                UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")
+            
+                completion("download success")
 			}
 		}
 }

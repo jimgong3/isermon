@@ -20,7 +20,8 @@ class SermonTableViewCell: UITableViewCell {
     @IBOutlet weak var listen: UIButton!
     @IBOutlet weak var like: UIButton!
     @IBOutlet weak var bookmark: UIButton!
-    
+    @IBOutlet weak var download: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
