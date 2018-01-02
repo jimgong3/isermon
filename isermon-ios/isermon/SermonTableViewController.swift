@@ -37,11 +37,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var currentTime: UILabel!
     @IBOutlet weak var totalTime: UILabel!
 	
-    var lastPlayProgress = [String: Int64]()
+    var lastPlayProgress = [String: Int64]()	//id:time
 	
 	@IBOutlet weak var searchBar: UISearchBar!
 	var keyword: String?
 	var isTypingMode = false
+	
+	var downloadedSermons = [String: String]()	//id:locol url
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
         if UserDefaults.standard.dictionary(forKey: "lastPlayProgress") != nil {
             lastPlayProgress = (UserDefaults.standard.dictionary(forKey: "lastPlayProgress") as? [String : Int64])!
+        }
+        if UserDefaults.standard.dictionary(forKey: "downloadedSermons") != nil {
+            downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])!
         }
 
         // Register the table view cell class and its reuse id
@@ -269,8 +274,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	}
     
     func playerItemInit() -> AVPlayerItem {
-        let urlString = sermonPlaying?.urlLocal
+        var urlString = downloadedSermons[sermonPlaying.id]
+		if urlString == nil || urlString == "" {
+			urlString = sermonPlaying?.urlLocal
+		}		
         print("sermon url: " + urlString!)
+
         let url = URL(string: urlString!)
         let asset = AVAsset(url: url!)
         let playerItem = AVPlayerItem(asset: asset)
@@ -425,6 +434,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             }
         }
     }
+	
+	@IBAction func download(_ sender: Any) {
+        let button = sender as! UIButton
+        print("tap to download")      
+        let sermon = sermons[button.tag]
+        downloadSermon(sermon: sermon, completion: {(result: String) -> () in
+            print("result: \(result)")
+            button.setTitle("  ", for: .normal)
+        })
+    }
+	
+	
 }
 
 func loadSermons(bookmarkedByUsername: String? = nil,
@@ -626,5 +647,59 @@ func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: St
             completion(result)
         }
     }
+}
+
+func downloadSermon(sermon: Sermon, completion: @escaping (_ result: String) -> ()){
+
+	//test
+	viewLocalFiles()
+	
+	var sermonUrl = sermon.urlLocal
+	var basename = (sermonUrl as NSString).lastPathComponent
+    let url = URL(string: sermonUrl!)
+    print("download sermon url: \(url!)")
+    
+	var fileUrl: String?
+	let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+		fileURL = documentsURL.appendingPathComponent(basename)
+		print("fileURL: \(fileURL)")
+		return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+	}
+
+	Alamofire.download(url, to: destination)
+		.downloadProgress{ progress in
+			print("Download Progress: \(progress.fractionCompleted)")
+		}
+		.response { response in
+		   if let result = response.result.value {
+				print("Response: \(result)")
+				
+				downloadedSermons[sermon.id] = fileURL
+				UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")				
+				
+				completion(result)
+			}
+		}
+}
+
+func viewLocalFiles(){
+	// Get the document directory url
+	let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+	do {
+		// Get the directory contents urls (including subfolders urls)
+		let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
+		print(directoryContents)
+
+		// if you want to filter the directory contents you can do like this:
+		let mp3Files = directoryContents.filter{ $0.pathExtension == "mp3" }
+		print("mp3 urls:",mp3Files)
+		let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
+		print("mp3 list:", mp3FileNames)
+
+	} catch {
+		print(error.localizedDescription)
+	}
 }
 
