@@ -169,7 +169,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         cell.download.tag = indexPath.row
         if downloadedSermons[sermon.id!] != nil {
             cell.download.setTitle(" 已下載", for: .normal)
-        }
+        } else {
+			cell.download.setTitle("", for: .normal)
+		}
         
         cell.play.tag = indexPath.row
         
