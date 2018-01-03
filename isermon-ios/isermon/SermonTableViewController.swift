@@ -167,7 +167,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
 
         cell.download.tag = indexPath.row
-        if downloadedSermons[sermon.id!] != nil {
+        if downloadedSermons[sermon.id!] != nil && downloadedSermons[sermon.id!] != "" {
             cell.download.setTitle(" 已下載", for: .normal)
         } else {
 			cell.download.setTitle("", for: .normal)
@@ -228,11 +228,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     */
 	
     @IBAction func play(_ sender: Any) {
-        print("tap play/pause...")
+//        print("tap play/pause...")
         
         let button = sender as! UIButton
         if button.titleLabel?.text == "PLAY" {
-			print("tap play...")
+//            print("tap play...")
 			button.setTitle("PAUSE", for: .normal)
             playCurrentButton.setImage(UIImage(named: "pause"), for: .normal)
 
@@ -282,15 +282,27 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
 		playbackSliderInit()
         addSermonListenCount(sermon_id: (sermonPlaying?.id!)!, completion: {(result: String) -> () in
-			print("result: \(result)")
+//            print("result: \(result)")
         })
 	}
     
     func playerItemInit() -> AVPlayerItem {
         var urlString = downloadedSermons[(sermonPlaying?.id)!]
-		if urlString == nil || urlString == "" {
+        if urlString != nil && urlString != "" {
+            let url = URL(string: urlString!)
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: (url?.path)!) {
+                //do nothing - downloaded file is found
+            } else {
+                print("downloaded file is missing")
+                self.downloadedSermons[(sermonPlaying?.id!)!] = ""
+                UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
+
+                urlString = (sermonPlaying?.urlLocal)!
+            }
+        } else {
             urlString = (sermonPlaying?.urlLocal)!
-		}		
+        }
         print("sermon url: \(String(describing: urlString))")
 
         let url = URL(string: urlString!)
@@ -397,7 +409,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
-                    print("result: \(result)")
+//                    print("result: \(result)")
                     button.setTitle("  ", for: .normal)
                 })
             }
@@ -407,7 +419,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
-                    print("result: \(result)")
+//                    print("result: \(result)")
                     button.setTitle("  ", for: .normal)
                 })
             }
@@ -431,7 +443,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
-                    print("result: \(result)")
+//                    print("result: \(result)")
                     button.setTitle("  ", for: .normal)
                 })
             }
@@ -441,7 +453,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
-                    print("result: \(result)")
+//                    print("result: \(result)")
                     button.setTitle("  ", for: .normal)
                 })
             }
@@ -453,7 +465,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         print("tap to download")      
         let sermon = sermons[button.tag]
         downloadSermon(sermon: sermon, button: button, completion: {(result: String) -> () in
-            print("result: \(result)")
+//            print("result: \(result)")
             button.setTitle(" 已下載", for: .normal)
         })
     }
@@ -678,7 +690,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         var urlStr: String?
         urlStr = "http://" + SERVER_IP + ":" + PORT + "/addSermonListenCount"
         let url = URL(string: urlStr!)
-        print("url: \(url!)")
+//        print("url: \(url!)")
         
         let parameters: Parameters = [
             "sermon_id": sermon_id
@@ -686,7 +698,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         
         Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
             if let result = response.result.value {
-                print("Response: \(result)")
+//                print("Response: \(result)")
                 completion(result)
             }
         }
