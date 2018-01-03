@@ -43,7 +43,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	var keyword: String?
 	var isTypingMode = false
 	
-//    var downloadedSermons = [String: String]()    //id:locol url
+    var downloadedSermons = [String: String]()    //id:local url
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +65,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		
         if UserDefaults.standard.dictionary(forKey: "lastPlayProgress") != nil {
             lastPlayProgress = (UserDefaults.standard.dictionary(forKey: "lastPlayProgress") as? [String : Int64])!
+        }
+        if UserDefaults.standard.dictionary(forKey: "downloadedSermons") != nil {
+            downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])!
         }
 
         // Register the table view cell class and its reuse id
@@ -440,304 +443,302 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         print("tap to download")      
         let sermon = sermons[button.tag]
-        downloadSermon(sermon: sermon, completion: {(result: String) -> () in
+        downloadSermon(sermon: sermon, button: button, completion: {(result: String) -> () in
             print("result: \(result)")
-            button.setTitle("已下載", for: .normal)
+            button.setTitle(" 已下載", for: .normal)
         })
     }
-	
-	
-}
-
-func loadSermons(bookmarkedByUsername: String? = nil,
-                 uploadedByUsername: String? = nil,
-                 completion: @escaping (_ sermons: [Sermon]) -> ()){
     
-    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
-    if bookmarkedByUsername != nil {
-        print("user tapped: my bookmarked sermons")
-        urlStr += "?bookmarkedBy=" + bookmarkedByUsername!
-    } else if uploadedByUsername != nil {
-        print("user tapped: my uploaded sermons")
-        urlStr += "?uploadedBy=" + uploadedByUsername!
-    }
-	
-	print("loadSermons url: \(urlStr)")
-    let url = URL(string: urlStr)
-//    print("Query:>> url: ")
-//    print(url!)
+    // MARK: - Sub Functions
     
-    Alamofire.request(url!).responseJSON { response in
-        if let json = response.result.value {
-            var sermons = [Sermon]()
-            if let array = json as? [Any] {
-                if array.count>0 {
-                    for i in 0...array.count-1 {
-                        let sermonJson = array[i] as? [String: Any]
-                        let s = Sermon(json: sermonJson!)
-                        sermons.append(s!)
+    func loadSermons(bookmarkedByUsername: String? = nil,
+                     uploadedByUsername: String? = nil,
+                     completion: @escaping (_ sermons: [Sermon]) -> ()){
+        
+        var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
+        if bookmarkedByUsername != nil {
+            print("user tapped: my bookmarked sermons")
+            urlStr += "?bookmarkedBy=" + bookmarkedByUsername!
+        } else if uploadedByUsername != nil {
+            print("user tapped: my uploaded sermons")
+            urlStr += "?uploadedBy=" + uploadedByUsername!
+        }
+        
+        print("loadSermons url: \(urlStr)")
+        let url = URL(string: urlStr)
+    //    print("Query:>> url: ")
+    //    print(url!)
+        
+        Alamofire.request(url!).responseJSON { response in
+            if let json = response.result.value {
+                var sermons = [Sermon]()
+                if let array = json as? [Any] {
+                    if array.count>0 {
+                        for i in 0...array.count-1 {
+                            let sermonJson = array[i] as? [String: Any]
+                            let s = Sermon(json: sermonJson!)
+                            sermons.append(s!)
+                        }
+                    }
+                    else{
+                        print("oops, no sermon is found")
                     }
                 }
-                else{
-                    print("oops, no sermon is found")
-                }
+                print ("\(sermons.count)" + " sermons loaded, callback completion")
+                completion(sermons)
             }
-            print ("\(sermons.count)" + " sermons loaded, callback completion")
-            completion(sermons)
         }
     }
-}
 
-func searchSermons(keyword: String, completion: @escaping (_ sermons: [Sermon]) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/search"
-    let url = URL(string: urlStr!)
-    print("Query>> url: \(url!)")
-    
-    let parameters: Parameters = [
-        "q": keyword
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
-        if let json = response.result.value {
-            var sermons = [Sermon]()
-            if let array = json as? [Any] {
-                if array.count>0 {
-                    for i in 0...array.count-1 {
-                        let sermonJson = array[i] as? [String: Any]
-                        let s = Sermon(json: sermonJson!)
-                        sermons.append(s!)
+    func searchSermons(keyword: String, completion: @escaping (_ sermons: [Sermon]) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/search"
+        let url = URL(string: urlStr!)
+        print("Query>> url: \(url!)")
+        
+        let parameters: Parameters = [
+            "q": keyword
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
+            if let json = response.result.value {
+                var sermons = [Sermon]()
+                if let array = json as? [Any] {
+                    if array.count>0 {
+                        for i in 0...array.count-1 {
+                            let sermonJson = array[i] as? [String: Any]
+                            let s = Sermon(json: sermonJson!)
+                            sermons.append(s!)
+                        }
+                    }
+                    else{
+                        print("oops, no sermon is found")
                     }
                 }
-                else{
-                    print("oops, no sermon is found")
-                }
+                print ("\(sermons.count)" + " sermons loaded, callback completion")
+                completion(sermons)
             }
-            print ("\(sermons.count)" + " sermons loaded, callback completion")
-            completion(sermons)
         }
     }
-}
 
-func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
-    
-    let urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
-    let url = URL(string: urlStr)
-    print("Query:>> url: ")
-    print(url!)
-    
-    Alamofire.request(url!).responseJSON { response in
-        if let json = response.result.value {
-            var sermons = [Sermon]()
-            if let array = json as? [Any] {
-                if array.count>0 {
-                    for i in 0...array.count-1 {
-                        let sermonJson = array[i] as? [String: Any]
-                        let s = Sermon(json: sermonJson!)
-                        sermons.append(s!)
+    func loadHotSermons2(completion: @escaping (_ sermons: [Sermon]) -> ()){
+        
+        let urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?sortBy=num_listen"
+        let url = URL(string: urlStr)
+        print("Query:>> url: ")
+        print(url!)
+        
+        Alamofire.request(url!).responseJSON { response in
+            if let json = response.result.value {
+                var sermons = [Sermon]()
+                if let array = json as? [Any] {
+                    if array.count>0 {
+                        for i in 0...array.count-1 {
+                            let sermonJson = array[i] as? [String: Any]
+                            let s = Sermon(json: sermonJson!)
+                            sermons.append(s!)
+                        }
+                    }
+                    else{
+                        print("Query>> oops, no sermons is found")
                     }
                 }
-                else{
-                    print("Query>> oops, no sermons is found")
-                }
+                print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
+                completion(sermons)
             }
-            print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
-            completion(sermons)
         }
     }
-}
 
-func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ sermons: [Sermon]) -> ()){
-    
-    if username == nil || username == "" {
-        let sermons = [Sermon]()
-        completion(sermons)
-        return
-    }
-    
-    var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?subscribedByUsername="
-    urlStr = urlStr + username!
-    let url = URL(string: urlStr)
-    print("Query:>> url: ")
-    print(url!)
-    
-    Alamofire.request(url!).responseJSON { response in
-        if let json = response.result.value {
-            var sermons = [Sermon]()
-            if let array = json as? [Any] {
-                if array.count>0 {
-                    for i in 0...array.count-1 {
-                        let sermonJson = array[i] as? [String: Any]
-                        let s = Sermon(json: sermonJson!)
-                        sermons.append(s!)
+    func loadSubscribedSermons2(username: String? = nil, completion: @escaping (_ sermons: [Sermon]) -> ()){
+        
+        if username == nil || username == "" {
+            let sermons = [Sermon]()
+            completion(sermons)
+            return
+        }
+        
+        var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons?subscribedByUsername="
+        urlStr = urlStr + username!
+        let url = URL(string: urlStr)
+        print("Query:>> url: ")
+        print(url!)
+        
+        Alamofire.request(url!).responseJSON { response in
+            if let json = response.result.value {
+                var sermons = [Sermon]()
+                if let array = json as? [Any] {
+                    if array.count>0 {
+                        for i in 0...array.count-1 {
+                            let sermonJson = array[i] as? [String: Any]
+                            let s = Sermon(json: sermonJson!)
+                            sermons.append(s!)
+                        }
+                    }
+                    else{
+                        print("Query>> oops, no sermon is found")
                     }
                 }
-                else{
-                    print("Query>> oops, no sermon is found")
+                print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
+                completion(sermons)
+            }
+        }
+    }
+
+    func likeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/likeSermon"
+        let url = URL(string: urlStr!)
+        print("url: \(url!)")
+        
+        let parameters: Parameters = [
+            "username": username,
+            "sermon_id": sermon_id
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+            if let result = response.result.value {
+                print("Response: \(result)")
+                completion(result)
+            }
+        }
+    }
+
+    func unlikeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/unlikeSermon"
+        let url = URL(string: urlStr!)
+        print("url: \(url!)")
+        
+        let parameters: Parameters = [
+            "username": username,
+            "sermon_id": sermon_id
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+            if let result = response.result.value {
+                print("Response: \(result)")
+                completion(result)
+            }
+        }
+    }
+
+
+    func bookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/bookmarkSermon"
+        let url = URL(string: urlStr!)
+        print("url: \(url!)")
+        
+        let parameters: Parameters = [
+            "username": username,
+            "sermon_id": sermon_id
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+            if let result = response.result.value {
+                print("Response: \(result)")
+                completion(result)
+            }
+        }
+    }
+
+    func unbookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/unbookmarkSermon"
+        let url = URL(string: urlStr!)
+        print("url: \(url!)")
+        
+        let parameters: Parameters = [
+            "username": username,
+            "sermon_id": sermon_id
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+            if let result = response.result.value {
+                print("Response: \(result)")
+                completion(result)
+            }
+        }
+    }
+
+    func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: String) -> ()){
+        var urlStr: String?
+        urlStr = "http://" + SERVER_IP + ":" + PORT + "/addSermonListenCount"
+        let url = URL(string: urlStr!)
+        print("url: \(url!)")
+        
+        let parameters: Parameters = [
+            "sermon_id": sermon_id
+        ]
+        
+        Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
+            if let result = response.result.value {
+                print("Response: \(result)")
+                completion(result)
+            }
+        }
+    }
+
+    func downloadSermon(sermon: Sermon, button: UIButton, completion: @escaping (_ result: String) -> ()){
+
+        //test
+        viewLocalFiles()
+
+        if downloadedSermons[sermon.id!] != nil {
+            print("file exist - skip download")
+//            return    //comment out for testing - always download
+        }
+        
+        let sermonUrl = sermon.urlLocal
+        let basename = (sermonUrl! as NSString).lastPathComponent
+        let url = URL(string: sermonUrl!)
+        print("download sermon url: \(url!)")
+        
+        var fileUrl: URL?
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            fileUrl = documentsURL.appendingPathComponent(basename)
+            print("fileURL: \(String(describing: fileUrl))")
+            return (fileUrl!, [.removePreviousFile, .createIntermediateDirectories])
+        }
+
+        Alamofire.download(url!, to: destination)
+            .downloadProgress{ progress in
+                print("Download Progress: \(progress.fractionCompleted)")
+                let percentage = (Int(progress.fractionCompleted * 100) % 100).description + "%"
+                print("percentage: \(percentage)")
+                button.setTitle(percentage, for: .normal)
+            }
+            .response { response in
+               if response.error == nil {
+    //                print("Response: \(response)")
+                
+                    self.downloadedSermons[sermon.id!] = fileUrl?.description
+                    UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
+                
+                    completion("download success")
                 }
             }
-            print ("Query>> \(sermons.count)" + " sermons loaded, callback completion")
-            completion(sermons)
+    }
+
+    func viewLocalFiles(){
+        // Get the document directory url
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+        do {
+            // Get the directory contents urls (including subfolders urls)
+            let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
+            print(directoryContents)
+
+            // if you want to filter the directory contents you can do like this:
+            let mp3Files = directoryContents.filter{ $0.pathExtension == "mp3" }
+            print("mp3 urls:",mp3Files)
+            let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
+            print("mp3 list:", mp3FileNames)
+
+        } catch {
+            print(error.localizedDescription)
         }
     }
+
 }
-
-func likeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/likeSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func unlikeSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unlikeSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-
-func bookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/bookmarkSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func unbookmarkSermon(username: String, sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/unbookmarkSermon"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "username": username,
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func addSermonListenCount(sermon_id: String, completion: @escaping (_ result: String) -> ()){
-    var urlStr: String?
-    urlStr = "http://" + SERVER_IP + ":" + PORT + "/addSermonListenCount"
-    let url = URL(string: urlStr!)
-    print("url: \(url!)")
-    
-    let parameters: Parameters = [
-        "sermon_id": sermon_id
-    ]
-    
-    Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
-        if let result = response.result.value {
-            print("Response: \(result)")
-            completion(result)
-        }
-    }
-}
-
-func downloadSermon(sermon: Sermon, completion: @escaping (_ result: String) -> ()){
-
-	//test
-	viewLocalFiles()
-
-    let downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])
-    if downloadedSermons != nil && downloadedSermons![sermon.id!] != nil {
-        print("file exist - skip download")
-        return
-    }
-    
-    let sermonUrl = sermon.urlLocal
-    let basename = (sermonUrl! as NSString).lastPathComponent
-    let url = URL(string: sermonUrl!)
-    print("download sermon url: \(url!)")
-    
-	var fileUrl: URL?
-	let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        fileUrl = documentsURL.appendingPathComponent(basename)
-        print("fileURL: \(String(describing: fileUrl))")
-        return (fileUrl!, [.removePreviousFile, .createIntermediateDirectories])
-	}
-
-    Alamofire.download(url!, to: destination)
-		.downloadProgress{ progress in
-			print("Download Progress: \(progress.fractionCompleted)")
-		}
-		.response { response in
-		   if response.error == nil {
-//                print("Response: \(response)")
-				
-                var downloadedSermons = (UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String])
-                if downloadedSermons == nil {
-                    downloadedSermons = [String:String]()
-                }
-                downloadedSermons![sermon.id!] = fileUrl?.description
-                UserDefaults.standard.set(downloadedSermons, forKey: "downloadedSermons")
-            
-                completion("download success")
-			}
-		}
-}
-
-func viewLocalFiles(){
-	// Get the document directory url
-	let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-
-	do {
-		// Get the directory contents urls (including subfolders urls)
-		let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
-		print(directoryContents)
-
-		// if you want to filter the directory contents you can do like this:
-		let mp3Files = directoryContents.filter{ $0.pathExtension == "mp3" }
-		print("mp3 urls:",mp3Files)
-		let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
-		print("mp3 list:", mp3FileNames)
-
-	} catch {
-		print(error.localizedDescription)
-	}
-}
-
