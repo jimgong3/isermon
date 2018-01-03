@@ -84,10 +84,15 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             self.title = "我的收藏"
         } else if uploadedByUsername != nil {
             self.title = "我上傳的"
+        } else if isDownloaded == true {
+            self.title = "我下載的"
         }
-
+        
         if selectedTabIndex == 0 || selectedTabIndex == 3 {  // Latest
-            loadSermons(bookmarkedByUsername: bookmarkedByUsername, uploadedByUsername: uploadedByUsername, completion: {(sermons: [Sermon]) -> () in
+                    loadSermons(bookmarkedByUsername: bookmarkedByUsername,
+                    uploadedByUsername: uploadedByUsername,
+                    isDownloaded: isDownloaded,
+                    completion: {(sermons: [Sermon]) -> () in
                 self.sermons = sermons
                 DispatchQueue.main.async{
                     self.tableView.reloadData()
@@ -162,6 +167,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         cell.bookmark.setTitle("  " + (sermon.num_bookmark?.description)!, for: .normal)
 
         cell.download.tag = indexPath.row
+        if downloadedSermons[sermon.id!] != nil {
+            cell.download.setTitle(" 已下載", for: .normal)
+        }
+        
         cell.play.tag = indexPath.row
         
         return cell
@@ -276,17 +285,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	}
     
     func playerItemInit() -> AVPlayerItem {
-        let downloadedSermons = UserDefaults.standard.dictionary(forKey: "downloadedSermons") as? [String: String]
-        var urlString: String?
-        if downloadedSermons != nil {
-            urlString = downloadedSermons![(sermonPlaying?.id)!]
-        }
+        var urlString = downloadedSermons[(sermonPlaying?.id)!]
 		if urlString == nil || urlString == "" {
             urlString = (sermonPlaying?.urlLocal)!
 		}		
-        print("sermon url: \(urlString)")
+        print("sermon url: \(String(describing: urlString))")
 
-        var url = URL(string: urlString!)
+        let url = URL(string: urlString!)
         let asset = AVAsset(url: url!)
         let playerItem = AVPlayerItem(asset: asset)
         return playerItem
@@ -455,6 +460,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     
     func loadSermons(bookmarkedByUsername: String? = nil,
                      uploadedByUsername: String? = nil,
+                     isDownloaded: Bool? = false,
                      completion: @escaping (_ sermons: [Sermon]) -> ()){
         
         var urlStr = "http://" + SERVER_IP + ":" + PORT + "/sermons"
@@ -479,7 +485,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                         for i in 0...array.count-1 {
                             let sermonJson = array[i] as? [String: Any]
                             let s = Sermon(json: sermonJson!)
-                            sermons.append(s!)
+                            
+                            if !isDownloaded! || isDownloaded! && self.downloadedSermons[(s?.id)!] != nil {
+                                sermons.append(s!)
+                            }
                         }
                     }
                     else{
