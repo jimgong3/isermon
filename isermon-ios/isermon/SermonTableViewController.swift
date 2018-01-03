@@ -18,6 +18,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     var username: String?
     var bookmarkedByUsername: String?   //user tap My Bookmarked Sermons
     var uploadedByUsername: String?     //user tap My Uploaded Sermons
+    var isDownloaded = false            //true if user tap My Downloaded
+    
     var sermons = [Sermon]()
     var sermonPlaying: Sermon?
     

@@ -42,15 +42,27 @@ class MyViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let sermonTableViewController = segue.destination as? SermonTableViewController {
-            print("destination: SermonTableViewController")
+//            print("destination: SermonTableViewController")
             let button = sender as? UIButton
-            if let username = Me.sharedInstance.username {
+            
+            if button?.titleLabel?.text?.range(of: "下載") != nil{
+                sermonTableViewController.isDownloaded = true
+            } else if let username = Me.sharedInstance.username {
                 if button?.titleLabel?.text?.range(of: "收藏") != nil{
                     sermonTableViewController.bookmarkedByUsername = username
                 } else if button?.titleLabel?.text?.range(of: "上傳") != nil{
                     sermonTableViewController.uploadedByUsername = username
                 }
             } else {
+                let alert = UIAlertController(title: "提示", message: "請先登錄。", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else if segue.destination is MySubscriptionViewController {
+//            print("destination: MySubscriptionViewController")
+            if Me.sharedInstance.username == nil || Me.sharedInstance.username == "" || Me.sharedInstance.username == "guest" {
                 let alert = UIAlertController(title: "提示", message: "請先登錄。", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
                     NSLog("The \"OK\" alert occured.")

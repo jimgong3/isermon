@@ -500,43 +500,64 @@
                                                         <constraint firstItem="qMZ-yc-sIn" firstAttribute="leading" secondItem="h0q-PI-Sow" secondAttribute="trailing" id="udc-KO-SwF"/>
                                                     </constraints>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="g4N-L2-aLX">
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4N-L2-aLX">
                                                     <rect key="frame" x="15" y="130" width="313" height="29"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ps4-6x-1xw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="104.5" height="29"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5b3-3U-Y1O">
+                                                            <rect key="frame" x="0.0" y="0.0" width="243" height="29"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ps4-6x-1xw">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="29"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="listen">
+                                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMY-2m-WKq">
+                                                                    <rect key="frame" x="81" y="0.0" width="81" height="29"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="like">
+                                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="like:" destination="cF1-EV-Ym7" eventType="touchUpInside" id="pzU-zb-5MI"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HI6-UT-hbU">
+                                                                    <rect key="frame" x="162" y="0.0" width="81" height="29"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="bookmark">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="bookmark:" destination="cF1-EV-Ym7" eventType="touchUpInside" id="TUU-QI-taD"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtF-0s-tsu">
+                                                            <rect key="frame" x="243" y="0.0" width="70" height="29"/>
                                                             <accessibility key="accessibilityConfiguration">
                                                                 <accessibilityTraits key="traits" image="YES"/>
                                                             </accessibility>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="70" id="R1w-dS-FEn"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="listen">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMY-2m-WKq">
-                                                            <rect key="frame" x="104.5" y="0.0" width="104" height="29"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" image="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="like">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="like:" destination="cF1-EV-Ym7" eventType="touchUpInside" id="pzU-zb-5MI"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HI6-UT-hbU">
-                                                            <rect key="frame" x="208.5" y="0.0" width="104.5" height="29"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" image="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="bookmark">
+                                                            <state key="normal" image="download">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="bookmark:" destination="cF1-EV-Ym7" eventType="touchUpInside" id="TUU-QI-taD"/>
+                                                                <action selector="download:" destination="cF1-EV-Ym7" eventType="touchUpInside" id="6Eu-Lx-1lU"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -573,6 +594,7 @@
                                         <connections>
                                             <outlet property="bookmark" destination="HI6-UT-hbU" id="cnk-CA-5J5"/>
                                             <outlet property="desc" destination="h0q-PI-Sow" id="cGz-XW-2wc"/>
+                                            <outlet property="download" destination="YtF-0s-tsu" id="Hqm-Nf-enf"/>
                                             <outlet property="like" destination="HMY-2m-WKq" id="jYV-g1-P1v"/>
                                             <outlet property="listen" destination="Ps4-6x-1xw" id="E3b-cP-BWj"/>
                                             <outlet property="play" destination="qMZ-yc-sIn" id="27G-Zq-c4Z"/>
@@ -719,43 +741,64 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="I5S-OV-hsd" userLabel="Stat">
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5S-OV-hsd" userLabel="Stat">
                                                     <rect key="frame" x="15" y="137" width="313" height="22"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeC-nG-ojh">
-                                                            <rect key="frame" x="0.0" y="0.0" width="104.5" height="22"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UbC-Jm-wFu">
+                                                            <rect key="frame" x="0.0" y="0.0" width="243" height="22"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeC-nG-ojh">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="22"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="listen">
+                                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDq-it-de4">
+                                                                    <rect key="frame" x="81" y="0.0" width="81" height="22"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="like">
+                                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="like:" destination="DJr-me-Q0j" eventType="touchUpInside" id="hb1-96-ZQF"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAH-FJ-HxI">
+                                                                    <rect key="frame" x="162" y="0.0" width="81" height="22"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" image="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <state key="normal" title="  #" image="bookmark">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="bookmark:" destination="DJr-me-Q0j" eventType="touchUpInside" id="fOu-yz-MKw"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3O-fm-jfN">
+                                                            <rect key="frame" x="243" y="0.0" width="70" height="22"/>
                                                             <accessibility key="accessibilityConfiguration">
                                                                 <accessibilityTraits key="traits" image="YES"/>
                                                             </accessibility>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="70" id="FAh-zv-OBn"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="listen">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDq-it-de4">
-                                                            <rect key="frame" x="104.5" y="0.0" width="104" height="22"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" image="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="like">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="like:" destination="DJr-me-Q0j" eventType="touchUpInside" id="hb1-96-ZQF"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAH-FJ-HxI">
-                                                            <rect key="frame" x="208.5" y="0.0" width="104.5" height="22"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" image="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <state key="normal" title="  #" image="bookmark">
+                                                            <state key="normal" image="download">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="bookmark:" destination="DJr-me-Q0j" eventType="touchUpInside" id="fOu-yz-MKw"/>
+                                                                <action selector="download:" destination="DJr-me-Q0j" eventType="touchUpInside" id="NAy-I0-jBs"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -813,6 +856,7 @@
                                         <connections>
                                             <outlet property="bookmark" destination="MAH-FJ-HxI" id="6MU-dC-hVv"/>
                                             <outlet property="desc" destination="4cW-Cu-JbE" id="UTa-N5-tUz"/>
+                                            <outlet property="download" destination="x3O-fm-jfN" id="isr-TW-WCc"/>
                                             <outlet property="like" destination="vDq-it-de4" id="a6c-X1-0ga"/>
                                             <outlet property="listen" destination="FeC-nG-ojh" id="h28-6b-Te7"/>
                                             <outlet property="play" destination="1Gc-2R-wMB" id="ylq-8r-qIV"/>
@@ -999,8 +1043,19 @@
                                             <segue destination="BYZ-38-t0r" kind="show" identifier="bookmarkedSermons" id="q0x-bj-cVe"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFp-wN-dgi">
+                                        <rect key="frame" x="0.0" y="120" width="111" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="yVo-AG-2Mj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="我下載的講道"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="SuC-ig-Bg1"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Z-ml-kEJ">
-                                        <rect key="frame" x="0.0" y="120" width="74" height="30"/>
+                                        <rect key="frame" x="0.0" y="160" width="74" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="sac-k7-PVc"/>
                                         </constraints>
@@ -1011,7 +1066,7 @@
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tSZ-9b-OBB">
-                                        <rect key="frame" x="0.0" y="160" width="288" height="304"/>
+                                        <rect key="frame" x="0.0" y="200" width="288" height="264"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
@@ -1248,6 +1303,6 @@
         <image name="upload" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q0x-bj-cVe"/>
+        <segue reference="XjB-gN-mAb"/>
     </inferredMetricsTieBreakers>
 </document>
