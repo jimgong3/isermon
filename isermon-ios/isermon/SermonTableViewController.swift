@@ -500,7 +500,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                             let sermonJson = array[i] as? [String: Any]
                             let s = Sermon(json: sermonJson!)
                             
-                            if !isDownloaded! || isDownloaded! && self.downloadedSermons[(s?.id)!] != nil {
+                            if !isDownloaded! ||
+                                    isDownloaded! && self.downloadedSermons[(s?.id)!] != nil && self.downloadedSermons[(s?.id)!] != "" {
                                 sermons.append(s!)
                             }
                         }
