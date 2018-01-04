@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764479.982451"
+            timestampString = "536765218.229083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.025486"
+            timestampString = "536765218.23607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,7 +442,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.028476"
+            timestampString = "536765218.237326"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -458,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.033048"
+            timestampString = "536765218.238565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -490,7 +490,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.036766"
+            timestampString = "536765218.241649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -506,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.039391"
+            timestampString = "536765218.24247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
             landmarkName = "secondsToText(seconds:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -570,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.042532"
+            timestampString = "536765218.243459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -586,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.048574"
+            timestampString = "536765218.244837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.052038"
+            timestampString = "536765218.246076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -618,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.055261"
+            timestampString = "536765218.247164"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1002,11 +1002,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.058688"
+            timestampString = "536765218.249232"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "513"
+            endingLineNumber = "513"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1034,11 +1034,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.061494"
+            timestampString = "536765218.250503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "play(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1050,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.063509"
+            timestampString = "536765218.251744"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "playItem(playerItem:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.065344"
+            timestampString = "536765218.252967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "play(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1082,11 +1082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.067669"
+            timestampString = "536765218.254258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "play(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1098,11 +1098,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.076393"
+            timestampString = "536765218.255638"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "playItem(playerItem:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1114,11 +1114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.079453"
+            timestampString = "536765218.2569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "didReceiveMemoryWarning()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1130,11 +1130,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.082293"
+            timestampString = "536765218.258067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1146,11 +1146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.085115"
+            timestampString = "536765218.259264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "trackAudio()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1162,11 +1162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.0882"
+            timestampString = "536765218.260509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "secondsToText(seconds:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1178,11 +1178,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.09076"
+            timestampString = "536765218.261734"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1194,11 +1194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.093409"
+            timestampString = "536765218.262933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "play(_:)"
             landmarkType = "7">
             <Locations>
@@ -1242,11 +1242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.095444"
+            timestampString = "536765218.264201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "secondsToText(seconds:)"
             landmarkType = "7">
             <Locations>
@@ -1290,11 +1290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.102698"
+            timestampString = "536765218.265371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1306,11 +1306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.105616"
+            timestampString = "536765218.266671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1322,11 +1322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.108433"
+            timestampString = "536765218.267898"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
             landmarkName = "secondsToText(seconds:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1370,11 +1370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.110712"
+            timestampString = "536765218.269071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "537"
-            endingLineNumber = "537"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1386,11 +1386,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.11273"
+            timestampString = "536765218.270268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1418,7 +1418,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/my/MyViewController.swift"
-            timestampString = "536764480.115"
+            timestampString = "536765218.271726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
@@ -1434,11 +1434,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.115435"
+            timestampString = "536765218.271926"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "595"
-            endingLineNumber = "595"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "loadHotSermons2(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1450,11 +1450,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.118868"
+            timestampString = "536765218.273165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "like(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1466,11 +1466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.121295"
+            timestampString = "536765218.274472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "like(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1482,11 +1482,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.123436"
+            timestampString = "536765218.275594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "515"
+            endingLineNumber = "515"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1498,11 +1498,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.12543"
+            timestampString = "536765218.276922"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
             landmarkName = "downloadSermon(sermon:button:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1514,11 +1514,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.128765"
+            timestampString = "536765218.27829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "772"
-            endingLineNumber = "772"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
             landmarkName = "viewLocalFiles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1530,11 +1530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.13129"
+            timestampString = "536765218.279439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1546,11 +1546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.133525"
+            timestampString = "536765218.280442"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1562,11 +1562,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.136412"
+            timestampString = "536765218.281584"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1578,11 +1578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.138593"
+            timestampString = "536765218.282646"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1594,11 +1594,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.141793"
+            timestampString = "536765218.285083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "7">
             <Locations>
@@ -1642,11 +1642,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.144728"
+            timestampString = "536765218.286278"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1658,11 +1658,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.14753"
+            timestampString = "536765218.287413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "searchSermons(keyword:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1674,11 +1674,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.152254"
+            timestampString = "536765218.288706"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1690,11 +1690,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.156109"
+            timestampString = "536765218.289802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1706,11 +1706,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.158702"
+            timestampString = "536765218.290901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "759"
-            endingLineNumber = "759"
+            startingLineNumber = "774"
+            endingLineNumber = "774"
             landmarkName = "downloadSermon(sermon:button:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1722,11 +1722,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.160916"
+            timestampString = "536765218.292109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
             <Locations>
@@ -1770,11 +1770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.162989"
+            timestampString = "536765218.293177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
             landmarkName = "SermonTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1786,11 +1786,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.165848"
+            timestampString = "536765218.294326"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -1834,11 +1834,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.16829"
+            timestampString = "536765218.296889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "783"
-            endingLineNumber = "783"
+            startingLineNumber = "799"
+            endingLineNumber = "799"
             landmarkName = "viewLocalFiles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1850,11 +1850,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.170328"
+            timestampString = "536765218.297593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "768"
+            endingLineNumber = "768"
             landmarkName = "downloadSermon(sermon:button:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1866,11 +1866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.173086"
+            timestampString = "536765218.298294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "751"
-            endingLineNumber = "751"
+            startingLineNumber = "766"
+            endingLineNumber = "766"
             landmarkName = "downloadSermon(sermon:button:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1882,7 +1882,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/my/MySubscriptionViewController.swift"
-            timestampString = "536764480.175171"
+            timestampString = "536765218.299361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "167"
@@ -1898,7 +1898,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/my/MyViewController.swift"
-            timestampString = "536764480.175599"
+            timestampString = "536765218.299558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -1914,11 +1914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.176138"
+            timestampString = "536765218.29975"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "loadSermons(bookmarkedByUsername:uploadedByUsername:isDownloaded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1930,11 +1930,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.180926"
+            timestampString = "536765218.300998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1946,11 +1946,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.183428"
+            timestampString = "536765218.302047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1962,11 +1962,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.186046"
+            timestampString = "536765218.302975"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1978,11 +1978,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.18808"
+            timestampString = "536765218.303981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1994,11 +1994,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.189614"
+            timestampString = "536765218.305097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "playerItemInit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2010,11 +2010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.191035"
+            timestampString = "536765218.306172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "764"
-            endingLineNumber = "764"
+            startingLineNumber = "779"
+            endingLineNumber = "779"
             landmarkName = "downloadSermon(sermon:button:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2026,55 +2026,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.192957"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "play(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.194478"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
-            landmarkName = "tapPlayCurrent(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.195948"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "play(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.197222"
+            timestampString = "536765218.307094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "237"
@@ -2090,7 +2042,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.198345"
+            timestampString = "536765218.307949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
+            landmarkName = "tapPlayCurrent(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "isermon/SermonTableViewController.swift"
+            timestampString = "536765218.308752"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "play(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "isermon/SermonTableViewController.swift"
+            timestampString = "536765218.309694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
@@ -2106,7 +2090,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "isermon/SermonTableViewController.swift"
-            timestampString = "536764480.199471"
+            timestampString = "536765218.310666"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "play(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "isermon/SermonTableViewController.swift"
+            timestampString = "536765218.311451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "479"

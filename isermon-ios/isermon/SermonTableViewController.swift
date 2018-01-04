@@ -49,6 +49,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 	var isTypingMode = false
 	
     var downloadedSermons = [String: String]()    //id:local url
+    var isDownloading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -480,15 +481,30 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             let url = URL(string: urlString!)
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: (url?.path)!) {
-                print("file already downloaded, skip download")
+                let alert = UIAlertController(title: "提示", message: "下載已完成。", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
         }
         
+        if isDownloading {
+            let alert = UIAlertController(title: "提示", message: "當前下載進行中，請稍候再試。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        isDownloading = true
         downloadSermon(sermon: sermon, button: button, completion: {(result: String) -> () in
 //            print("result: \(result)")
             button.setTitle(" 已下載", for: .normal)
         })
+        
     }
     
     // MARK: - Sub Functions
@@ -763,6 +779,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                     self.downloadedSermons[sermon.id!] = fileUrl?.description
                     UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
                 
+                    self.isDownloading = false
                     completion("download success")
                 }
             }
