@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import AVFoundation
 
+let PLAY = "播放"
+let PAUSE = "暫停"
+
 class SermonTableViewController: UIViewController, UITableViewDataSource, 
 									UITabBarControllerDelegate,
 									UISearchBarDelegate,
@@ -174,7 +177,8 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 		}
         
         cell.play.tag = indexPath.row
-        
+        cell.play.setTitle(PLAY, for: .normal)
+
         return cell
     }
 
@@ -228,12 +232,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     */
 	
     @IBAction func play(_ sender: Any) {
-//        print("tap play/pause...")
-        
         let button = sender as! UIButton
-        if button.titleLabel?.text == "PLAY" {
+        if button.titleLabel?.text == PLAY {
 //            print("tap play...")
-			button.setTitle("PAUSE", for: .normal)
+			button.setTitle(PAUSE, for: .normal)
             playCurrentButton.setImage(UIImage(named: "pause"), for: .normal)
 
             let index = (sender as! UIButton).tag
@@ -255,7 +257,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                     player.play()
                 } else {
                     print("switch to play another audio")
-                    lastPlay?.setTitle("PLAY", for: .normal)
+                    lastPlay?.setTitle(PLAY, for: .normal)
                     lastPlay = button
 					playItem(playerItem: playerItem)
                 }
@@ -263,7 +265,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         } else {
             print("tap to pause...")
             player.pause()
-            button.setTitle("PLAY", for: .normal)
+            button.setTitle(PLAY, for: .normal)
             playCurrentButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
@@ -380,13 +382,13 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let button = sender as! UIButton
         if player.rate == 1.0 { //was playing - to stop
             player.pause()
-            lastPlay?.setTitle("PLAY", for: .normal)
+            lastPlay?.setTitle(PLAY, for: .normal)
             button.setImage(UIImage(named: "play"), for: .normal)
         } else {    //was stop - try to start
             if player.currentItem != nil {
                 player.rate = 1.0
                 player.play()
-                lastPlay?.setTitle("PAUSE", for: .normal)
+                lastPlay?.setTitle(PAUSE, for: .normal)
                 button.setImage(UIImage(named: "pause"), for: .normal)
             }
         }
