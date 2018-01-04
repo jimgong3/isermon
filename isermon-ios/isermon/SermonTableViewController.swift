@@ -473,8 +473,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
         
         let button = sender as! UIButton
-        print("tap to download")      
         let sermon = sermons[button.tag]
+        
+        let urlString = downloadedSermons[(sermon.id)!]
+        if urlString != nil && urlString != "" {
+            let url = URL(string: urlString!)
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: (url?.path)!) {
+                print("file already downloaded, skip download")
+                return
+            }
+        }
+        
         downloadSermon(sermon: sermon, button: button, completion: {(result: String) -> () in
 //            print("result: \(result)")
             button.setTitle(" 已下載", for: .normal)
