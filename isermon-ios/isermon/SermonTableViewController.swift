@@ -413,9 +413,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if button.currentImage == UIImage(named: "liked") {
             print("tap to un-like")
             counter = counter! - 1
+            sermons[button.tag].num_like = counter
             button.setImage(UIImage(named: "like"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
+                Me.sharedInstance.liked_sermon_ids?.remove(sermon_id!)
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
@@ -424,9 +426,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         } else {
             print("tap to like...")
             counter = counter! + 1
+            sermons[button.tag].num_like = counter
             button.setImage(UIImage(named: "liked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
+                Me.sharedInstance.liked_sermon_ids?.insert(sermon_id!)
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
@@ -453,9 +457,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         if button.currentImage == UIImage(named: "bookmarked") {
             print("tap to un-bookmark")
             counter = counter! - 1
+            sermons[button.tag].num_bookmark = counter
             button.setImage(UIImage(named: "bookmark"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
+                Me.sharedInstance.bookmarked_sermon_ids?.remove(sermon_id!)
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
@@ -464,9 +470,11 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         } else {
             print("tap to bookmark...")
             counter = counter! + 1
+            sermons[button.tag].num_bookmark = counter
             button.setImage(UIImage(named: "bookmarked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
+                Me.sharedInstance.bookmarked_sermon_ids?.insert(sermon_id!)
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
