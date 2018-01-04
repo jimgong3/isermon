@@ -115,7 +115,7 @@ function sendEmailRegisterSuccess(username, email){
   text += "Dear Customer, \n\nThanks for your registration, below please find the user account details for your reference: "
   text += "\n\nUsername: " + username;
   text += "\nEmail: " + email;
-  text += "\n\nFeel free to let us know for any comment or thought of this app.";
+  text += "\n\nFeel free to let us know for any comment or suggestion.";
   text += "\n\nThank you.";
   text += "\n\niSermon Team";
 
