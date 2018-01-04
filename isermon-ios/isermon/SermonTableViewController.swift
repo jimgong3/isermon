@@ -463,6 +463,15 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
     }
 	
 	@IBAction func download(_ sender: Any) {
+        if Me.sharedInstance.username == nil || Me.sharedInstance.username == "" {
+            let alert = UIAlertController(title: "提示", message: "需先登錄，才能下載。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("好", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         let button = sender as! UIButton
         print("tap to download")      
         let sermon = sermons[button.tag]
