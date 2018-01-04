@@ -406,24 +406,30 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
         
         let button = sender as! UIButton
+        var label = button.titleLabel?.text
+        label = label?.trimmingCharacters(in: .whitespaces)
+        var counter = Int(label!)
+
         if button.currentImage == UIImage(named: "liked") {
             print("tap to un-like")
+            counter = counter! - 1
             button.setImage(UIImage(named: "like"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
-                    button.setTitle("  ", for: .normal)
+                    button.setTitle("  " + (counter?.description)!, for: .normal)
                 })
             }
         } else {
             print("tap to like...")
+            counter = counter! + 1
             button.setImage(UIImage(named: "liked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
-                    button.setTitle("  ", for: .normal)
+                    button.setTitle("  " + (counter?.description)!, for: .normal)
                 })
             }
         }
@@ -440,24 +446,30 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
 
         let button = sender as! UIButton
+        var label = button.titleLabel?.text
+        label = label?.trimmingCharacters(in: .whitespaces)
+        var counter = Int(label!)
+
         if button.currentImage == UIImage(named: "bookmarked") {
             print("tap to un-bookmark")
+            counter = counter! - 1
             button.setImage(UIImage(named: "bookmark"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
-                    button.setTitle("  ", for: .normal)
+                    button.setTitle("  " + (counter?.description)!, for: .normal)
                 })
             }
         } else {
             print("tap to bookmark...")
+            counter = counter! + 1
             button.setImage(UIImage(named: "bookmarked"), for: .normal)
             if let username = Me.sharedInstance.username {
                 let sermon_id = sermons[button.tag].id
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
-                    button.setTitle("  ", for: .normal)
+                    button.setTitle("  " + (counter?.description)!, for: .normal)
                 })
             }
         }
