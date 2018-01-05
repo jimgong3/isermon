@@ -16,6 +16,7 @@ var loginUtil = require('./loginUtil');
 var bookmarkUtil = require('./bookmarkUtil');
 var likeUtil = require('./likeUtil');
 var subscribeUtil = require('./subscribeUtil');
+var auditUtil = require('./auditUtil');
 var iSermonConfig = require('./iSermonConfig');
 
 var db;
@@ -43,12 +44,17 @@ app.get('/', function (req, res) {
   logger.info("index>> GET /");
 
   res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-  res.write('有耳可聽的，就應當聽！ 太 11:15 <br><br>');
+  res.write('講道 - 收聽全世界的精彩講道！ <br>');
+  res.write('<br>');
   res.write('Quick Links: <br>');
   res.write('<a href="/register">Register</a> <br>');
   res.write('<a href="/upload">Upload a Sermon</a> <br>');
   res.write('<a href="/delete">Delete a Sermon</a> <br>');
-  res.write('<a href="/sermons?pretty">View Sermons</a> <br>');
+  res.write('<br>');
+  res.write('如有任何查詢，歡迎發送電郵至isermonhk@gmail.com。 <br>');
+  res.write('<br>');
+  res.write('iSermon團隊敬上 <br>');
+//  res.write('<a href="/sermons?pretty">View Sermons</a> <br>');
 
   return res.end();
 })
@@ -216,3 +222,13 @@ app.post('/deleteSermon', function (req, res) {
     });
   });
 })
+
+app.post('/audit', function (req, res) {
+  logger.info("index>> POST /audit");
+  auditUtil.audit(req, db, function(result){
+    res.write(result, function(err){
+      res.end();
+    });
+  });
+})
+
