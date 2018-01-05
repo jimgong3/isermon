@@ -524,10 +524,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 //            print("result: \(result)")
             button.setTitle(" 已下載", for: .normal)
 			
-			audit(username: username, action: "download", 
+            self.audit(username: self.username!, action: "download",
 					remarks1: sermon.urlLocal, remarks2: sermon.title, remarks3: sermon.description,
 					completion: {(result: String) -> () in
-				print("audit result: \(result)"
+				print("audit result: \(result)")
             })
         })
         
@@ -840,17 +840,23 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         let url = URL(string: urlStr!)
         print("url: \(url!)")
         
-        let parameters: Parameters = [
+        var parameters: Parameters = [
             "username": username,
-            "action": action,
-			"remarks1": remarks1,
-			"remarks2": remarks2,
-			"remarks3": remarks3
+            "action": action
         ]
-        
+        if remarks1 != nil {
+            parameters["remarks1"] = remarks1
+        }
+        if remarks2 != nil {
+            parameters["remarks2"] = remarks2
+        }
+        if remarks3 != nil {
+            parameters["remarks3"] = remarks3
+        }
+
         Alamofire.request(url!, method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
             if let result = response.result.value {
-                print("Response: \(result)")
+//                print("Response: \(result)")
                 completion(result)
             }
         }
