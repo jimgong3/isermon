@@ -134,7 +134,7 @@ exports.getUpload = function (req, res) {
   res.write('或者，指定講道錄音MP3下載鏈接URL: <br>');
   res.write('<input type="text" name="url" placeholder="e.g. http://wwww.website.org/recording.mp3" size=40><br><br>');
 
-  res.write('用戶名和密碼 - 可留空以訪客身份上傳: <br>');
+  res.write('用戶名和密碼（可選，留空以訪客身份上傳）: <br>');
   res.write('<input type="text" name="username" placeholder="用戶名（可選）" size=40><br>');
   res.write('<input type="password" name="password" placeholder="密碼（可選）" size=40><br><br>');
 
