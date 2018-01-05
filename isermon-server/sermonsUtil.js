@@ -245,9 +245,9 @@ exports.deleteSermon = function(req, res, db, callback) {
 		return;
 	}
 
-	if (!(/[a-f0-9]{24}/.test(req.params.id))) {
-		logger.info("delete failure - invalid sermon id");
-		callback("Delete failure - invalid sermon id");
+	if (!(/[a-f0-9]{24}/.test(sermonId))) {
+		logger.info("delete failure - invalid sermon id: " + sermonId);
+		callback("Delete failure - invalid sermon id: " + sermonId);
 		return;
 	}
 
