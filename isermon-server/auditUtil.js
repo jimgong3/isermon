@@ -33,11 +33,11 @@ exports.audit = function(req, db, callback) {
 
   	var json = {};
 	json.username = username;
-	json.action = "download";
+	json.action = action;
 	json.remarks1 = remarks1;
 	json.remarks2 = remarks2;
 	json.remarks3 = remarks3;
-	
+
 	var datetime = new Date().getTime();
 	datetime += 8 * 60 * 60 * 1000;
 	var datetimehk = new Date(datetime);
@@ -46,25 +46,26 @@ exports.audit = function(req, db, callback) {
 	json["date"] = datehk;
 
 	logger.info("audit record: " + JSON.stringify(json));
-	
+
 	var collection = db.collection("audit");
 	collection.insertOne(json, function(err, docs) {
 		logger.info("1 audit record inserted");
 		callback("success");
-		sendEmailDownloadRequest(username, remarks1, remarks2, remarks3);
+    if (action == "download")
+		  sendEmailNotification(username, action, remarks1, remarks2, remarks3);
 	});
 }
 
-function sendEmailDownloadRequest(username, remarks1, remarks2, remarks3){
-  logger.info("auditUtil>> sendEmailDownloadRequest start...");
-  
+function sendEmailNotification(username, action, remarks1, remarks2, remarks3){
+  logger.info("auditUtil>> sendEmailNotification start...");
+
   var from = iSermonConfig.iSermonEmailAccount;
   var to = iSermonConfig.iSermonEmailAccount;
-  var subject = "iSermon: New Download Request";
+  var subject = "iSermon: New Request - " + action;
   var text = "";
   text += "Dear Admin, \n";
   text += "\n";
-  text += "Below download request has been received: \n";
+  text += "New request has been received: " + action + "\n";
   text += "\n";
   text += "Username: " +  "\n";
   text += username + "\n";
@@ -98,5 +99,3 @@ function sendEmailDownloadRequest(username, remarks1, remarks2, remarks3){
     }
   });
 }
-
-

@@ -154,6 +154,13 @@ func register(username: String, password: String, email: String? = nil,
         if let result = response.result.value {
             print("Response: \(result)")
             completion(result)
+            
+            audit(username: username, action: "register",
+                  remarks1: email,
+                  completion: {(result: String) -> () in
+                    print("audit result: \(result)")
+            })
+
         }
     }
 }
