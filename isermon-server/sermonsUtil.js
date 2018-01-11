@@ -52,10 +52,18 @@ exports.sermons = function(req, db, callback) {
   } else {
     logger.info("query from sermons...");
     var collection = db.collection("sermons");
-    var query = {};
+    var condition = [];
     if (uploadedBy != null && uploadedBy != ""){
-      query = {username: uploadedBy};
+      condition.push({username: uploadedBy});
     }
+    condition.push({$or:[
+      {"status": {$exists: false}},
+      {"status": "approved"}
+    ]});
+
+    var query = {};
+    if (condition.length > 0)
+      query = {$and: condition};
     logger.info("query: " + JSON.stringify(query));
 
     collection.find(query).sort(order).toArray(function(err, result) {
