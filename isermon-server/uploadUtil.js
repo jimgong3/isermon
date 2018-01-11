@@ -232,7 +232,7 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
       // res.write('File upload success!');
       // res.end();
       dbInsert(db, title, description, urlLocal, uploadUsername);
-      callback("Upload success");
+      callback("Upload success, pending for review.");
     });
 	request.on('error', function(err){
 		logger.error("error when download from url: " + err);
@@ -244,7 +244,7 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
         // res.write('File upload success!');
         // res.end();
         dbInsert(db, title, description, urlLocal, uploadUsername);
-        callback("Upload success");
+        callback("Upload success, pending for review.");
       });
 	request.on('error', function(err){
 		logger.error("error when download from url: " + err);
@@ -278,7 +278,7 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   fs.rename(oldpath, 'http/'+filepathLocal, function (err) {
     if (err) throw err;
     dbInsert(db, title, description, urlLocal, uploadUsername);
-    callback("Upload success");
+    callback("Upload success, pending for review.");
   });
 }
 
