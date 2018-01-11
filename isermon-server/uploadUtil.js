@@ -79,7 +79,7 @@ exports.upload = function(req, db, hostHttp, portHttp, callback) {
   } else {
 	 logger.error("uploadUtil>> invalid url");
 	 callback({"status": "upload failed, invalid url: " + url});
-	 //todo: delete the empty file 
+	 //todo: delete the empty file
   }
 
   var sermonJson = {};
@@ -208,16 +208,16 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
   logger.info("upload from URL: " + url);
   var basename = path.basename(urltool.parse(url).pathname);
   logger.info("basename: " + basename);
-  
+
   var randomeFilename = randomstring.generate(7);
   var basenameNew = randomeFilename + path.extname(basename);
   logger.info("basenameNew: " + basenameNew);
-  
+
   if (path.extname(basename) != ".mp3"){
 	  callback("Upload failure - currently only mp3 file format is supported");
 	  return;
   }
-  
+
   var filename = Date.now() + "_" + basenameNew;
   // logger.info("filename: " + filename);
   var filepathLocal = "upload/" + filename;
@@ -263,11 +263,11 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   logger.info("upload from local, oldpath: " + oldpath);
   var basename = file.name;
   logger.info("basename: " + basename);
-  
+
   var randomeFilename = randomstring.generate(7);
   var basenameNew = randomeFilename + path.extname(basename);
   logger.info("basenameNew: " + basenameNew);
-  
+
   var filename = Date.now() + "_" + basenameNew;
   // logger.info("filename: " + filename);
   var filepathLocal = 'upload/' + filename;
@@ -302,6 +302,8 @@ function dbInsert(db, title, description, urlLocal, uploadUsername){
     sermonJson["num_listen"] = 0;
     sermonJson["num_like"] = 0;
     sermonJson["num_bookmark"] = 0;
+
+    sermonJson["status"] = "pending for review";
 
     var collection = db.collection("sermons");
     collection.insertOne(sermonJson, function(err, result) {
