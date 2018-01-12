@@ -232,3 +232,16 @@ app.post('/audit', function (req, res) {
   });
 })
 
+app.get('/approve', function (req, res) {
+  logger.info("index>> GET /approve");
+  sermonsUtil.getApprove(req, res);
+})
+
+app.post('/approveSermon', function (req, res) {
+  logger.info("index>> POST /approveSermon");
+  sermonsUtil.approveSermon(req, res, db, function(result){
+    res.write(result, function(err){
+      res.end();
+    });
+  });
+})
