@@ -309,11 +309,11 @@ function dbInsert(db, title, description, urlLocal, uploadUsername){
     collection.insertOne(sermonJson, function(err, result) {
       if (err) throw err;
       logger.info("uploadUtil>> 1 sermon inserted");
-      sendEmailUploadSuccess(title, description, urlLocal, uploadUsername);
+      sendEmailUploadSuccess(title, description, urlLocal, uploadUsername, sermonJson["_id"]);
     })
 }
 
-function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername){
+function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername, oid){
   var from = iSermonConfig.iSermonEmailAccount;
   var to = iSermonConfig.iSermonEmailAccount;
   var subject = "iSermon: New Sermon Uploaded";
@@ -333,6 +333,9 @@ function sendEmailUploadSuccess(title, description, urlLocal, uploadUsername){
   text += "\n";
   text += "Uploaded By: " + "\n";
   text += uploadUsername + "\n";
+  text += "\n";
+  text += "Sermon ID: " + "\n";
+  text += oid + "\n";
   text += "\n";
   text += "Thank you. \n";
   text += "\n";
