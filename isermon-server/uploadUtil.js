@@ -143,6 +143,32 @@ exports.getUpload = function (req, res) {
   return res.end();
 }
 
+exports.getUploadSudo = function (req, res) {
+  logger.info("uploadUtil>> getUpload start...");
+
+  res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+  // res.writeHead(200, {'Content-Type': 'application/x-www-form-urlencoded'});
+  res.write('<form action="fileupload" method="post" enctype="multipart/form-data" accept-charset="utf-8">');
+  res.write('<h1>上傳講道錄音 Sudo</h1>');
+
+  res.write('講題: <br>');
+  res.write('<input type="text" name="title" placeholder="講道題目" size=40><br><br>');
+
+  res.write('描述: <br>');
+  // res.write('<input type="text" name="description" placeholder="Description" size=35><br><br>');
+  res.write('<textarea name="description2" placeholder="說點什麼..." cols=80 rows=10></textarea><br><br>');
+
+  res.write('指定講道錄音MP3下載鏈接URL: <br>');
+  res.write('<input type="text" name="url" placeholder="e.g. http://wwww.website.org/recording.mp3" size=80><br><br>');
+
+  res.write('管理員密碼: <br>');
+  res.write('<input type="password" name="adminPassword" placeholder="" size=40><br><br>');
+
+  res.write('<input type="submit">');
+  res.write('</form>');
+  return res.end();
+}
+
 exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
   logger.info("uploadUtil>> fileupload start...");
 
@@ -152,26 +178,47 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
 	  title = translator.translate2(title);
 	  logger.info("title: " + title);
     var description2 = fields.description2;
-	description2 = translator.translate2(description2);
+	  description2 = translator.translate2(description2);
 	  logger.info("description2: " + description2);
     var username = fields.username;
     var password = fields.password;
     logger.info("username: " + username + ", password: " + password);
 
-    getUploadUsername(username, password, db, function(uploadUsername){
-      var url = fields.url;
-	  logger.info("url: " + url);
-      var file = files.filetoupload;
-	  logger.info("file: " + file.name);
-      if (url != null && url != "") {
-        uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, function(result){
+    var adminPassword = fields.adminPassword;
+    logger.info("adminPassword: " + adminPassword);
+    if(adminPassword){
+      if(adminPassword == iSermonConfig.adminPassword){
+        var url = fields.url;
+  	    logger.info("url: " + url);
+        var isSudo = true;
+        var uploadUsername = "guest";
+        uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, isSudo, function(result){
           logger.info("callback from uploadFromUrl, result: " + result);
           callback(result);
         });
-      } else if (file.name != null && file.name != ""){
+      } else {
+        logger.error("incorrect admin password");
+        callback("incorrect admin password");
+      }
+      return;
+    }
+
+    var isSudo = false;
+    getUploadUsername(username, password, db, function(uploadUsername){
+      var url = fields.url;
+	    logger.info("url: " + url);
+      var file = files.filetoupload;
+      if(file)
+	      logger.info("file: " + file.name);
+      if (url != null && url != "") {
+        uploadFromUrl(url, db, title, description2, uploadUsername, hostHttp, portHttp, isSudo, function(result){
+          logger.info("callback from uploadFromUrl, result: " + result);
+          callback(result);
+        });
+      } else if (file && file.name != null && file.name != ""){
           uploadFromLocal(file, db, title, description2, uploadUsername,hostHttp, portHttp, function(result){
-			logger.info("callback from uploadFromLocal, result: " + result);
-			callback(result);
+			      logger.info("callback from uploadFromLocal, result: " + result);
+			      callback(result);
           });
       } else {
           callback("Upload failure: either choose a local file or input valid URL.");
@@ -204,8 +251,13 @@ function getUploadUsername(username, password, db, callback){
   });
 }
 
-function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, portHttp, callback) {
+function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, portHttp, isSudo, callback) {
   logger.info("upload from URL: " + url);
+  if(isSudo)
+    logger.info("sudo mode on");
+  else
+    logger.info("sodu mode off");
+
   var basename = path.basename(urltool.parse(url).pathname);
   logger.info("basename: " + basename);
 
@@ -231,25 +283,31 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
       response.pipe(file);
       // res.write('File upload success!');
       // res.end();
-      dbInsert(db, title, description, urlLocal, uploadUsername);
-      callback("Upload success, pending for review.");
+      dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
+      if(isSudo)
+        callback("Upload and approve success.");
+      else
+        callback("Upload success, pending for review.");
     });
-	request.on('error', function(err){
-		logger.error("error when download from url: " + err);
-		callback("Upload failed, please check URL.");
-	});
+	  request.on('error', function(err){
+  		logger.error("error when download from url: " + err);
+  		callback("Upload failed, please check URL.");
+	  });
   } else if (url.indexOf("https://") == 0) {
       var request = https.get(url, function(response) {
         response.pipe(file);
         // res.write('File upload success!');
         // res.end();
-        dbInsert(db, title, description, urlLocal, uploadUsername);
-        callback("Upload success, pending for review.");
+        dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
+        if(isSudo)
+          callback("Upload and approve success.");
+        else
+          callback("Upload success, pending for review.");
       });
-	request.on('error', function(err){
-		logger.error("error when download from url: " + err);
-		callback("Upload failed, please check URL.");
-	});
+	    request.on('error', function(err){
+		    logger.error("error when download from url: " + err);
+		    callback("Upload failed, please check URL.");
+	    });
   } else {
      logger.error("uploadUtil>> invalid url");
      // res.write({"status": "upload failed, invalid url: " + url});
@@ -277,13 +335,18 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
 
   fs.rename(oldpath, 'http/'+filepathLocal, function (err) {
     if (err) throw err;
-    dbInsert(db, title, description, urlLocal, uploadUsername);
+    var isSudo = false;
+    dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
     callback("Upload success, pending for review.");
   });
 }
 
-function dbInsert(db, title, description, urlLocal, uploadUsername){
+function dbInsert(db, title, description, urlLocal, uploadUsername, isSudo){
     logger.info("uploadUtil>> dbInsert start...");
+    if(isSudo)
+      logger.info("sudo mode on");
+    else
+      logger.info("sudo mode off");
 
     var sermonJson = {};
     sermonJson["title"] = title;
@@ -303,7 +366,10 @@ function dbInsert(db, title, description, urlLocal, uploadUsername){
     sermonJson["num_like"] = 0;
     sermonJson["num_bookmark"] = 0;
 
-    sermonJson["status"] = "pending for review";
+    if(isSudo)
+      sermonJson["status"] = "approved";
+    else
+      sermonJson["status"] = "pending for review";
 
     var collection = db.collection("sermons");
     collection.insertOne(sermonJson, function(err, result) {

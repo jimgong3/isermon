@@ -81,6 +81,11 @@ app.get('/upload', function (req, res) {
   uploadUtil.getUpload(req, res);
 })
 
+app.get('/uploadSudo', function (req, res) {
+  logger.info("index>> GET /uploadSudo");
+  uploadUtil.getUploadSudo(req, res);
+})
+
 app.post('/fileupload', function (req, res) {
   logger.info("index>> POST /fileupload");
   uploadUtil.fileupload(req, res, db, hostHttp, portHttp, function(result){
