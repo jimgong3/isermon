@@ -158,7 +158,7 @@ exports.getUploadSudo = function (req, res) {
   // res.write('<input type="text" name="description" placeholder="Description" size=35><br><br>');
   res.write('<textarea name="description2" placeholder="說點什麼..." cols=80 rows=10></textarea><br><br>');
 
-  res.write('指定講道錄音MP3下載鏈接URL: <br>');
+  res.write('講道錄音MP3下載鏈接URL: <br>');
   res.write('<input type="text" name="url" placeholder="e.g. http://wwww.website.org/recording.mp3" size=80><br><br>');
 
   res.write('管理員密碼: <br>');
@@ -188,6 +188,7 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
     logger.info("adminPassword: " + adminPassword);
     if(adminPassword){
       if(adminPassword == iSermonConfig.adminPassword){
+        logger.info("sudo mode on");
         var url = fields.url;
   	    logger.info("url: " + url);
         var isSudo = true;
@@ -204,6 +205,7 @@ exports.fileupload = function(req, res, db, hostHttp, portHttp, callback) {
     }
 
     var isSudo = false;
+    logger.info("sudo mode off");
     getUploadUsername(username, password, db, function(uploadUsername){
       var url = fields.url;
 	    logger.info("url: " + url);
