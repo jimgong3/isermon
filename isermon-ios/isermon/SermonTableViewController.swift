@@ -247,6 +247,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
+            audit(username: self.username!, action: "play",
+                  remarks1: sermonPlaying?.urlLocal, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
+                  completion: {(result: String) -> () in
+                    print("audit result: \(result)")
+            })
+
             if player.currentItem == nil {
                 print("play a new audio...")				
                 lastPlay = button
