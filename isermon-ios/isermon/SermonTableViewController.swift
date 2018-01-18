@@ -248,7 +248,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             updater?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
             audit(username: self.username!, action: "play",
-                  remarks1: sermonPlaying?.urlLocal, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
+                  remarks1: sermonPlaying?.id, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
                   completion: {(result: String) -> () in
                     print("audit result: \(result)")
             })
@@ -531,7 +531,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             button.setTitle(" 已下載", for: .normal)
 			
             audit(username: self.username!, action: "download",
-					remarks1: sermon.urlLocal, remarks2: sermon.title, remarks3: sermon.description,
+					remarks1: sermon.id, remarks2: sermon.title, remarks3: sermon.description,
 					completion: {(result: String) -> () in
 				print("audit result: \(result)")
             })
