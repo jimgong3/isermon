@@ -435,6 +435,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "unlike",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         } else {
@@ -448,6 +454,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "like",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         }
@@ -479,6 +491,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "unbookmark",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         } else {
@@ -492,6 +510,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "bookmark",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         }
