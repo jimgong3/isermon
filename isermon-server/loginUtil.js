@@ -110,14 +110,20 @@ function sendEmailRegisterSuccess(username, email){
   var from = iSermonConfig.iSermonEmailAccount;
   var to = email;
   var cc = iSermonConfig.iSermonEmailAccount;
-  var subject = "iSermon: Register Success";
+  var subject = "聽道: 註冊成功";
   var text = "";
-  text += "Dear Customer, \n\nThanks for your registration, below please find the user account details for your reference: "
-  text += "\n\nUsername: " + username;
-  text += "\nEmail: " + email;
-  text += "\n\nFeel free to let us know for any comment or suggestion.";
-  text += "\n\nThank you.";
-  text += "\n\niSermon Team";
+  text += "親愛的用戶, \n"
+  text += "\n"
+  text += "感謝您的註冊，下面是您的用戶資料供參考： \n"
+  text += "\n"
+  text += "用戶名: " + username + "\n";
+  text += "電郵: " + email + "\n";
+  text += "\n"
+  text += "如果對於聽道App有任何意見或者反饋，歡迎隨時告訴我們. \n";
+  text += "\n"
+  text += "謝謝您的支持. \n";
+  text += "\n"
+  text += "聽道App同工";
 
   var mailOptions = {
     from: from,
