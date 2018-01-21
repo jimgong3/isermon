@@ -17,6 +17,7 @@ class Sermon {
     var info: String?
     var lang: String?
     var urlLocal: String?
+    var urlSource: String?
     var username: String?
     var date: String?
     
@@ -37,6 +38,7 @@ class Sermon {
         self.info = json["info"] as? String
         self.lang = json["lang"] as? String
         self.urlLocal = json["urlLocal"] as? String
+        self.urlSource = json["urlSource"] as? String
         self.username = json["username"] as? String
         self.date = json["date"] as? String
 

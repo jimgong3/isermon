@@ -250,7 +250,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             audit(username: self.username!, action: "play",
                   remarks1: sermonPlaying?.id, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
                   completion: {(result: String) -> () in
-                    print("audit result: \(result)")
+//                    print("audit result: \(result)")
             })
 
             if player.currentItem == nil {
@@ -307,10 +307,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 self.downloadedSermons[(sermonPlaying?.id!)!] = ""
                 UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
 
-                urlString = (sermonPlaying?.urlLocal)!
+                if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+                    urlString = (sermonPlaying?.urlSource)!
+                } else {
+                    urlString = (sermonPlaying?.urlLocal)!
+                }
             }
         } else {
-            urlString = (sermonPlaying?.urlLocal)!
+            if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+                urlString = (sermonPlaying?.urlSource)!
+            } else {
+                urlString = (sermonPlaying?.urlLocal)!
+            }
         }
         print("sermon url: \(String(describing: urlString))")
 
@@ -533,7 +541,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             audit(username: self.username!, action: "download",
 					remarks1: sermon.id, remarks2: sermon.title, remarks3: sermon.description,
 					completion: {(result: String) -> () in
-				print("audit result: \(result)")
+//                print("audit result: \(result)")
             })
         })
         
