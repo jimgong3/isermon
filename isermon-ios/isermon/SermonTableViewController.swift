@@ -792,7 +792,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 //            return    //comment out for testing - always download
         }
         
-        let sermonUrl = sermon.urlLocal
+        var sermonUrl = sermon.urlLocal
+        if sermon.urlSource != nil && sermon.urlSource != "" {
+            sermonUrl = sermon.urlSource
+        }
         let basename = (sermonUrl! as NSString).lastPathComponent
         let url = URL(string: sermonUrl!)
         print("download sermon url: \(url!)")
@@ -836,9 +839,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
             // if you want to filter the directory contents you can do like this:
             let mp3Files = directoryContents.filter{ $0.pathExtension == "mp3" }
-            print("mp3 urls:",mp3Files)
+//            print("mp3 urls:",mp3Files)
             let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
-            print("mp3 list:", mp3FileNames)
+//            print("mp3 list:", mp3FileNames)
 
         } catch {
             print(error.localizedDescription)
