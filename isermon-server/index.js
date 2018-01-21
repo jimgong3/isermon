@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
   logger.info("index>> GET /");
 
   res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-  res.write('講道 - 收聽全世界的精彩講道！ <br>');
+  res.write('聽道 - 隨時隨地收聽精彩講道！ <br>');
   res.write('<br>');
   res.write('Quick Links: <br>');
   res.write('<a href="/register">Register</a> <br>');
@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
   res.write('<br>');
   res.write('如有任何查詢，歡迎發送電郵至isermonhk@gmail.com。 <br>');
   res.write('<br>');
-  res.write('iSermon團隊敬上 <br>');
+  res.write('聽道App同工敬上 <br>');
 //  res.write('<a href="/sermons?pretty">View Sermons</a> <br>');
 
   return res.end();
