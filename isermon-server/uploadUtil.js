@@ -285,7 +285,7 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
       response.pipe(file);
       // res.write('File upload success!');
       // res.end();
-      dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
+      dbInsert(db, title, description, urlLocal, url, uploadUsername, isSudo);
       if(isSudo)
         callback("Upload and approve success.");
       else
@@ -300,7 +300,7 @@ function uploadFromUrl(url, db, title, description, uploadUsername, hostHttp, po
         response.pipe(file);
         // res.write('File upload success!');
         // res.end();
-        dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
+        dbInsert(db, title, description, urlLocal, url, uploadUsername, isSudo);
         if(isSudo)
           callback("Upload and approve success.");
         else
@@ -338,12 +338,12 @@ function uploadFromLocal(file, db, title, description, uploadUsername, hostHttp,
   fs.rename(oldpath, 'http/'+filepathLocal, function (err) {
     if (err) throw err;
     var isSudo = false;
-    dbInsert(db, title, description, urlLocal, uploadUsername, isSudo);
+    dbInsert(db, title, description, urlLocal, null, uploadUsername, isSudo);
     callback("Upload success, pending for review.");
   });
 }
 
-function dbInsert(db, title, description, urlLocal, uploadUsername, isSudo){
+function dbInsert(db, title, description, urlLocal, urlSource, uploadUsername, isSudo){
     logger.info("uploadUtil>> dbInsert start...");
     if(isSudo)
       logger.info("sudo mode on");
@@ -354,6 +354,7 @@ function dbInsert(db, title, description, urlLocal, uploadUsername, isSudo){
     sermonJson["title"] = title;
     sermonJson["description"] = description;
     sermonJson["urlLocal"] = urlLocal;
+    sermonJson["urlSource"] = urlSource;
 
     var datetime = new Date().getTime();
     datetime += 8 * 60 * 60 * 1000;

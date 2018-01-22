@@ -20,11 +20,13 @@ app.get('/', function (req, res) {
   logger.info("home>> GET /");
 
   res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-  res.write('講道 - 收聽全世界的精彩講道！ <br>');
+  res.write('聽道 - 隨時隨地收聽精彩講道！ <br>');
+  res.write('<br>');
+  res.write('<a href="http://52.221.212.21:4001/upload">上傳講道錄音</a> <br> ');
   res.write('<br>');
   res.write('如有任何查詢，歡迎發送電郵至isermonhk@gmail.com。 <br>');
   res.write('<br>');
-  res.write('iSermon團隊敬上 <br>');
+  res.write('聽道App同工敬上 <br>');
 
   return res.end();
 })

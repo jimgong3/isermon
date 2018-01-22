@@ -247,6 +247,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
+            audit(username: self.username!, action: "play",
+                  remarks1: sermonPlaying?.id, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
+                  completion: {(result: String) -> () in
+//                    print("audit result: \(result)")
+            })
+
             if player.currentItem == nil {
                 print("play a new audio...")				
                 lastPlay = button
@@ -301,10 +307,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 self.downloadedSermons[(sermonPlaying?.id!)!] = ""
                 UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
 
-                urlString = (sermonPlaying?.urlLocal)!
+                if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+                    urlString = (sermonPlaying?.urlSource)!
+                } else {
+                    urlString = (sermonPlaying?.urlLocal)!
+                }
             }
         } else {
-            urlString = (sermonPlaying?.urlLocal)!
+            if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+                urlString = (sermonPlaying?.urlSource)!
+            } else {
+                urlString = (sermonPlaying?.urlLocal)!
+            }
         }
         print("sermon url: \(String(describing: urlString))")
 
@@ -421,6 +435,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 unlikeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "unlike",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         } else {
@@ -434,6 +454,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 likeSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "like",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         }
@@ -465,6 +491,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 unbookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "unbookmark",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         } else {
@@ -478,6 +510,12 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 bookmarkSermon(username: username, sermon_id: sermon_id!, completion: {(result: String) -> () in
 //                    print("result: \(result)")
                     button.setTitle("  " + (counter?.description)!, for: .normal)
+                    
+                    audit(username: self.username!, action: "bookmark",
+                          remarks1: self.sermons[button.tag].id, remarks2: self.sermons[button.tag].title, remarks3: self.sermons[button.tag].description,
+                          completion: {(result: String) -> () in
+                            //                print("audit result: \(result)")
+                    })
                 })
             }
         }
@@ -525,9 +563,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             button.setTitle(" 已下載", for: .normal)
 			
             audit(username: self.username!, action: "download",
-					remarks1: sermon.urlLocal, remarks2: sermon.title, remarks3: sermon.description,
+					remarks1: sermon.id, remarks2: sermon.title, remarks3: sermon.description,
 					completion: {(result: String) -> () in
-				print("audit result: \(result)")
+//                print("audit result: \(result)")
             })
         })
         
@@ -778,7 +816,10 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 //            return    //comment out for testing - always download
         }
         
-        let sermonUrl = sermon.urlLocal
+        var sermonUrl = sermon.urlLocal
+        if sermon.urlSource != nil && sermon.urlSource != "" {
+            sermonUrl = sermon.urlSource
+        }
         let basename = (sermonUrl! as NSString).lastPathComponent
         let url = URL(string: sermonUrl!)
         print("download sermon url: \(url!)")
@@ -822,9 +863,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 
             // if you want to filter the directory contents you can do like this:
             let mp3Files = directoryContents.filter{ $0.pathExtension == "mp3" }
-            print("mp3 urls:",mp3Files)
+//            print("mp3 urls:",mp3Files)
             let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
-            print("mp3 list:", mp3FileNames)
+//            print("mp3 list:", mp3FileNames)
 
         } catch {
             print(error.localizedDescription)
