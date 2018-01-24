@@ -29,7 +29,7 @@ func audit(username: String, action: String,
     var urlStr: String?
     urlStr = "http://" + SERVER_IP + ":" + PORT + "/audit"
     let url = URL(string: urlStr!)
-    print("url: \(url!)")
+//    print("url: \(url!)")
     
     var parameters: Parameters = [
         "username": username,
