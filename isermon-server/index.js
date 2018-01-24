@@ -17,6 +17,7 @@ var bookmarkUtil = require('./bookmarkUtil');
 var likeUtil = require('./likeUtil');
 var subscribeUtil = require('./subscribeUtil');
 var auditUtil = require('./auditUtil');
+var analyticsUtil = require('./analyticsUtil');
 var iSermonConfig = require('./iSermonConfig');
 
 var db;
@@ -248,5 +249,12 @@ app.post('/approveSermon', function (req, res) {
     res.write(result, function(err){
       res.end();
     });
+  });
+})
+
+app.get('/report', function (req, res) {
+  logger.info("index>> GET /report");
+  analyticsUtil.report(req, db, function(result){
+    res.json(result);
   });
 })

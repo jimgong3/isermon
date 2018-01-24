@@ -368,6 +368,7 @@ function dbInsert(db, title, description, urlLocal, urlSource, uploadUsername, i
     sermonJson["num_listen"] = 0;
     sermonJson["num_like"] = 0;
     sermonJson["num_bookmark"] = 0;
+    sermonJson["num_download"] = 0;
 
     if(isSudo)
       sermonJson["status"] = "approved";
