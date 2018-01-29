@@ -1,4 +1,4 @@
-package com.raywenderlich.alltherecipes;
+package com.jimgong.isermon;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

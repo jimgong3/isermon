@@ -19,23 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.raywenderlich.alltherecipes;
+package com.jimgong.isermon;
 
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ListView;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
-import android.content.Intent;
-import android.content.Context;
-import java.io.IOException;
-import java.io.InputStream;
 
+import com.squareup.picasso.Downloader;
+
+import java.util.ArrayList;
+
+import com.android.volley.JsonObjectRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,10 +42,28 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     mListView = (ListView) findViewById(R.id.recipe_list_view);
-// 1
-    final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
-// 2
-    RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+
+    String url = "http://my-json-feed";
+
+    JsonObjectRequest jsObjRequest = new JsonObjectRequest
+            (DownloadManager.Request.Method.GET, url, null, new Downloader.Response.Listener<JSONObject>() {
+
+              @Override
+              public void onResponse(JSONObject response) {
+                mTxtDisplay.setText("Response: " + response.toString());
+              }
+            }, new Response.ErrorListener() {
+
+              @Override
+              public void onErrorResponse(VolleyError error) {
+                // TODO Auto-generated method stub
+
+              }
+            });
+
+
+    final ArrayList<Sermon> sermonList = Sermon.getRecipesFromFile("recipes.json", this);
+    SermonAdapter adapter = new SermonAdapter(this, sermonList);
     mListView.setAdapter(adapter);
   }
 

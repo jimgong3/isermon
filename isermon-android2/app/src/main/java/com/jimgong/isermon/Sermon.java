@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.raywenderlich.alltherecipes;
+package com.jimgong.isermon;
 
 import android.content.Context;
 
@@ -30,16 +30,13 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Recipe {
+public class Sermon {
 
   public String title;
   public String description;
-  public String imageUrl;
-  public String instructionUrl;
-  public String label;
 
-  public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context){
-    final ArrayList<Recipe> recipeList = new ArrayList<>();
+  public static ArrayList<Sermon> getRecipesFromFile(String filename, Context context){
+    final ArrayList<Sermon> sermonList = new ArrayList<>();
 
     try {
       // Load data
@@ -47,23 +44,20 @@ public class Recipe {
       JSONObject json = new JSONObject(jsonString);
       JSONArray recipes = json.getJSONArray("recipes");
 
-      // Get Recipe objects from data
+      // Get Sermon objects from data
       for(int i = 0; i < recipes.length(); i++){
-        Recipe recipe = new Recipe();
+        Sermon sermon = new Sermon();
 
-        recipe.title = recipes.getJSONObject(i).getString("title");
-        recipe.description = recipes.getJSONObject(i).getString("description");
-        recipe.imageUrl = recipes.getJSONObject(i).getString("image");
-        recipe.instructionUrl = recipes.getJSONObject(i).getString("url");
-        recipe.label = recipes.getJSONObject(i).getString("dietLabel");
+        sermon.title = recipes.getJSONObject(i).getString("title");
+        sermon.description = recipes.getJSONObject(i).getString("description");
 
-        recipeList.add(recipe);
+        sermonList.add(sermon);
       }
     } catch (JSONException e) {
       e.printStackTrace();
     }
 
-    return recipeList;
+    return sermonList;
   }
 
   private static String loadJsonFromAsset(String filename, Context context) {
