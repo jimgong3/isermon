@@ -247,7 +247,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
-            audit(username: self.username!, action: "play",
+            audit(username: self.username, action: "play",
                   remarks1: sermonPlaying?.id, remarks2: sermonPlaying?.title, remarks3: sermonPlaying?.description,
                   completion: {(result: String) -> () in
 //                    print("audit result: \(result)")
@@ -307,18 +307,18 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
                 self.downloadedSermons[(sermonPlaying?.id!)!] = ""
                 UserDefaults.standard.set(self.downloadedSermons, forKey: "downloadedSermons")
 
-                if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
-                    urlString = (sermonPlaying?.urlSource)!
-                } else {
+//                if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+//                    urlString = (sermonPlaying?.urlSource)!
+//                } else {
                     urlString = (sermonPlaying?.urlLocal)!
-                }
+//                }
             }
         } else {
-            if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
-                urlString = (sermonPlaying?.urlSource)!
-            } else {
+//            if sermonPlaying?.urlSource != nil && sermonPlaying?.urlSource != "" {
+//                urlString = (sermonPlaying?.urlSource)!
+//            } else {
                 urlString = (sermonPlaying?.urlLocal)!
-            }
+//            }
         }
         print("sermon url: \(String(describing: urlString))")
 
@@ -562,7 +562,7 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
 //            print("result: \(result)")
             button.setTitle(" 已下載", for: .normal)
 			
-            audit(username: self.username!, action: "download",
+            audit(username: self.username, action: "download",
 					remarks1: sermon.id, remarks2: sermon.title, remarks3: sermon.description,
 					completion: {(result: String) -> () in
 //                print("audit result: \(result)")
@@ -817,9 +817,9 @@ class SermonTableViewController: UIViewController, UITableViewDataSource,
         }
         
         var sermonUrl = sermon.urlLocal
-        if sermon.urlSource != nil && sermon.urlSource != "" {
-            sermonUrl = sermon.urlSource
-        }
+//        if sermon.urlSource != nil && sermon.urlSource != "" {
+//            sermonUrl = sermon.urlSource
+//        }
         let basename = (sermonUrl! as NSString).lastPathComponent
         let url = URL(string: sermonUrl!)
         print("download sermon url: \(url!)")

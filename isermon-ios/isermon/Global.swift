@@ -23,7 +23,7 @@ var selectedTabIndex = 0    //Latest
 
 // MARK: - Global Functions
 
-func audit(username: String, action: String,
+func audit(username: String? = nil, action: String,
            remarks1: String? = nil, remarks2: String? = nil, remarks3: String? = nil,
            completion: @escaping (_ result: String) -> ()){
     var urlStr: String?
