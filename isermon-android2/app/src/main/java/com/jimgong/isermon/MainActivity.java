@@ -24,47 +24,56 @@ package com.jimgong.isermon;
 import android.app.DownloadManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Downloader;
 
 import java.util.ArrayList;
 
-import com.android.volley.JsonObjectRequest;
-
 public class MainActivity extends AppCompatActivity {
 
-  private ListView mListView;
+    private ListView mListView;
+    private SermonAdapter adapter;
+    private ArrayList<Sermon> sermonList;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    mListView = (ListView) findViewById(R.id.recipe_list_view);
+        mListView = (ListView) findViewById(R.id.recipe_list_view);
 
-    String url = "http://my-json-feed";
+        // Instantiate the RequestQueue.
+        String url ="http://10.0.2.2:4001/sermons"; //simulator IP
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("main","Response is: "+ response.substring(0,500));
 
-    JsonObjectRequest jsObjRequest = new JsonObjectRequest
-            (DownloadManager.Request.Method.GET, url, null, new Downloader.Response.Listener<JSONObject>() {
+//                        sermonList = Sermon.getRecipesFromFile("recipes3.json");
+                        sermonList = Sermon.getFromResponse(response);
+                        adapter = new SermonAdapter(sermonList);
+                        mListView.setAdapter(adapter);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Main", "that didn't work!");
+                    }
+                });
 
-              @Override
-              public void onResponse(JSONObject response) {
-                mTxtDisplay.setText("Response: " + response.toString());
-              }
-            }, new Response.ErrorListener() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
 
-              @Override
-              public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-
-              }
-            });
-
-
-    final ArrayList<Sermon> sermonList = Sermon.getRecipesFromFile("recipes.json", this);
-    SermonAdapter adapter = new SermonAdapter(this, sermonList);
-    mListView.setAdapter(adapter);
-  }
+    }
 
 }

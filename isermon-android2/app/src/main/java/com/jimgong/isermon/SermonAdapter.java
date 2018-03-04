@@ -25,6 +25,12 @@ public class SermonAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public SermonAdapter(ArrayList<Sermon> items) {
+        mContext = MyApplication.getAppContext();
+        mDataSource = items;
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     @Override
     public int getCount() {
         return mDataSource.size();
