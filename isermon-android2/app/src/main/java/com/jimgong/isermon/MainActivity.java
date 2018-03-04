@@ -22,9 +22,11 @@
 package com.jimgong.isermon;
 
 import android.app.DownloadManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -35,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Downloader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     private SermonAdapter adapter;
     private ArrayList<Sermon> sermonList;
+
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +64,19 @@ public class MainActivity extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.d("main","Response is: "+ response.substring(0,500));
 
-//                        sermonList = Sermon.getRecipesFromFile("recipes3.json");
                         sermonList = Sermon.getFromResponse(response);
                         adapter = new SermonAdapter(sermonList);
                         mListView.setAdapter(adapter);
+
+                        //test
+                        player = new MediaPlayer();
+                        try {
+                            player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
+                            player.prepare();
+//                            player.start();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -76,4 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//    public void onPlay(View v){
+//        Log.d("Main", "onPlay start...");
+//    }
 }

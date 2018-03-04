@@ -1,12 +1,15 @@
 package com.jimgong.isermon;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -67,7 +70,22 @@ public class SermonAdapter extends BaseAdapter {
 
         titleTextView.setText(sermon.title);
         descriptionTextView.setText(sermon.description);
+
         playTextView.setText("Play");
+        playTextView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("SermonAdapter", "onClick start...");
+                //test
+                MediaPlayer player = new MediaPlayer();
+                try {
+                    player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
+                    player.prepare();
+                            player.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return rowView;
     }
