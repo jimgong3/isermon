@@ -22,6 +22,13 @@ public class SermonAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<Sermon> mDataSource;
 
+    MediaPlayer player;
+    private final String TEXT_PLAY = "播放";
+    private final String TEXT_PAUSE = "暫停";
+    String currentPlayingSermonId;
+    int lastPlayingPosition;
+    TextView lastPlay;
+
     public SermonAdapter(Context context, ArrayList<Sermon> items) {
         mContext = context;
         mDataSource = items;
@@ -51,38 +58,75 @@ public class SermonAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get view for row item
-        View rowView = mInflater.inflate(R.layout.list_item_sermon, parent, false);
+        final View rowView = mInflater.inflate(R.layout.list_item_sermon, parent, false);
+        final TextView titleTextView = (TextView) rowView.findViewById(R.id.sermon_title);
+        final TextView descriptionTextView = (TextView) rowView.findViewById(R.id.sermon_description);
+        final TextView remarksTextView = (TextView) rowView.findViewById(R.id.sermon_remarks);
+        final TextView playTextView = (TextView) rowView.findViewById(R.id.sermon_play);
 
-        // Get title element
-        TextView titleTextView =
-                (TextView) rowView.findViewById(R.id.recipe_list_title);
-
-        // Get description element
-        TextView descriptionTextView =
-                (TextView) rowView.findViewById(R.id.recipe_list_description);
-
-        // Get description element
-        TextView playTextView =
-                (TextView) rowView.findViewById(R.id.recipe_list_play);
-
-        Sermon sermon = (Sermon) getItem(position);
+        final Sermon sermon = (Sermon) getItem(position);
 
         titleTextView.setText(sermon.title);
         descriptionTextView.setText(sermon.description);
 
-        playTextView.setText("Play");
+        String remarks = " | ";
+        if(sermon.username != "")
+            remarks = sermon.username + remarks;
+        if(sermon.date != "")
+            remarks = remarks + sermon.date;
+        remarksTextView.setText(remarks);
+
+        playTextView.setText(TEXT_PLAY);
         playTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("SermonAdapter", "onClick start...");
-                //test
-                MediaPlayer player = new MediaPlayer();
-                try {
-                    player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
-                    player.prepare();
+                if (playTextView.getText().equals(TEXT_PLAY)) {
+                    playTextView.setText(TEXT_PAUSE);
+                    Log.d("SermonAdapter", "click to play...");
+
+                    if(currentPlayingSermonId == null) {
+                        Log.d("SermonAdapter", "play for the 1st time...");
+                        currentPlayingSermonId = sermon.id;
+                        lastPlay = playTextView;
+                        Log.d("SermonAdapter", "set current playing id: " + sermon.id);
+                        player = new MediaPlayer();
+                        try {
+                            Log.d("SermonAdapter", "URL: " + sermon.urlLocal);
+                            player.setDataSource(sermon.urlLocal);
+                            player.prepare();
                             player.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        if(sermon.id == currentPlayingSermonId){
+                            Log.d("SermonAdapter", "contine playing: " + currentPlayingSermonId);
+                            player.seekTo(lastPlayingPosition);
+                            Log.d("SermonAdapter", "seek to position: " + lastPlayingPosition);
+                            player.start();
+                        } else {
+                            Log.d("SermonAdapter", "switch to play another: " + sermon.id);
+                            player.pause();
+                            lastPlay.setText(TEXT_PLAY);
+                            lastPlay = playTextView;
+                            Log.d("SermonAdapter", "pause the previous play, set button text");
+                            currentPlayingSermonId = sermon.id;
+                            player = new MediaPlayer();
+                            try {
+                                Log.d("SermonAdapter", "URL: " + sermon.urlLocal);
+                                player.setDataSource(sermon.urlLocal);
+                                player.prepare();
+                                player.start();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } else {
+                    Log.d("SermonAdapter", "click to pause...");
+                    playTextView.setText(TEXT_PLAY);
+                    player.pause();
+                    lastPlayingPosition = player.getCurrentPosition();
+                    Log.d("SermonAdapter", "save last playing position: " + lastPlayingPosition);
                 }
             }
         });

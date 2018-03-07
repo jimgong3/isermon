@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 public class Sermon {
 
+    String id;
     String title;
     String description;
     String urlLocal;
@@ -51,6 +52,7 @@ public class Sermon {
                 JSONObject o = sermons.getJSONObject(i);
                 Sermon sermon = new Sermon();
 
+                sermon.id = o.getString("_id");
                 sermon.title = o.getString("title");
                 if (!o.isNull("description")) {
                     sermon.description = o.getString("description");
@@ -69,7 +71,7 @@ public class Sermon {
                 }
 
                 sermonList.add(sermon);
-                Log.d("Sermon", "found sermon: " + sermon.toString());
+                Log.d("Sermon", "found sermon: " + sermon.title);
             }
         } catch (JSONException e) {
             e.printStackTrace();

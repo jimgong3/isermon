@@ -40,6 +40,8 @@ import com.squareup.picasso.Downloader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.jimgong.isermon.Config.*;
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.recipe_list_view);
 
         // Instantiate the RequestQueue.
-        String url ="http://10.0.2.2:4001/sermons"; //simulator IP
+        String url = Config.URL_PREFIX + Config.SERVER_IP + ":" + Config.SERVER_PORT + "/sermons";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -69,19 +71,19 @@ public class MainActivity extends AppCompatActivity {
                         mListView.setAdapter(adapter);
 
                         //test
-                        player = new MediaPlayer();
-                        try {
-                            player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
-                            player.prepare();
-//                            player.start();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+//                        player = new MediaPlayer();
+//                        try {
+//                            player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
+//                            player.prepare();
+////                            player.start();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Main", "that didn't work!");
+                        Log.e("Main", "error getting response from server: " + error);
                     }
                 });
 
