@@ -21,13 +21,14 @@
  */
 package com.jimgong.isermon;
 
-import android.app.DownloadManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,12 +36,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Downloader;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static com.jimgong.isermon.Config.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,13 +46,21 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Sermon> sermonList;
 
     private MediaPlayer player;
+    private SeekBar mSeekBar;
+    public TextView mNowPlayingTitle;
+    public TextView mNowPlayingTime;
+
+    private final String NOW_PLAYING = "正在播放: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mListView = (ListView) findViewById(R.id.recipe_list_view);
+        mListView = (ListView) findViewById(R.id.sermon_list);
+        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
+        mNowPlayingTitle = (TextView) findViewById(R.id.now_playing_title);
+        mNowPlayingTime = (TextView) findViewById(R.id.now_playing_time);
 
         // Instantiate the RequestQueue.
         String url = Config.URL_PREFIX + Config.SERVER_IP + ":" + Config.SERVER_PORT + "/sermons";
@@ -68,17 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
                         sermonList = Sermon.getFromResponse(response);
                         adapter = new SermonAdapter(sermonList);
-                        mListView.setAdapter(adapter);
+                        adapter.mSeekBar = mSeekBar;
+                        adapter.mNowPlayingTitle = mNowPlayingTitle;
+                        adapter.mNowPlayingTime = mNowPlayingTime;
 
-                        //test
-//                        player = new MediaPlayer();
-//                        try {
-//                            player.setDataSource("http://10.0.2.2:8080/upload/1515176144721_m7BwaCx.mp3");
-//                            player.prepare();
-////                            player.start();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+                        mListView.setAdapter(adapter);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -90,9 +89,16 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
 
+        final TextView titleTextView = (TextView) findViewById(R.id.now_playing);
+        titleTextView.setText(NOW_PLAYING);
     }
 
 //    public void onPlay(View v){
 //        Log.d("Main", "onPlay start...");
 //    }
+
+    public void playCurrent(View v){
+        Log.d("MainActivity", "click play/pause current...");
+        adapter.playCurrent();
+    }
 }

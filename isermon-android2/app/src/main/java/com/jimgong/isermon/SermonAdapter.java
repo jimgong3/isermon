@@ -2,15 +2,18 @@ package com.jimgong.isermon;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by jim on 22/1/2018.
@@ -28,11 +31,20 @@ public class SermonAdapter extends BaseAdapter {
     String currentPlayingSermonId;
     int lastPlayingPosition;
     TextView lastPlay;
+    String currentPlayingTotalTime;
+
+    public SeekBar mSeekBar;
+    public TextView mNowPlayingTitle;
+    public TextView mNowPlayingTime;
+    private Handler mHandler = new Handler();;
+    private boolean isPlaying = false;
 
     public SermonAdapter(Context context, ArrayList<Sermon> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+//        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
     }
 
     public SermonAdapter(ArrayList<Sermon> items) {
@@ -82,10 +94,12 @@ public class SermonAdapter extends BaseAdapter {
                 if (playTextView.getText().equals(TEXT_PLAY)) {
                     playTextView.setText(TEXT_PAUSE);
                     Log.d("SermonAdapter", "click to play...");
+                    isPlaying = true;
 
                     if(currentPlayingSermonId == null) {
                         Log.d("SermonAdapter", "play for the 1st time...");
                         currentPlayingSermonId = sermon.id;
+                        mNowPlayingTitle.setText(sermon.title);
                         lastPlay = playTextView;
                         Log.d("SermonAdapter", "set current playing id: " + sermon.id);
                         player = new MediaPlayer();
@@ -94,6 +108,12 @@ public class SermonAdapter extends BaseAdapter {
                             player.setDataSource(sermon.urlLocal);
                             player.prepare();
                             player.start();
+
+                            mSeekBar.setProgress(0);
+                            mSeekBar.setMax(player.getDuration());
+                            currentPlayingTotalTime = positionToTime(player.getDuration());
+                            Log.d("SermonAdapter", "reset seekbar max: " + positionToTime(player.getDuration()));
+                            updateSeekBar();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -110,12 +130,19 @@ public class SermonAdapter extends BaseAdapter {
                             lastPlay = playTextView;
                             Log.d("SermonAdapter", "pause the previous play, set button text");
                             currentPlayingSermonId = sermon.id;
+                            mNowPlayingTitle.setText(sermon.title);
                             player = new MediaPlayer();
                             try {
                                 Log.d("SermonAdapter", "URL: " + sermon.urlLocal);
                                 player.setDataSource(sermon.urlLocal);
                                 player.prepare();
                                 player.start();
+
+                                mSeekBar.setProgress(0);
+                                mSeekBar.setMax(player.getDuration());
+                                currentPlayingTotalTime = positionToTime(player.getDuration());
+                                Log.d("SermonAdapter", "reset seekbar max: " + positionToTime(player.getDuration()));
+                                updateSeekBar();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -123,6 +150,7 @@ public class SermonAdapter extends BaseAdapter {
                     }
                 } else {
                     Log.d("SermonAdapter", "click to pause...");
+                    isPlaying = false;
                     playTextView.setText(TEXT_PLAY);
                     player.pause();
                     lastPlayingPosition = player.getCurrentPosition();
@@ -134,4 +162,51 @@ public class SermonAdapter extends BaseAdapter {
         return rowView;
     }
 
+    void updateSeekBar() {
+        mHandler.postDelayed(mUpdateTimeTask, 100);
+    }
+
+    Runnable mUpdateTimeTask = new Runnable() {
+        public void run() {
+            if(isPlaying) {
+                long currentPosition = player.getCurrentPosition();
+                String hms = positionToTime(currentPosition);
+                Log.d("SermonAdapter", "current time: " + hms);
+                mSeekBar.setProgress((int) currentPosition);
+                mNowPlayingTime.setText(hms + " / " + currentPlayingTotalTime);
+                mHandler.postDelayed(this, 1000);
+            }
+        }
+    };
+
+    String positionToTime(long millis){
+        if(TimeUnit.MILLISECONDS.toHours(millis) > 0){
+            String hms = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(millis),
+                    TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                    TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+            return hms;
+        } else {
+            String hms = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millis),
+                    TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+            return hms;
+        }
+    }
+
+    public void playCurrent(){
+        if(isPlaying) {
+            Log.d("SermonAdapter", "pause current");
+            player.pause();
+            isPlaying = false;
+        } else {
+            if (currentPlayingSermonId != null) {
+                Log.d("SermonAdapter", "play current");
+                player.start();
+                isPlaying = true;
+            } else {
+                Log.e("SermonAdapter", "please choose a sermon to play");
+            }
+        }
+    }
 }

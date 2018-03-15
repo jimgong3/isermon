@@ -71,7 +71,7 @@ public class Sermon {
                 }
 
                 sermonList.add(sermon);
-                Log.d("Sermon", "found sermon: " + sermon.title);
+//                Log.d("Sermon", "found sermon: " + sermon.title);
             }
         } catch (JSONException e) {
             e.printStackTrace();
