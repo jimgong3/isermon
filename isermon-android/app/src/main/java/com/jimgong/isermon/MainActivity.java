@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -49,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar mSeekBar;
     public TextView mNowPlayingTitle;
     public TextView mNowPlayingTime;
+    public TextView mPlayNow;
 
     private final String NOW_PLAYING = "正在播放: ";
+    private final String TEXT_PLAY = "播放";
+    private final String TEXT_PAUSE = "暫停";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mNowPlayingTitle = (TextView) findViewById(R.id.now_playing_title);
         mNowPlayingTime = (TextView) findViewById(R.id.now_playing_time);
+        mPlayNow = (TextView) findViewById(R.id.play_current);
+        mPlayNow.setText(TEXT_PLAY);
 
         // Instantiate the RequestQueue.
         String url = Config.URL_PREFIX + Config.SERVER_IP + ":" + Config.SERVER_PORT + "/sermons";
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         adapter.mSeekBar = mSeekBar;
                         adapter.mNowPlayingTitle = mNowPlayingTitle;
                         adapter.mNowPlayingTime = mNowPlayingTime;
+                        adapter.mPlayNow = mPlayNow;
 
                         mListView.setAdapter(adapter);
                     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -38,13 +39,12 @@ public class SermonAdapter extends BaseAdapter {
     public TextView mNowPlayingTime;
     private Handler mHandler = new Handler();;
     private boolean isPlaying = false;
+    public TextView mPlayNow;
 
     public SermonAdapter(Context context, ArrayList<Sermon> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-//        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
     }
 
     public SermonAdapter(ArrayList<Sermon> items) {
@@ -95,6 +95,7 @@ public class SermonAdapter extends BaseAdapter {
                     playTextView.setText(TEXT_PAUSE);
                     Log.d("SermonAdapter", "click to play...");
                     isPlaying = true;
+                    mPlayNow.setText(TEXT_PAUSE);
 
                     if(currentPlayingSermonId == null) {
                         Log.d("SermonAdapter", "play for the 1st time...");
@@ -120,9 +121,10 @@ public class SermonAdapter extends BaseAdapter {
                     } else {
                         if(sermon.id == currentPlayingSermonId){
                             Log.d("SermonAdapter", "contine playing: " + currentPlayingSermonId);
-                            player.seekTo(lastPlayingPosition);
-                            Log.d("SermonAdapter", "seek to position: " + lastPlayingPosition);
+//                            player.seekTo(lastPlayingPosition);
+//                            Log.d("SermonAdapter", "seek to position: " + lastPlayingPosition);
                             player.start();
+                            updateSeekBar();
                         } else {
                             Log.d("SermonAdapter", "switch to play another: " + sermon.id);
                             player.pause();
@@ -152,6 +154,7 @@ public class SermonAdapter extends BaseAdapter {
                     Log.d("SermonAdapter", "click to pause...");
                     isPlaying = false;
                     playTextView.setText(TEXT_PLAY);
+                    mPlayNow.setText(TEXT_PLAY);
                     player.pause();
                     lastPlayingPosition = player.getCurrentPosition();
                     Log.d("SermonAdapter", "save last playing position: " + lastPlayingPosition);
@@ -199,11 +202,16 @@ public class SermonAdapter extends BaseAdapter {
             Log.d("SermonAdapter", "pause current");
             player.pause();
             isPlaying = false;
+            mPlayNow.setText(TEXT_PLAY);
+            lastPlayingPosition = player.getCurrentPosition();
+            Log.d("SermonAdapter", "save last playing position: " + lastPlayingPosition);
         } else {
             if (currentPlayingSermonId != null) {
-                Log.d("SermonAdapter", "play current");
+                Log.d("SermonAdapter", "play current continue");
                 player.start();
+                updateSeekBar();
                 isPlaying = true;
+                mPlayNow.setText(TEXT_PAUSE);
             } else {
                 Log.e("SermonAdapter", "please choose a sermon to play");
             }
