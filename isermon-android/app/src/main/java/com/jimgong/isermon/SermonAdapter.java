@@ -182,7 +182,7 @@ public class SermonAdapter extends BaseAdapter {
         }
     };
 
-    String positionToTime(long millis){
+    static String positionToTime(long millis){
         if(TimeUnit.MILLISECONDS.toHours(millis) > 0){
             String hms = String.format("%02d:%02d:%02d",
                     TimeUnit.MILLISECONDS.toHours(millis),

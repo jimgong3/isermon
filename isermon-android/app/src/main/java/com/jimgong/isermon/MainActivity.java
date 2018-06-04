@@ -98,6 +98,26 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView titleTextView = (TextView) findViewById(R.id.now_playing);
         titleTextView.setText(NOW_PLAYING);
+
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("main", "seekbar progress changed: " + progress + "ms");
+                adapter.player.seekTo(progress);
+
+                String hms = SermonAdapter.positionToTime(progress);
+                Log.d("main", "change to time: " + hms);
+                mNowPlayingTime.setText(hms + " / " + adapter.currentPlayingTotalTime);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
 //    public void onPlay(View v){
